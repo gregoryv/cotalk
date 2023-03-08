@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Go concurrency</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>body {
+margin: auto auto;
+max-width: 20cm;
+}
+nav {
+text-align: center;
+}
+nav ul {
+list-style-type: none;
+margin: 0 0;
+padding: 0 0;
+}
+nav ul li {
+margin: 0 4px;
+cursor: pointer;
+display: inline;
+}
+nav ul li.current {
+text-decoration: underline;
+}
+.slide {
+padding: 50px;
+height: calc( 100vh - 50px);
+}
+a:link, a:visited {
+color: #007d9c;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+body {
+max-width: 40cm;
+}
+.header {
+width: 100%;
+border-bottom: 1px solid #727272;
+text-align: right;
+margin-top: -2em;
+margin-bottom: 1em;
+}
+h1, h2, h3 {
+text-align: center;
+}
+.srcfile {
+margin-top: 1.6em;
+margin-bottom: 1.6em;
+background-image: url("printout-whole.png");
+background-repeat: repeat-y;
+padding-left: 36px;
+background-color: #fafafa;
+tab-size: 4;
+-moz-tab-size: 4;
+}
+.srcfile a {
+float: right;
+margin-right: 1.6em;
+margin-top: -1.6em;
+}
+.srcfile code {
+padding: .6em 0 .6em 0;
+background-image: url("printout-whole.png");
+background-repeat: repeat-y;
+background-position: right top;
+display: block;
+}
+code.srcfile {
+padding-top: 0.6em;
+padding-bottom: 0.6em;
+}
+nav {
+margin-top: 1em;
+text-align: center;
+}
+nav a:link, nav a:visited {
+color: #727272;
+padding: 0 5px;
+margin: 0 2px;
+text-decoration: none;
+}
+nav a.current, nav a:hover {
+color: black;
+border-bottom: 1px solid black;
+}
+li.h3 {
+margin-left: 2em;
+}
+.shell {
+padding: 1em;
+border-radius: 10px;
+}
+.dark {
+background-color: #2e2e34;
+color: aliceblue;
+}
+.light {
+background-color: #ffffff;
+color: #3b2616;
+}
+img.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+img.left {
+float: left;
+margin-right: 2em;
+}
+.group {
+float: left;
+}
+.keyword {
+color: darkviolet;
+}
+.type {
+color: dodgerblue;
+}
+.comment, .comment>span {
+color: darkgreen;
+}
+</style>
+</head>
+<body>
+<div class="slide" id="1"><h1>Concurrency design in Go</h1>
+<span>2023 by Gregory Vinčić</span><p>Discussion and examples of using concepts related to
+		concurrent design.</p>
+<ul class="group">
+<li>go routines</li>
+<li>channels</li>
+</ul>
+<ul class="group">
+<li>package context</li>
+<li>package sync </li>
+<li>go test bench</li>
+</ul>
+<ul class="group">
+<li>examples and training</li>
+</ul>
+<br clear="all"/><nav><ul>
+<li class="current"><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="2"><h2>Background and history</h2>
+<img class="left" src="th_small.jpg"/><br/><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes</a> C. A. R. Hoare, 1985<br clear="all"/><nav><ul>
+<li><a href="#1">1</a></li>
+<li class="current"><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="3"><h2>Goroutines</h2>
+<a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li class="current"><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="4"><h2>channels</h2>
+<a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li class="current"><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="5"><h2>package sync</h2>
+<div class="srcfile"><pre><code><span class="keyword">type</span> Cond <span class="keyword">struct</span>{ ... }
+    <span class="keyword">func</span> NewCond(l Locker) *Cond
+<span class="keyword">type</span> Locker <span class="keyword">interface</span>{ ... }
+<span class="keyword">type</span> Map <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Mutex <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Once <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Pool <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> RWMutex <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
+</code></pre></div>
+<a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li class="current"><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="6"><h2>package context</h2>
+<div class="srcfile"><pre><code>var Canceled = errors.New("context canceled")
+var DeadlineExceeded error = deadlineExceededError{}
+<span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+<span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
+<span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
+<span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
+<span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
+    <span class="keyword">func</span> Background() Context
+    <span class="keyword">func</span> TODO() Context
+    <span class="keyword">func</span> WithValue(parent Context, key, val any) Context
+</code></pre></div>
+<a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a><pre>
+Programs that use Contexts should follow these rules
+
+Do not store Contexts inside a <span class="keyword">struct</span> <span class="keyword">type</span>; instead, pass a Context
+explicitly to each function that needs it. The Context should be the
+first parameter, typically named ctx:
+
+<span class="keyword">func</span> DoSomething(ctx context.Context, arg Arg) error {
+	<span class="comment">// ... use ctx ...</span>
+}
+
+Do not pass a nil Context, even if a function permits it. Pass
+context.TODO if you are unsure about which Context to use.
+
+Use context Values only for request-scoped data that transits
+processes and APIs, not for passing optional parameters to functions.
+		</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li class="current"><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="7"><h2>go test -bench</h2>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex07
+
+<span class="keyword">import</span> "time"
+
+<span class="keyword">func</span> Run() {
+    time.Sleep(<span class="type">time.Millisecond</span>)
+}
+</code></pre></div>
+<pre class="shell dark">go test -benchmark -bench .<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/cotalk/ex07
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkRun-16    	    1092	   1103832 ns/op	     200 B/op	       3 allocs/op
+[32mPASS[0m
+ok  	github.com/preferit/cotalk/ex07	1.320s
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li class="current"><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="8"><h2>Sequential</h2>
+<p>Simple implementation though very low performance</p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex
+
+<span class="keyword">import</span> (
+    "net/http"
+)
+
+<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        resp, _ := http.DefaultClient.Do(r)
+        result = append(result, resp)
+    }
+    <span class="keyword">return</span>
+}
+</code></pre></div>
+<pre class="shell dark">$ go test -count 1 -v ./ex10/<br/><span style="color:olive;">=== RUN</span>   TestRun
+<span style="color:green;">--- PASS:</span> TestRun (0.32s)
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk/ex10	0.321s
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li class="current"><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="9"><h2>Concurrent</h2>
+<p>Depending on your concurrent requirements this implementation has couple of bugs</p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex
+
+<span class="keyword">import</span> (
+    "net/http"
+    "sync"
+)
+
+<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>() {
+            resp, _ := http.DefaultClient.Do(r)
+            result = append(result, resp)
+            wg.Done()
+        }()
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}
+</code></pre></div>
+<pre class="shell dark">$ go test -count 1 -v ./ex20/<br/><span style="color:olive;">=== RUN</span>   TestRun
+    work.go:26: 29/30 incomplete
+<span style="color:red;">--- FAIL:</span> TestRun (0.05s)
+<span style="color:red;">FAIL</span>
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk/ex20	0.052s
+<span style="color:red;">FAIL</span>
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li class="current"><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="10"><h3>Concurrent - fix bug 1</h3>
+<p>You cannot assume go routines start immediately.</p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex30
+
+<span class="keyword">import</span> (
+    "net/http"
+    "sync"
+)
+
+<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr) <span class="comment">// use argument</span>
+            result = append(result, resp)
+            wg.Done()
+        }(r) <span class="comment">// make a copy of pointer with argument</span>
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}
+</code></pre></div>
+<pre class="shell dark">$ go test -count 1 -v ./ex30/<br/><span style="color:olive;">=== RUN</span>   TestRun
+    work.go:26: 11/30 incomplete
+<span style="color:red;">--- FAIL:</span> TestRun (0.05s)
+<span style="color:red;">FAIL</span>
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk/ex30	0.048s
+<span style="color:red;">FAIL</span>
+</pre><p>You might get a different result; but why does it fail?</p>
+<nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li class="current"><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="11"><h3>Concurrent - fix bug 2</h3>
+<p>Unprotected write to slice</p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex40
+
+<span class="keyword">import</span> (
+    "net/http"
+    "sync"
+)
+
+<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">var</span> m <span class="type">sync.Mutex</span>
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr)
+
+            <span class="comment">// protect result</span>
+            m.Lock()
+            result = append(result, resp)
+            m.Unlock()
+
+            wg.Done()
+        }(r)
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}
+</code></pre></div>
+<pre class="shell dark">$ go test -count 1 -v ./ex40/<br/><span style="color:olive;">=== RUN</span>   TestRun
+<span style="color:green;">--- PASS:</span> TestRun (0.04s)
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk/ex40	0.040s
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li class="current"><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="12"><h3>Concurrent - orderless</h3>
+<p>For instance counting number of words</p>
+<nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li class="current"><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="13"><h3>Concurrent - ordered</h3>
+<p>Reverse each word and put sequence back together</p>
+<pre>
+convert
+Aa Bb Cc Dd Ed Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Xx Yy Zz
+
+into
+aA bB cC dD dE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV xX yY zZ
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li class="current"><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="14"><h2>Concurrent</h2>
+<p>Using channels</p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex50
+
+<span class="keyword">import</span> (
+    "net/http"
+)
+
+<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    c := make(chan *<span class="type">http.Response</span>)
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr)
+            c <- resp <span class="comment">// write to channel</span>
+        }(r)
+    }
+    <span class="keyword">for</span> <span class="keyword">range</span> work {
+        resp := <-c <span class="comment">// read from channel</span>
+        result = append(result, resp)
+    }
+    <span class="keyword">return</span>
+}
+</code></pre></div>
+<nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li class="current"><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+</body>
+</html>

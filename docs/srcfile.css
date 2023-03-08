@@ -1,0 +1,25 @@
+.srcfile {
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+    background-image: url("printout-whole.png");
+    background-repeat: repeat-y;
+    padding-left: 36px;
+    background-color: #fafafa;
+}
+.srcfile a {
+    float: right;
+    margin-right: 1.6em;
+    margin-top: -1.6em;
+}
+.srcfile code {
+    padding: .6em 0 .6em 0;
+    background-image: url("printout-whole.png");
+    background-repeat: repeat-y;
+    background-position: right top;
+    display: block;
+}
+
+code.srcfile {
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
