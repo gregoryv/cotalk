@@ -32,7 +32,7 @@ func Presentation() *deck {
 		P(`Discussion and examples of using concepts related to
 		concurrent design.`,
 
-			Ul(Class("group"), Li("go routines"), Li("channels")),
+			Ul(Class("group"), Li("background and history"), Li("goroutines"), Li("channels")),
 			Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
 			Ul(Class("group"), Li("examples and training")),
 		),
@@ -262,7 +262,7 @@ func (a *algorithms) BuildElement() *Element {
 			Pre(Code(v)),
 		),
 		shell(
-			fmt.Sprintf("$ go test -benchmem -run=Benchmark%s .", name),
+			fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s .", name),
 			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
 		),
 	)

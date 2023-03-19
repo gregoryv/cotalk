@@ -24,6 +24,12 @@ func BenchmarkAlg2(b *testing.B) {
 	}
 }
 
+func TestAlg2(t *testing.T) {
+	srv, problem := Setup()
+	defer srv.Close()
+	_ = problem.Solve(Alg2)
+}
+
 func BenchmarkAlg3(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()

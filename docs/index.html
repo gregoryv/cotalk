@@ -132,7 +132,8 @@ color: darkgreen;
 <div class="slide" id="2"><h1>Content</h1>
 <p>Discussion and examples of using concepts related to
 		concurrent design.<ul class="group">
-<li>go routines</li>
+<li>background and history</li>
+<li>goroutines</li>
 <li>channels</li>
 </ul>
 <ul class="group">
@@ -380,7 +381,7 @@ var DeadlineExceeded error = deadlineExceededError{}
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg1 .<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg1 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -424,7 +425,7 @@ ok  	github.com/preferit/cotalk	1.238s
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg2 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg2
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg2 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg2
     alg_test.go:22: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f f f f f f f f f f f f f f f f
@@ -470,7 +471,7 @@ exit status 1
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
     alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
@@ -520,7 +521,7 @@ exit status 1
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg4 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg4
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg4 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg4
     alg_test.go:42: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
@@ -570,7 +571,7 @@ exit status 1
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg5 .<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg5 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -615,7 +616,7 @@ ok  	github.com/preferit/cotalk	1.344s
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg6 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg6
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg6 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg6
     alg_test.go:62: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8
@@ -666,7 +667,7 @@ exit status 1
     <span class="keyword">return</span>
 }
 </code></pre></div>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg7 .<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg7 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
