@@ -9,7 +9,7 @@ import (
 
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
-func CheckAlgorithm(fn Algorithm) error {
+func Solve(fn Algorithm) error {
 	minTaskDuration := 10 * time.Millisecond
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		<-time.After(minTaskDuration)
