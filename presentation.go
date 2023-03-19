@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	. "github.com/gregoryv/web"
+	"github.com/gregoryv/web/files"
 )
 
 func Presentation() *deck {
@@ -130,7 +131,7 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
 		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
-		load("concurrentWaitGroup.go"),
+		loadFunc("../alg.go", "ConcurrentWaitGroup"),
 		shell(
 			"$ go test -count 1 -v -run=TestConcurrentWaitGroup .",
 			"testdata/concurrentWaitGroup_test.html",
@@ -173,6 +174,16 @@ func srcTest(ex int) *Element {
 
 func load(src string) *Element {
 	v := mustLoad(src)
+	v = strings.ReplaceAll(v, "\t", "    ")
+	v = highlight(v)
+	return Div(
+		Class("srcfile"),
+		Pre(Code(v)),
+	)
+}
+
+func loadFunc(file, src string) *Element {
+	v := files.MustLoadFunc(file, src)
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlight(v)
 	return Div(
