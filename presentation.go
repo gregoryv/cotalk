@@ -18,7 +18,7 @@ func Presentation() *deck {
 		highlightColors(),
 	)
 
-	nav := &navbar{max: 15, current: 1}
+	nav := &navbar{current: 1}
 
 	d.Slide(
 		H1("Concurrency design in Go"),
@@ -150,6 +150,7 @@ processes and APIs, not for passing optional parameters to functions.
 		nav,
 	)
 
+	nav.max = len(d.Slides)
 	return d
 }
 
