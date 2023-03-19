@@ -130,43 +130,26 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
-		loadFunc("../alg.go", "Alg3"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg3 .",
-			"testdata/alg3_bench.html",
-		),
+		alg,
 		P("You might get a different result; but why does it fail?"),
 		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 2; Unprotected write to slice"),
-		loadFunc("../alg.go", "Alg4"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg4 .",
-			"testdata/alg4_bench.html",
-		),
-
+		alg,
 		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 3; Fix order"),
-		loadFunc("../alg.go", "Alg5"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg5 .",
-			"testdata/alg5_bench.html",
-		),
+		alg,
 		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Using channels"),
-		loadFunc("../alg.go", "Alg6"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg6 .",
-			"testdata/alg6_bench.html",
-		),
+		alg,
 		nav,
 	)
 
