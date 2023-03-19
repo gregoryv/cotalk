@@ -10,7 +10,7 @@ func themeOldstyle() *CSS {
 	)
 	css.Style(".slide",
 		"font-size: 150%",
-		"padding: 10px",
+		"padding: 10px 20%",
 		"text-align: center",
 		"height: calc( 100vh - 50px)",
 	)
