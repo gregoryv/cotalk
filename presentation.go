@@ -104,7 +104,16 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	// todo define probelem type
 	d.Slide(H2("Problem"),
-		P("Text is spread out over remotely, use number of requests to gather it."),
+		P("A set of letters ", Code(exp),
+
+			` are available on a server; the problem is to GET them
+			and assemble them in the correct order. Each letter is
+			found on /L, ie. GET /3 would return '3'.`,
+			//
+		),
+		P("To simplify the examples we define the Algorithm that does the work as",
+			Pre(Code(Highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
+		),
 		nav,
 	)
 

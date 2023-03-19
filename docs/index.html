@@ -344,7 +344,10 @@ ok  	github.com/preferit/cotalk/ex07	1.337s
 </nav>
 </div>
 <div class="slide" id="8"><h2>Problem</h2>
-<p>Text is spread out over remotely, use number of requests to gather it.</p>
+<p>A set of letters <code>0 1 2 3 4 5 6 7 8 9 a b c d e f</code> are available on a server; the problem is to GET them
+			and assemble them in the correct order. Each letter is
+			found on /L, ie. GET /3 would return '3'.</p>
+<p>To simplify the examples we define the Algorithm that does the work as<pre><code><span class="keyword">type</span> Algorithm <span class="keyword">func</span>(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>)</code></pre></p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>

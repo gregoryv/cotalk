@@ -53,7 +53,7 @@ func complete(work []*http.Request, result []*http.Response) error {
 	if err := allOk(result); err != nil {
 		return err
 	}
-	if err := CheckOrder(result); err != nil {
+	if err := checkOrder(result); err != nil {
 		return err
 	}
 	return nil
@@ -76,7 +76,7 @@ func allOk(result []*http.Response) error {
 	return nil
 }
 
-func CheckOrder(result []*http.Response) error {
+func checkOrder(result []*http.Response) error {
 	words := make([]string, 0, len(result))
 	for _, resp := range result {
 		var buf bytes.Buffer
