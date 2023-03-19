@@ -162,6 +162,12 @@ processes and APIs, not for passing optional parameters to functions.
 		P("Using channels with correct order"),
 		alg,
 		nav,
+		P("There is still a bug in this code, do you see it?"),
+	)
+	d.Slide(H2("Concurrent"),
+		P("Clean up resources"),
+		alg,
+		nav,
 	)
 	nav.max = len(d.Slides)
 	return d
@@ -228,12 +234,20 @@ type navbar struct {
 // BuildElement is called at time of rendering
 func (b *navbar) BuildElement() *Element {
 	ul := Ul()
+	groupDivider := map[int]bool{
+		6: true,
+		9: true,
+	}
+
 	for i := 0; i < b.max; i++ {
 		j := i + 1
 		hash := fmt.Sprintf("#%v", j)
 		li := Li(A(Href(hash), j))
 		if j == b.current {
 			li.With(Class("current"))
+		}
+		if groupDivider[j] {
+			ul.With(Li(" | "))
 		}
 		ul.With(li)
 	}
