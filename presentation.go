@@ -104,7 +104,7 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	// todo define probelem type
 	d.Slide(H2("Problem"),
-		P("A set of letters ", Code(exp),
+		P("A set of letters ", Code(NewLettersProblem().Exp()),
 
 			` are available on a server; the problem is to GET them
 			and assemble them in the correct order. Each letter is

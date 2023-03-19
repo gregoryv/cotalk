@@ -10,18 +10,28 @@ import (
 	"time"
 )
 
+func NewLettersProblem() *LettersProblem {
+	return &LettersProblem{
+		exp: "0 1 2 3 4 5 6 7 8 9 a b c d e f",
+	}
+}
+
+type LettersProblem struct {
+	exp string
+}
+
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
-func Solve(fn Algorithm) error {
+func (p *LettersProblem) Solve(fn Algorithm) error {
 	srv := SetupServer()
 	defer srv.Close()
-	work := createWork(srv.URL)
+	work := p.createWork(srv.URL)
 
 	// do the work
 	result := fn(work)
 
 	// verify, todo move this to test as it depends on the requirements
-	return complete(work, result)
+	return p.complete(work, result)
 }
 
 func SetupServer() *httptest.Server {
@@ -34,10 +44,8 @@ func SetupServer() *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(handler))
 }
 
-const exp = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
-
-func createWork(url string) []*http.Request {
-	words := strings.Split(exp, " ")
+func (p *LettersProblem) createWork(url string) []*http.Request {
+	words := strings.Split(p.exp, " ")
 	all := make([]*http.Request, len(words))
 
 	for i, word := range words {
@@ -46,14 +54,14 @@ func createWork(url string) []*http.Request {
 	return all
 }
 
-func complete(work []*http.Request, result []*http.Response) error {
+func (p *LettersProblem) complete(work []*http.Request, result []*http.Response) error {
 	if v := len(result); v != len(work) {
 		return fmt.Errorf("%v/%v incomplete", v, len(work))
 	}
 	if err := allOk(result); err != nil {
 		return err
 	}
-	if err := checkOrder(result); err != nil {
+	if err := p.checkOrder(result); err != nil {
 		return err
 	}
 	return nil
@@ -76,7 +84,7 @@ func allOk(result []*http.Response) error {
 	return nil
 }
 
-func checkOrder(result []*http.Response) error {
+func (p *LettersProblem) checkOrder(result []*http.Response) error {
 	words := make([]string, 0, len(result))
 	for _, resp := range result {
 		var buf bytes.Buffer
@@ -85,8 +93,10 @@ func checkOrder(result []*http.Response) error {
 		words = append(words, buf.String())
 	}
 	got := strings.Join(words, " ")
-	if exp != got {
-		return fmt.Errorf("\nexp: %s\ngot: %s", exp, got)
+	if p.exp != got {
+		return fmt.Errorf("\nexp: %s\ngot: %s", p.exp, got)
 	}
 	return nil
 }
+
+func (p *LettersProblem) Exp() string { return p.exp }

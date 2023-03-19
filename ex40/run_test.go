@@ -7,7 +7,7 @@ import (
 )
 
 func TestRun(t *testing.T) {
-	if err := cotalk.Solve(Run); err != nil {
+	if err := cotalk.NewLettersProblem().Solve(Run); err != nil {
 		t.Error(err)
 	}
 }
