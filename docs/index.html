@@ -475,34 +475,11 @@ ok  	github.com/preferit/cotalk	0.178s
 </div>
 <div class="slide" id="12"><h2>Concurrent</h2>
 <p>Bug 1; you cannot assume go routines start immediately.</p>
-<div class="srcfile"><pre><code><span class="keyword">package</span> ex30
-
-<span class="keyword">import</span> (
-    "net/http"
-    "sync"
-)
-
-<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
-    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
-    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
-        wg.Add(1)
-        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
-            resp, _ := http.DefaultClient.Do(lr) <span class="comment">// use argument</span>
-            result = append(result, resp)
-            wg.Done()
-        }(r) <span class="comment">// make a copy of pointer with argument</span>
-    }
-    wg.Wait()
-    <span class="keyword">return</span>
-}
-</code></pre></div>
-<pre class="shell dark">$ go test -count 1 -v ./ex30/<br/><span style="color:olive;">=== RUN</span>   TestRun
-    run_test.go:10: 
-        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: b f 5 2 a 9 4 6 7 8 1 c e d 3 0
-<span style="color:red;">--- FAIL:</span> TestRun (0.01s)
+<pre class="shell dark">$ go test -count 1 -v -run=TestConcurrentWaitGroup_FixReference .<br/><span style="color:olive;">=== RUN</span>   TestConcurrentWaitGroup_FixReference
+    alg_test.go:16: incomplete! missing 1 of 16 responses
+<span style="color:red;">--- FAIL:</span> TestConcurrentWaitGroup_FixReference (0.01s)
 <span style="color:red;">FAIL</span>
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk/ex30	0.013s
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.013s
 <span style="color:red;">FAIL</span>
 </pre><p>You might get a different result; but why does it fail?</p>
 <nav><ul>

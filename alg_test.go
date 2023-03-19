@@ -11,3 +11,7 @@ func TestSequential(t *testing.T) {
 func TestConcurrentWaitGroup(t *testing.T) {
 	SolveLettersProblem(t, ConcurrentWaitGroup)
 }
+
+func TestConcurrentWaitGroup_FixReference(t *testing.T) {
+	SolveLettersProblem(t, ConcurrentWaitGroup_FixReference)
+}

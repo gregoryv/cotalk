@@ -146,7 +146,10 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
-		srcTest(30),
+		shell(
+			"$ go test -count 1 -v -run=TestConcurrentWaitGroup_FixReference .",
+			"testdata/concurrentWaitGroup_FixReference_test.html",
+		),
 		P("You might get a different result; but why does it fail?"),
 		nav,
 	)

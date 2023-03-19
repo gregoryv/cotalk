@@ -5,6 +5,14 @@ import (
 	"sync"
 )
 
+func Sequential(work []*http.Request) (result []*http.Response) {
+	for _, r := range work {
+		resp, _ := http.DefaultClient.Do(r)
+		result = append(result, resp)
+	}
+	return
+}
+
 func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
@@ -19,10 +27,16 @@ func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-func Sequential(work []*http.Request) (result []*http.Response) {
+func ConcurrentWaitGroup_FixReference(work []*http.Request) (result []*http.Response) {
+	var wg sync.WaitGroup
 	for _, r := range work {
-		resp, _ := http.DefaultClient.Do(r)
-		result = append(result, resp)
+		wg.Add(1)
+		go func(lr *http.Request) {
+			resp, _ := http.DefaultClient.Do(lr) // use argument
+			result = append(result, resp)
+			wg.Done()
+		}(r) // make a copy of pointer with argument
 	}
+	wg.Wait()
 	return
 }
