@@ -132,32 +132,15 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("Concurrent"),
-		P("Bug 1; you cannot assume go routines start immediately."),
-		srcTest(30),
-		P("You might get a different result; but why does it fail?"),
-		nav,
-	)
-
-	d.Slide(H2("Concurrent"),
 		P("Bug 2; Unprotected write to slice"),
 		srcTest(40),
 		nav,
 	)
 
-	d.Slide(H2("Concurrent - orderless"),
-		P("For instance counting number of words"),
-		nav,
-	)
-
-	d.Slide(H2("Concurrent - ordered"),
-		P("Reverse each word and put sequence back together"),
-		Pre(`
-convert
-Aa Bb Cc Dd Ed Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Xx Yy Zz
-
-into
-aA bB cC dD dE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV xX yY zZ
-`),
+	d.Slide(H2("Concurrent"),
+		P("Bug 1; you cannot assume go routines start immediately."),
+		srcTest(30),
+		P("You might get a different result; but why does it fail?"),
 		nav,
 	)
 
