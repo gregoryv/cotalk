@@ -112,7 +112,7 @@ processes and APIs, not for passing optional parameters to functions.
 			//
 		),
 		P("To simplify the examples we define the Algorithm that does the work as",
-			Pre(Code(Highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
+			Pre(Code(highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
 		),
 		nav,
 	)
@@ -181,7 +181,7 @@ func srcTest(ex int) *Element {
 func load(src string) *Element {
 	v := mustLoad(src)
 	v = strings.ReplaceAll(v, "\t", "    ")
-	v = Highlight(v)
+	v = highlight(v)
 	return Div(
 		Class("srcfile"),
 		Pre(Code(v)),

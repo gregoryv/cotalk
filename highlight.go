@@ -6,8 +6,8 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-// Highlight go source code
-func Highlight(v string) string {
+// highlight go source code
+func highlight(v string) string {
 	v = keywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
 	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
 	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
