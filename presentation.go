@@ -156,7 +156,10 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Concurrent"),
 		P("Using channels"),
-		load("ex50/run.go"),
+		shell(
+			"$ go test -benchmem -run=BenchmarkAlg5 .",
+			"testdata/alg5_bench.html",
+		),
 		nav,
 	)
 

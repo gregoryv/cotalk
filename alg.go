@@ -44,7 +44,7 @@ func Alg3(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-//Alg4 synchronizes writes accross go routines
+// Alg4 synchronizes writes accross go routines
 func Alg4(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	var m sync.Mutex
@@ -62,5 +62,21 @@ func Alg4(work []*http.Request) (result []*http.Response) {
 		}(r)
 	}
 	wg.Wait()
+	return
+}
+
+// Alg5 uses channel to synchronize responses
+func Alg5(work []*http.Request) (result []*http.Response) {
+	c := make(chan *http.Response)
+	for _, r := range work {
+		go func(lr *http.Request) {
+			resp, _ := http.DefaultClient.Do(lr)
+			c <- resp // write to channel
+		}(r)
+	}
+	for range work {
+		resp := <-c // read from channel
+		result = append(result, resp)
+	}
 	return
 }
