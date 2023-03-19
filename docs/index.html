@@ -286,27 +286,24 @@ var DeadlineExceeded error = deadlineExceededError{}
 </nav>
 </div>
 <div class="slide" id="7"><h2>go test -bench</h2>
-<div class="srcfile"><pre><code><span class="keyword">package</span> ex07
-
-<span class="keyword">import</span> "time"
-
-<span class="keyword">func</span> Run() {
-    time.Sleep(<span class="type">time.Millisecond</span>)
-}
-</code></pre></div>
-<div class="srcfile"><pre><code><span class="keyword">package</span> ex07
+<div class="srcfile"><pre><code><span class="keyword">package</span> cotalk
 
 <span class="keyword">import</span> (
     "testing"
+    "time"
 )
 
-<span class="keyword">func</span> BenchmarkRun(b *<span class="type">testing.B</span>) {
+<span class="keyword">func</span> BenchmarkX(b *<span class="type">testing.B</span>) {
     <span class="keyword">for</span> i := 0; i < b.N; i++ {
-        Run()
+        X()
     }
 }
+
+<span class="keyword">func</span> X() {
+    time.Sleep(<span class="type">time.Millisecond</span>)
+}
 </code></pre></div>
-<pre class="shell dark">$ cd ex07; go test -benchmark -bench .<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench=BenchmarkX .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk/ex07
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz

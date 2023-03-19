@@ -91,10 +91,9 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("go test -bench"),
-		load("ex07/run.go"),
-		load("ex07/run_test.go"),
+		load("benchx_test.go"),
 		shell(
-			"$ cd ex07; go test -benchmark -bench .",
+			"$ go test -benchmem -bench=BenchmarkX .",
 			"testdata/sequential_benchmark.html",
 		),
 		nav,
@@ -204,5 +203,5 @@ func mustLoad(src string) string {
 	return string(data)
 }
 
-//go:embed ex* testdata
+//go:embed ex* testdata *_test.go
 var assets embed.FS
