@@ -118,6 +118,8 @@ func themeOldstyle() *CSS {
 	)
 	css.Style(".group",
 		"float: left",
+		"text-align: left",
+		"margin-right: 3em",
 	)
 
 	return css

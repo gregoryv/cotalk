@@ -113,6 +113,8 @@ margin-right: 2em;
 }
 .group {
 float: left;
+text-align: left;
+margin-right: 3em;
 }
 .keyword {
 color: darkviolet;
@@ -126,10 +128,10 @@ color: darkgreen;
 </style>
 </head>
 <body>
-<div class="slide" id="1"><h1>Concurrency design in Go</h1>
-<span>2023 by Gregory Vinčić</span><p>Discussion and examples of using concepts related to
-		concurrent design.</p>
-<ul class="group">
+<div class="slide" id="1"><a href="#2"><img src="cotalk.png"/></a><span>2023 by Gregory Vinčić</span></div>
+<div class="slide" id="2"><h1>Content</h1>
+<p>Discussion and examples of using concepts related to
+		concurrent design.<ul class="group">
 <li>go routines</li>
 <li>channels</li>
 </ul>
@@ -141,27 +143,8 @@ color: darkgreen;
 <ul class="group">
 <li>examples and training</li>
 </ul>
+</p>
 <br clear="all"/><nav><ul>
-<li class="current"><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-</ul>
-</nav>
-</div>
-<div class="slide" id="2"><h2>Background and history</h2>
-<img class="left" src="th_small.jpg"/><br/><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes</a> C. A. R. Hoare, 1985<br clear="all"/><nav><ul>
 <li><a href="#1">1</a></li>
 <li class="current"><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -177,11 +160,12 @@ color: darkgreen;
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="3"><h2>Goroutines</h2>
-<a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a><nav><ul>
+<div class="slide" id="3"><h2>Background and history</h2>
+<img class="left" src="th_small.jpg"/><br/><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes</a> C. A. R. Hoare, 1985<br clear="all"/><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li class="current"><a href="#3">3</a></li>
@@ -197,11 +181,12 @@ color: darkgreen;
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="4"><h2>channels</h2>
-<a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a><nav><ul>
+<div class="slide" id="4"><h2>Goroutines</h2>
+<a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -217,21 +202,12 @@ color: darkgreen;
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="5"><h2>package sync</h2>
-<div class="srcfile"><pre><code><span class="keyword">type</span> Cond <span class="keyword">struct</span>{ ... }
-    <span class="keyword">func</span> NewCond(l Locker) *Cond
-<span class="keyword">type</span> Locker <span class="keyword">interface</span>{ ... }
-<span class="keyword">type</span> Map <span class="keyword">struct</span>{ ... }
-<span class="keyword">type</span> Mutex <span class="keyword">struct</span>{ ... }
-<span class="keyword">type</span> Once <span class="keyword">struct</span>{ ... }
-<span class="keyword">type</span> Pool <span class="keyword">struct</span>{ ... }
-<span class="keyword">type</span> RWMutex <span class="keyword">struct</span>{ ... }
-<span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
-</code></pre></div>
-<a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a><nav><ul>
+<div class="slide" id="5"><h2>channels</h2>
+<a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -247,10 +223,42 @@ color: darkgreen;
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="6"><h2>package context</h2>
+<div class="slide" id="6"><h2>package sync</h2>
+<div class="srcfile"><pre><code><span class="keyword">type</span> Cond <span class="keyword">struct</span>{ ... }
+    <span class="keyword">func</span> NewCond(l Locker) *Cond
+<span class="keyword">type</span> Locker <span class="keyword">interface</span>{ ... }
+<span class="keyword">type</span> Map <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Mutex <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Once <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> Pool <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> RWMutex <span class="keyword">struct</span>{ ... }
+<span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
+</code></pre></div>
+<a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li class="current"><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+<li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="7"><h2>package context</h2>
 <pre>
 Programs that use Contexts should follow these rules
 
@@ -284,8 +292,8 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#3">3</a></li>
 <li><a href="#4">4</a></li>
 <li><a href="#5">5</a></li>
-<li class="current"><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
+<li><a href="#6">6</a></li>
+<li class="current"><a href="#7">7</a></li>
 <li><a href="#8">8</a></li>
 <li><a href="#9">9</a></li>
 <li><a href="#10">10</a></li>
@@ -294,10 +302,11 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="7"><h2>go test -bench</h2>
+<div class="slide" id="8"><h2>go test -bench</h2>
 <div class="srcfile"><pre><code><span class="keyword">package</span> cotalk
 
 <span class="keyword">import</span> (
@@ -322,8 +331,8 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#4">4</a></li>
 <li><a href="#5">5</a></li>
 <li><a href="#6">6</a></li>
-<li class="current"><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
+<li><a href="#7">7</a></li>
+<li class="current"><a href="#8">8</a></li>
 <li><a href="#9">9</a></li>
 <li><a href="#10">10</a></li>
 <li><a href="#11">11</a></li>
@@ -331,10 +340,11 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="8"><h2>Problem</h2>
+<div class="slide" id="9"><h2>Problem</h2>
 <p>A set of letters <code>0 1 2 3 4 5 6 7 8 9 a b c d e f</code> are available on a server; the problem is to GET them
 			and assemble them in the correct order. Each letter is
 			found on /L, ie. GET /3 would return '3'.</p>
@@ -347,18 +357,19 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#5">5</a></li>
 <li><a href="#6">6</a></li>
 <li><a href="#7">7</a></li>
-<li class="current"><a href="#8">8</a></li>
-<li><a href="#9">9</a></li>
+<li><a href="#8">8</a></li>
+<li class="current"><a href="#9">9</a></li>
 <li><a href="#10">10</a></li>
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="9"><h2>Sequential</h2>
+<div class="slide" id="10"><h2>Sequential</h2>
 <p>Simple implementation though very low performance</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg1 solves the work sequentially</span>
 <span class="keyword">func</span> Alg1(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -385,17 +396,18 @@ ok  	github.com/preferit/cotalk	1.238s
 <li><a href="#6">6</a></li>
 <li><a href="#7">7</a></li>
 <li><a href="#8">8</a></li>
-<li class="current"><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
+<li><a href="#9">9</a></li>
+<li class="current"><a href="#10">10</a></li>
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="10"><h2>Concurrent</h2>
+<div class="slide" id="11"><h2>Concurrent</h2>
 <p>This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs.</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg2 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span>
 <span class="keyword">func</span> Alg2(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -430,16 +442,17 @@ exit status 1
 <li><a href="#7">7</a></li>
 <li><a href="#8">8</a></li>
 <li><a href="#9">9</a></li>
-<li class="current"><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
+<li><a href="#10">10</a></li>
+<li class="current"><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="11"><h2>Concurrent</h2>
+<div class="slide" id="12"><h2>Concurrent</h2>
 <p>Bug 1; you cannot assume go routines start immediately.</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg3 fixes reference problem inside loop</span>
 <span class="keyword">func</span> Alg3(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -477,15 +490,16 @@ exit status 1
 <li><a href="#8">8</a></li>
 <li><a href="#9">9</a></li>
 <li><a href="#10">10</a></li>
-<li class="current"><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
+<li><a href="#11">11</a></li>
+<li class="current"><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="12"><h2>Concurrent</h2>
+<div class="slide" id="13"><h2>Concurrent</h2>
 <p>Bug 2; Unprotected write to slice</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg4 synchronizes writes accross <span class="keyword">go</span> routines</span>
 <span class="keyword">func</span> Alg4(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -526,14 +540,15 @@ exit status 1
 <li><a href="#9">9</a></li>
 <li><a href="#10">10</a></li>
 <li><a href="#11">11</a></li>
-<li class="current"><a href="#12">12</a></li>
-<li><a href="#13">13</a></li>
+<li><a href="#12">12</a></li>
+<li class="current"><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="13"><h2>Concurrent</h2>
+<div class="slide" id="14"><h2>Concurrent</h2>
 <p>Bug 3; Fix order</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg5 fix order</span>
 <span class="keyword">func</span> Alg5(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -575,13 +590,14 @@ ok  	github.com/preferit/cotalk	1.344s
 <li><a href="#10">10</a></li>
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
-<li class="current"><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
+<li><a href="#13">13</a></li>
+<li class="current"><a href="#14">14</a></li>
 <li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="14"><h2>Concurrent</h2>
+<div class="slide" id="15"><h2>Concurrent</h2>
 <p>Using channels</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg6 uses channel to synchronize responses</span>
 <span class="keyword">func</span> Alg6(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -621,12 +637,13 @@ exit status 1
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
-<li class="current"><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
+<li><a href="#14">14</a></li>
+<li class="current"><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="15"><h2>Concurrent</h2>
+<div class="slide" id="16"><h2>Concurrent</h2>
 <p>Using channels with correct order</p>
 <div class="srcfile"><pre><code><span class="comment">// Alg7 uses channel to synchronize responses with ordered result</span>
 <span class="keyword">func</span> Alg7(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
@@ -671,7 +688,8 @@ ok  	github.com/preferit/cotalk	1.357s
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
 <li><a href="#14">14</a></li>
-<li class="current"><a href="#15">15</a></li>
+<li><a href="#15">15</a></li>
+<li class="current"><a href="#16">16</a></li>
 </ul>
 </nav>
 </div>

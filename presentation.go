@@ -19,18 +19,24 @@ func Presentation() *deck {
 		highlightColors(),
 	)
 
-	nav := &navbar{current: 1}
+	nav := &navbar{current: 2}
 	alg := &algorithms{current: 1, atLine: 8} // 8 where first func starts
 
 	d.Slide(
-		H1("Concurrency design in Go"),
+		A(Href("#2"), Img(Src("cotalk.png"))),
 		Span("2023 by Gregory Vinčić"),
-		P(`Discussion and examples of using concepts related to
-		concurrent design.`),
+	)
 
-		Ul(Class("group"), Li("go routines"), Li("channels")),
-		Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
-		Ul(Class("group"), Li("examples and training")),
+	d.Slide(
+		H1("Content"),
+		P(`Discussion and examples of using concepts related to
+		concurrent design.`,
+
+			Ul(Class("group"), Li("go routines"), Li("channels")),
+			Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
+			Ul(Class("group"), Li("examples and training")),
+		),
+
 		Br(Attr("clear", "all")),
 		nav,
 	)
