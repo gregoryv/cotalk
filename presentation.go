@@ -14,8 +14,8 @@ import (
 func Presentation() *deck.Deck {
 	d := deck.New()
 	d.Title = "Go concurrency"
+	d.Styles[0] = themeOldstyle() // replace original
 	d.Styles = append(d.Styles,
-		themeOldstyle(),
 		deck.HighlightColors(),
 	)
 
@@ -98,6 +98,10 @@ processes and APIs, not for passing optional parameters to functions.
 		),
 	)
 
+	d.Slide(H2("Problem definition"),
+		P("Text is spread out over remotely, use number of requests to gather it."),
+	)
+
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
 		srcTest(10),
@@ -141,96 +145,6 @@ aA bB cC dD dE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV xX yY zZ
 	)
 
 	return d
-}
-
-func themeOldstyle() *CSS {
-	css := NewCSS()
-	css.Style("body",
-		"max-width: 40cm",
-	)
-	css.Style(".header",
-		"width: 100%",
-		"border-bottom: 1px solid #727272",
-		"text-align: right",
-		"margin-top: -2em",
-		"margin-bottom: 1em",
-	)
-	css.Style("h1, h2, h3",
-		"text-align: center",
-	)
-	css.Style(".srcfile",
-		"margin-top: 1.6em",
-		"margin-bottom: 1.6em",
-		"background-image: url(\"printout-whole.png\")",
-		"background-repeat: repeat-y",
-		"padding-left: 36px",
-		"background-color: #fafafa",
-		"tab-size: 4",
-		"-moz-tab-size: 4",
-	)
-
-	css.Style(".filename",
-		"float: left",
-		"margin-right: 1.6em",
-		"margin-top: -1.6em",
-	)
-
-	css.Style(".srcfile code",
-		"padding: .6em 0 .6em 0",
-		"background-image: url(\"printout-whole.png\")",
-		"background-repeat: repeat-y",
-		"background-position: right top",
-		"display: block",
-	)
-
-	css.Style("code.srcfile",
-		"padding-top: 0.6em",
-		"padding-bottom: 0.6em",
-	)
-	css.Style("nav",
-		"margin-top: 1em",
-		"text-align: center",
-	)
-	css.Style("nav a:link, nav a:visited",
-		"color: #727272",
-		"padding: 0 5px",
-		"margin: 0 2px",
-		"text-decoration: none",
-	)
-	css.Style("nav a.current, nav a:hover",
-		"color: black",
-		"border-bottom: 1px solid black",
-	)
-	// toc
-	css.Style("li.h3",
-		"margin-left: 2em",
-	)
-	css.Style(".shell",
-		"padding: 1em",
-		"border-radius: 10px",
-	)
-	css.Style(".dark",
-		"background-color: #2e2e34",
-		"color: aliceblue",
-	)
-	css.Style(".light",
-		"background-color: #ffffff",
-		"color: #3b2616",
-	)
-	css.Style("img.center",
-		"display: block",
-		"margin-left: auto",
-		"margin-right: auto",
-	)
-	css.Style("img.left",
-		"float: left",
-		"margin-right: 2em",
-	)
-	css.Style(".group",
-		"float: left",
-	)
-
-	return css
 }
 
 func srcTest(ex int) *Element {
