@@ -63,3 +63,13 @@ func BenchmarkAlg6(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkAlg7(b *testing.B) {
+	srv, problem := Setup()
+	defer srv.Close()
+	for i := 0; i < b.N; i++ {
+		if err := problem.Solve(Alg7); err != nil {
+			b.Fatal(err)
+		}
+	}
+}

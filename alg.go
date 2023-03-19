@@ -103,3 +103,24 @@ func Alg6(work []*http.Request) (result []*http.Response) {
 	}
 	return
 }
+
+// Alg7 uses channel to synchronize responses with ordered result
+func Alg7(work []*http.Request) (result []*http.Response) {
+	type m struct {
+		index int
+		*http.Response
+	}
+	c := make(chan m)
+	result = make([]*http.Response, len(work))
+	for i, r := range work {
+		go func(i int, lr *http.Request) {
+			resp, _ := http.DefaultClient.Do(lr)
+			c <- m{i, resp} // write to channel
+		}(i, r)
+	}
+	for range work {
+		v := <-c // read from channel
+		result[v.index] = v.Response
+	}
+	return
+}
