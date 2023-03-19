@@ -1,0 +1,36 @@
+package cotalk
+
+import (
+	"regexp"
+
+	. "github.com/gregoryv/web"
+)
+
+// Highlight go source code
+func Highlight(v string) string {
+	v = keywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
+	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
+	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
+	return v
+}
+
+// HighlightGoDoc output
+func HighlightGoDoc(v string) string {
+	v = docKeywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
+	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
+	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
+	return v
+}
+
+var types = regexp.MustCompile(`(\W)(\w+\.\w+)(\)|\n)`)
+var keywords = regexp.MustCompile(`(\W?)(^package|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
+var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
+var comments = regexp.MustCompile(`(//[^\n]*)`)
+
+func HighlightColors() *CSS {
+	css := NewCSS()
+	css.Style(".keyword", "color: darkviolet")
+	css.Style(".type", "color: dodgerblue")
+	css.Style(".comment, .comment>span", "color: darkgreen")
+	return css
+}

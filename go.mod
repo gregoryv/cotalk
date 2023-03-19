@@ -2,10 +2,7 @@ module github.com/preferit/cotalk
 
 go 1.19
 
-require (
-	github.com/gregoryv/web v0.24.0
-	github.com/preferit/deck v0.0.0-20230316163625-0fc5d0519bc4
-)
+require github.com/gregoryv/web v0.24.0
 
 require (
 	github.com/gregoryv/asserter v0.4.2 // indirect

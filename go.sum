@@ -27,12 +27,6 @@ github.com/gregoryv/web v0.24.0/go.mod h1:UKNWM2GN5DJ9W7PYpyCKU5jcCsi7uim2UaT1XD
 github.com/gregoryv/workdir v0.2.0/go.mod h1:qX7yFN0yqysNfEr2F5Tta9+5K8oueS/sqBmdiExBoYA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/preferit/deck v0.0.0-20230311133139-3670978813e1 h1:n5W4v8VKYerPuonTotWldDmvaW3CLUC02JpspMjTolM=
-github.com/preferit/deck v0.0.0-20230311133139-3670978813e1/go.mod h1:0ukSxPVS526r1RGZTz5Cy8MDe7wADF/VmEM4JWxfGGU=
-github.com/preferit/deck v0.0.0-20230316163026-d4834faac83f h1:Et9/8h6J1HA+CFqu0Vp9R9EkDZMwYLq+lxV+krhf3Eg=
-github.com/preferit/deck v0.0.0-20230316163026-d4834faac83f/go.mod h1:0ukSxPVS526r1RGZTz5Cy8MDe7wADF/VmEM4JWxfGGU=
-github.com/preferit/deck v0.0.0-20230316163625-0fc5d0519bc4 h1:a+kxPs5U5LRSN1KInsGQlMCGfoRSv83VIErJsJT1BMU=
-github.com/preferit/deck v0.0.0-20230316163625-0fc5d0519bc4/go.mod h1:0ukSxPVS526r1RGZTz5Cy8MDe7wADF/VmEM4JWxfGGU=
 golang.org/x/net v0.0.0-20210917221730-978cfadd31cf/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
 golang.org/x/net v0.0.0-20211029224645-99673261e6eb/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
 golang.org/x/net v0.0.0-20211216030914-fe4d6282115f h1:hEYJvxw1lSnWIl8X9ofsYMklzaDs90JI2az5YMd4fPM=

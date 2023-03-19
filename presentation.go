@@ -8,15 +8,14 @@ import (
 	"strings"
 
 	. "github.com/gregoryv/web"
-	"github.com/preferit/deck"
 )
 
-func Presentation() *deck.Deck {
-	d := deck.New()
+func Presentation() *Deck {
+	d := New()
 	d.Title = "Go concurrency"
 	d.Styles[0] = themeOldstyle() // replace original
 	d.Styles = append(d.Styles,
-		deck.HighlightColors(),
+		HighlightColors(),
 	)
 
 	d.Slide(
@@ -68,7 +67,7 @@ func Presentation() *deck.Deck {
 	)
 
 	d.Slide(H2("package context"),
-		Pre(deck.HighlightGoDoc(`
+		Pre(HighlightGoDoc(`
 Programs that use Contexts should follow these rules
 
 Do not store Contexts inside a struct type; instead, pass a Context
@@ -128,7 +127,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P("For instance counting number of words"),
 	)
 
-	d.Slide(H3("Concurrent - ordered"),
+	d.Slide(H2("Concurrent - ordered"),
 		P("Reverse each word and put sequence back together"),
 		Pre(`
 convert
@@ -160,7 +159,7 @@ func srcTest(ex int) *Element {
 func load(src string) *Element {
 	v := mustLoad(src)
 	v = strings.ReplaceAll(v, "\t", "    ")
-	v = deck.Highlight(v)
+	v = Highlight(v)
 	return Div(
 		Class("srcfile"),
 		Pre(Code(v)),
@@ -171,7 +170,7 @@ func godoc(pkg string) *Element {
 	out, _ := exec.Command("go", "doc", "-short", pkg).Output()
 	v := string(out)
 	v = strings.ReplaceAll(v, "\t", "    ")
-	v = deck.HighlightGoDoc(v)
+	v = HighlightGoDoc(v)
 	return Wrap(
 		Div(
 			Class("srcfile"),
