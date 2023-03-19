@@ -1,4 +1,4 @@
-package ex
+package ex10
 
 import (
 	"testing"
