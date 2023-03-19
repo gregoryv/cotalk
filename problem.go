@@ -7,33 +7,45 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"testing"
 	"time"
 )
 
-// SetupServer returns a test server that echoes the path without
-// leading / with a 10ms delay.
-func SetupServer() *httptest.Server {
+func SolveLettersProblem(t *testing.T, fn Algorithm) {
+	t.Helper()
+	srv, problem := Setup()
+	defer srv.Close()
+	if err := problem.Solve(fn); err != nil {
+		t.Error(err)
+	}
+}
+
+const Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
+
+// Setup returns running test server and the letters problem to solve.
+// The problem can be solved multiple times.
+func Setup() (*httptest.Server, *LettersProblem) {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		<-time.After(10 * time.Millisecond)
 		w.Write([]byte(r.URL.Path[1:]))
 	}
-	return httptest.NewServer(http.HandlerFunc(handler))
-}
-
-func NewLettersProblem() *LettersProblem {
-	return &LettersProblem{
-		exp: "0 1 2 3 4 5 6 7 8 9 a b c d e f",
+	srv := httptest.NewServer(http.HandlerFunc(handler))
+	prob := &LettersProblem{
+		srv: srv,
+		exp: Letters,
 	}
+	return srv, prob
 }
 
 type LettersProblem struct {
+	srv *httptest.Server
 	exp string
 }
 
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
-func (p *LettersProblem) Solve(srv *httptest.Server, fn Algorithm) error {
-	work := p.createWork(srv.URL)
+func (p *LettersProblem) Solve(fn Algorithm) error {
+	work := p.createWork(p.srv.URL)
 
 	// do the work
 	result := fn(work)
@@ -96,5 +108,3 @@ func (p *LettersProblem) checkOrder(result []*http.Response) error {
 	}
 	return nil
 }
-
-func (p *LettersProblem) Exp() string { return p.exp }
