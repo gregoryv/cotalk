@@ -20,7 +20,7 @@ func Presentation() *deck {
 	)
 
 	nav := &navbar{current: 1}
-	alg := &algorithms{current: 1}
+	alg := &algorithms{current: 1, atLine: 8} // 8 where first func starts
 
 	d.Slide(
 		H1("Concurrency design in Go"),
@@ -237,13 +237,24 @@ func (b *navbar) BuildElement() *Element {
 
 type algorithms struct {
 	current int // current algorithm
+	atLine  int
 }
 
 func (a *algorithms) BuildElement() *Element {
 	name := fmt.Sprintf("Alg%v", a.current)
 	a.current++
+	fn := files.MustLoadFunc("../alg.go", name)
+	lines := strings.Count(fn, "\n")
+	v := files.MustLoadLines("../alg.go", a.atLine, a.atLine+lines)
+	a.atLine = a.atLine + lines + 2
+
+	v = strings.ReplaceAll(v, "\t", "    ")
+	v = highlight(v)
 	return Wrap(
-		loadFunc("../alg.go", name),
+		Div(
+			Class("srcfile"),
+			Pre(Code(v)),
+		),
 		shell(
 			fmt.Sprintf("$ go test -benchmem -run=Benchmark%s .", name),
 			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),

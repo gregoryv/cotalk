@@ -367,7 +367,8 @@ var DeadlineExceeded error = deadlineExceededError{}
         result = append(result, resp)
     }
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg1 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
@@ -409,7 +410,8 @@ ok  	github.com/preferit/cotalk	1.238s
     }
     wg.Wait()
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg2 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg2
     alg_test.go:22: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
@@ -445,15 +447,16 @@ exit status 1
     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
         wg.Add(1)
         <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
-
+            <span class="comment">// use local argument</span>
             resp, _ := http.DefaultClient.Do(lr)
             result = append(result, resp)
             wg.Done()
-        }(r)
+        }(r) <span class="comment">// make a copy of pointer with argument</span>
     }
     wg.Wait()
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
     alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
@@ -492,17 +495,17 @@ exit status 1
         wg.Add(1)
         <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
             resp, _ := http.DefaultClient.Do(lr)
-
+            <span class="comment">// protect result</span>
             m.Lock()
             result = append(result, resp)
             m.Unlock()
-
             wg.Done()
         }(r)
     }
     wg.Wait()
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg4 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg4
     alg_test.go:42: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
@@ -541,17 +544,17 @@ exit status 1
         wg.Add(1)
         <span class="keyword">go</span> <span class="keyword">func</span>(i int, lr *<span class="type">http.Request</span>) {
             resp, _ := http.DefaultClient.Do(lr)
-
+            <span class="comment">// protect result</span>
             m.Lock()
             result[i] = resp
             m.Unlock()
-
             wg.Done()
         }(i, r)
     }
     wg.Wait()
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg5 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
@@ -586,15 +589,16 @@ ok  	github.com/preferit/cotalk	1.344s
     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
         <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
             resp, _ := http.DefaultClient.Do(lr)
-            c <- resp
+            c <- resp <span class="comment">// write to channel</span>
         }(r)
     }
     <span class="keyword">for</span> <span class="keyword">range</span> work {
-        resp := <-c
+        resp := <-c <span class="comment">// read from channel</span>
         result = append(result, resp)
     }
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg6 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg6
     alg_test.go:62: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
@@ -627,7 +631,7 @@ exit status 1
 <div class="srcfile"><pre><code><span class="comment">// Alg7 uses channel to synchronize responses with ordered result</span>
 <span class="keyword">func</span> Alg7(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">type</span> m <span class="keyword">struct</span> {
-        index    int
+        index int
         *<span class="type">http.Response</span>
     }
     c := make(chan m)
@@ -635,15 +639,16 @@ exit status 1
     <span class="keyword">for</span> i, r := <span class="keyword">range</span> work {
         <span class="keyword">go</span> <span class="keyword">func</span>(i int, lr *<span class="type">http.Request</span>) {
             resp, _ := http.DefaultClient.Do(lr)
-            c <- m{i, resp}
+            c <- m{i, resp} <span class="comment">// write to channel</span>
         }(i, r)
     }
     <span class="keyword">for</span> <span class="keyword">range</span> work {
-        v := <-c
+        v := <-c <span class="comment">// read from channel</span>
         result[v.index] = <span class="type">v.Response</span>
     }
     <span class="keyword">return</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg7 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk

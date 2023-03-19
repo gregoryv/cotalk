@@ -53,12 +53,10 @@ func Alg4(work []*http.Request) (result []*http.Response) {
 		wg.Add(1)
 		go func(lr *http.Request) {
 			resp, _ := http.DefaultClient.Do(lr)
-
 			// protect result
 			m.Lock()
 			result = append(result, resp)
 			m.Unlock()
-
 			wg.Done()
 		}(r)
 	}
@@ -75,12 +73,10 @@ func Alg5(work []*http.Request) (result []*http.Response) {
 		wg.Add(1)
 		go func(i int, lr *http.Request) {
 			resp, _ := http.DefaultClient.Do(lr)
-
 			// protect result
 			m.Lock()
 			result[i] = resp
 			m.Unlock()
-
 			wg.Done()
 		}(i, r)
 	}
