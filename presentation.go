@@ -15,7 +15,7 @@ func Presentation() *Deck {
 	d.Title = "Go concurrency"
 	d.Styles = append(d.Styles,
 		themeOldstyle(),
-		HighlightColors(),
+		highlightColors(),
 	)
 
 	nav := &navbar{max: 15, current: 1}

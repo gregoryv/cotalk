@@ -27,7 +27,7 @@ var keywords = regexp.MustCompile(`(\W?)(^package|import|for|func|range|return|g
 var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
 var comments = regexp.MustCompile(`(//[^\n]*)`)
 
-func HighlightColors() *CSS {
+func highlightColors() *CSS {
 	css := NewCSS()
 	css.Style(".keyword", "color: darkviolet")
 	css.Style(".type", "color: dodgerblue")
