@@ -112,13 +112,17 @@ processes and APIs, not for passing optional parameters to functions.
 		P("To simplify the examples we define the Algorithm that does the work as",
 			Pre(Code(highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
 		),
-		load("ex10/run_test.go"),
+		load("alg_test.go"),
 		nav,
 	)
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
-		srcTest(10),
+		load("sequential.go"),
+		shell(
+			"$ go test -count 1 -v -run=TestSequential .",
+			"testdata/sequential_test.html",
+		),
 		nav,
 	)
 
@@ -203,5 +207,5 @@ func mustLoad(src string) string {
 	return string(data)
 }
 
-//go:embed ex* testdata *_test.go
+//go:embed ex* testdata *.go
 var assets embed.FS

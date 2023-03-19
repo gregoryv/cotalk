@@ -1,11 +1,9 @@
-package ex10
+package cotalk
 
 import (
 	"testing"
-
-	"github.com/preferit/cotalk"
 )
 
-func TestRun(t *testing.T) {
-	cotalk.SolveLettersProblem(t, Run)
+func TestSequential(t *testing.T) {
+	SolveLettersProblem(t, Sequential)
 }

@@ -1,10 +1,10 @@
-package ex10
+package cotalk
 
 import (
 	"net/http"
 )
 
-func Run(work []*http.Request) (result []*http.Response) {
+func Sequential(work []*http.Request) (result []*http.Response) {
 	for _, r := range work {
 		resp, _ := http.DefaultClient.Do(r)
 		result = append(result, resp)
