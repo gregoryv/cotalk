@@ -4,23 +4,16 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"time"
 )
 
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
 func Solve(fn Algorithm) error {
-	// setup problem
-	minTaskDuration := 10 * time.Millisecond
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		<-time.After(minTaskDuration)
-	}
-	srv := httptest.NewServer(http.HandlerFunc(handler))
+	srv := SetupServer()
 	defer srv.Close()
-	var (
-		numRequests = 30
-		work        = createWork(srv.URL, numRequests)
-	)
+	work := createWork(srv.URL)
 
 	// do the work
 	result := fn(work)
@@ -29,10 +22,24 @@ func Solve(fn Algorithm) error {
 	return complete(work, result)
 }
 
-func createWork(url string, n int) []*http.Request {
-	all := make([]*http.Request, n)
-	for i, _ := range all {
-		all[i], _ = http.NewRequest("GET", url, http.NoBody)
+func SetupServer() *httptest.Server {
+	minTaskDuration := 10 * time.Millisecond
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		<-time.After(minTaskDuration)
+		// echo the requested path
+		w.Write([]byte(r.URL.Path))
+	}
+	return httptest.NewServer(http.HandlerFunc(handler))
+}
+
+const Expect = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
+
+func createWork(url string) []*http.Request {
+	words := strings.Split(Expect, " ")
+	all := make([]*http.Request, len(words))
+
+	for i, word := range words {
+		all[i], _ = http.NewRequest("GET", url+"/"+word, http.NoBody)
 	}
 	return all
 }
