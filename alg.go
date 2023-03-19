@@ -5,7 +5,8 @@ import (
 	"sync"
 )
 
-func Sequential(work []*http.Request) (result []*http.Response) {
+// Alg1 solves the work sequentially
+func Alg1(work []*http.Request) (result []*http.Response) {
 	for _, r := range work {
 		resp, _ := http.DefaultClient.Do(r)
 		result = append(result, resp)
@@ -13,7 +14,8 @@ func Sequential(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
+// Alg2 uses sync.WaitGroup to wait for all responses
+func Alg2(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
 		wg.Add(1)
@@ -27,7 +29,8 @@ func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-func ConcurrentWaitGroup_FixReference(work []*http.Request) (result []*http.Response) {
+// Alg3 fixes reference problem inside loop
+func Alg3(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
 		wg.Add(1)

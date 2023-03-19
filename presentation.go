@@ -93,10 +93,6 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("go test -bench"),
 		load("benchx_test.go"),
-		shell(
-			"$ go test -benchmem -bench=BenchmarkX .",
-			"testdata/sequential_benchmark.html",
-		),
 		nav,
 	)
 
@@ -118,10 +114,10 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
-		loadFunc("../alg.go", "Sequential"),
+		loadFunc("../alg.go", "Alg1"),
 		shell(
-			"$ go test -count 1 -v -run=TestSequential .",
-			"testdata/sequential_test.html",
+			"$ go test -benchmem -run=BenchmarkAlg1 .",
+			"testdata/alg1_bench.html",
 		),
 		nav,
 	)
@@ -130,10 +126,10 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
 		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
-		loadFunc("../alg.go", "ConcurrentWaitGroup"),
+		loadFunc("../alg.go", "Alg2"),
 		shell(
-			"$ go test -count 1 -v -run=TestConcurrentWaitGroup .",
-			"testdata/concurrentWaitGroup_test.html",
+			"$ go test -benchmem -run=BenchmarkAlg2 .",
+			"testdata/alg2_bench.html",
 		),
 		nav,
 	)
@@ -147,8 +143,8 @@ processes and APIs, not for passing optional parameters to functions.
 	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
 		shell(
-			"$ go test -count 1 -v -run=TestConcurrentWaitGroup_FixReference .",
-			"testdata/concurrentWaitGroup_FixReference_test.html",
+			"$ go test -benchmem -run=BenchmarkAlg3 .",
+			"testdata/alg3_bench.html",
 		),
 		P("You might get a different result; but why does it fail?"),
 		nav,

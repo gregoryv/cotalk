@@ -4,14 +4,32 @@ import (
 	"testing"
 )
 
-func TestSequential(t *testing.T) {
-	SolveLettersProblem(t, Sequential)
+func BenchmarkAlg1(b *testing.B) {
+	srv, problem := Setup()
+	defer srv.Close()
+	for i := 0; i < b.N; i++ {
+		if err := problem.Solve(Alg1); err != nil {
+			b.Fatal(err)
+		}
+	}
 }
 
-func TestConcurrentWaitGroup(t *testing.T) {
-	SolveLettersProblem(t, ConcurrentWaitGroup)
+func BenchmarkAlg2(b *testing.B) {
+	srv, problem := Setup()
+	defer srv.Close()
+	for i := 0; i < b.N; i++ {
+		if err := problem.Solve(Alg2); err != nil {
+			b.Fatal(err)
+		}
+	}
 }
 
-func TestConcurrentWaitGroup_FixReference(t *testing.T) {
-	SolveLettersProblem(t, ConcurrentWaitGroup_FixReference)
+func BenchmarkAlg3(b *testing.B) {
+	srv, problem := Setup()
+	defer srv.Close()
+	for i := 0; i < b.N; i++ {
+		if err := problem.Solve(Alg3); err != nil {
+			b.Fatal(err)
+		}
+	}
 }
