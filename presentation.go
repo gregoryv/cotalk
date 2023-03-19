@@ -130,7 +130,11 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
 		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
-		srcTest(20),
+		load("concurrentWaitGroup.go"),
+		shell(
+			"$ go test -count 1 -v -run=TestConcurrentWaitGroup .",
+			"testdata/concurrentWaitGroup_test.html",
+		),
 		nav,
 	)
 

@@ -1,11 +1,11 @@
-package ex20
+package cotalk
 
 import (
 	"net/http"
 	"sync"
 )
 
-func Run(work []*http.Request) (result []*http.Response) {
+func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
 		wg.Add(1)
