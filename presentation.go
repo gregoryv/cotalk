@@ -102,7 +102,6 @@ processes and APIs, not for passing optional parameters to functions.
 
 	// Problem definition
 	// ----------------------------------------
-	// todo define probelem type
 	d.Slide(H2("Problem"),
 		P("A set of letters ", Code(Letters),
 
@@ -123,8 +122,10 @@ processes and APIs, not for passing optional parameters to functions.
 		nav,
 	)
 
+	// Concurrent
+	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
-		P("Depending on your concurrent requirements this implementation has couple of bugs"),
+		P("This algorithm uses the sync.WaitGroup to wait for all requests to finnish; however it has several bugs."),
 		srcTest(20),
 		nav,
 	)

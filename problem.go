@@ -46,11 +46,7 @@ type Algorithm func(work []*http.Request) (result []*http.Response)
 
 func (p *LettersProblem) Solve(fn Algorithm) error {
 	work := p.createWork(p.srv.URL)
-
-	// do the work
 	result := fn(work)
-
-	// verify, todo move this to test as it depends on the requirements
 	return p.complete(work, result)
 }
 
@@ -66,12 +62,12 @@ func (p *LettersProblem) createWork(url string) []*http.Request {
 
 func (p *LettersProblem) complete(work []*http.Request, result []*http.Response) error {
 	if v := len(result); v != len(work) {
-		return fmt.Errorf("%v/%v incomplete", v, len(work))
-	}
-	if err := allOk(result); err != nil {
-		return err
+		return fmt.Errorf("incomplete! missing %v of %v responses", len(work)-v, len(work))
 	}
 	if err := p.checkOrder(result); err != nil {
+		return err
+	}
+	if err := allOk(result); err != nil {
 		return err
 	}
 	return nil
