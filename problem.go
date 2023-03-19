@@ -10,18 +10,22 @@ import (
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
 func Solve(fn Algorithm) error {
+	// setup problem
 	minTaskDuration := 10 * time.Millisecond
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		<-time.After(minTaskDuration)
 	}
 	srv := httptest.NewServer(http.HandlerFunc(handler))
 	defer srv.Close()
-
 	var (
 		numRequests = 30
 		work        = createWork(srv.URL, numRequests)
-		result      = fn(work)
 	)
+
+	// do the work
+	result := fn(work)
+
+	// verify, todo move this to test as it depends on the requirements
 	return complete(work, result)
 }
 
