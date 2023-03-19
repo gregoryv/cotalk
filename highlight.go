@@ -14,8 +14,8 @@ func highlight(v string) string {
 	return v
 }
 
-// HighlightGoDoc output
-func HighlightGoDoc(v string) string {
+// highlightGoDoc output
+func highlightGoDoc(v string) string {
 	v = docKeywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
 	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
 	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)

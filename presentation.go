@@ -68,7 +68,7 @@ func Presentation() *Deck {
 	)
 
 	d.Slide(H2("package context"),
-		Pre(HighlightGoDoc(`
+		Pre(highlightGoDoc(`
 Programs that use Contexts should follow these rules
 
 Do not store Contexts inside a struct type; instead, pass a Context
@@ -192,7 +192,7 @@ func godoc(pkg string) *Element {
 	out, _ := exec.Command("go", "doc", "-short", pkg).Output()
 	v := string(out)
 	v = strings.ReplaceAll(v, "\t", "    ")
-	v = HighlightGoDoc(v)
+	v = highlightGoDoc(v)
 	return Wrap(
 		Div(
 			Class("srcfile"),
