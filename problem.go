@@ -1,7 +1,9 @@
 package cotalk
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -27,15 +29,15 @@ func SetupServer() *httptest.Server {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		<-time.After(minTaskDuration)
 		// echo the requested path
-		w.Write([]byte(r.URL.Path))
+		w.Write([]byte(r.URL.Path[1:]))
 	}
 	return httptest.NewServer(http.HandlerFunc(handler))
 }
 
-const Expect = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
+const exp = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
 
 func createWork(url string) []*http.Request {
-	words := strings.Split(Expect, " ")
+	words := strings.Split(exp, " ")
 	all := make([]*http.Request, len(words))
 
 	for i, word := range words {
@@ -49,6 +51,9 @@ func complete(work []*http.Request, result []*http.Response) error {
 		return fmt.Errorf("%v/%v incomplete", v, len(work))
 	}
 	if err := allOk(result); err != nil {
+		return err
+	}
+	if err := CheckOrder(result); err != nil {
 		return err
 	}
 	return nil
@@ -67,6 +72,21 @@ func allOk(result []*http.Response) error {
 	}
 	if v := len(result) - ok; v > 0 {
 		return fmt.Errorf("%v failed %v missing", v, missing)
+	}
+	return nil
+}
+
+func CheckOrder(result []*http.Response) error {
+	words := make([]string, 0, len(result))
+	for _, resp := range result {
+		var buf bytes.Buffer
+		io.Copy(&buf, resp.Body)
+		resp.Body.Close()
+		words = append(words, buf.String())
+	}
+	got := strings.Join(words, " ")
+	if exp != got {
+		return fmt.Errorf("\nexp: %s\ngot: %s", exp, got)
 	}
 	return nil
 }
