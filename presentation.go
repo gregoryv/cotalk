@@ -10,7 +10,7 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-func Presentation() *Deck {
+func Presentation() *deck {
 	d := New()
 	d.Title = "Go concurrency"
 	d.Styles = append(d.Styles,

@@ -8,13 +8,13 @@ import (
 )
 
 // New returns a deck with default styling and navigation on bottom
-func New() *Deck {
-	return &Deck{
+func New() *deck {
+	return &deck{
 		Styles: []*CSS{},
 	}
 }
 
-type Deck struct {
+type deck struct {
 	Title  string // header title
 	Slides []*Element
 	Styles []*CSS // first one is the deck default styling
@@ -22,12 +22,12 @@ type Deck struct {
 
 // Slide appends a new slide to the deck. elements can be anything
 // supported by the web package.
-func (d *Deck) Slide(elements ...interface{}) {
+func (d *deck) Slide(elements ...interface{}) {
 	d.Slides = append(d.Slides, Wrap(elements...))
 }
 
 // Page returns a web page ready for use.
-func (d *Deck) Page() *web.Page {
+func (d *deck) Page() *web.Page {
 	styles := Style()
 	for _, s := range d.Styles {
 		styles.With(s)
