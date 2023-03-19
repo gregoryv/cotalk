@@ -7,8 +7,8 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-// New returns a deck with default styling and navigation on bottom
-func New() *deck {
+// newDeck returns a deck with default styling and navigation on bottom
+func newDeck() *deck {
 	return &deck{
 		Styles: []*CSS{},
 	}

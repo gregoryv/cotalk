@@ -11,7 +11,7 @@ import (
 )
 
 func Presentation() *deck {
-	d := New()
+	d := newDeck()
 	d.Title = "Go concurrency"
 	d.Styles = append(d.Styles,
 		themeOldstyle(),
