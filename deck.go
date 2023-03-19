@@ -10,64 +10,15 @@ import (
 // New returns a deck with default styling and navigation on bottom
 func New() *Deck {
 	return &Deck{
-		Styles: []*CSS{
-			DefaultStyle(),
-		},
-		NavShow: Bottom,
+		Styles: []*CSS{},
 	}
 }
 
-func DefaultStyle() *CSS {
-	css := NewCSS()
-	css.Style("html, body",
-		"margin: 0 0",
-		"padding: 0 0",
-	)
-	css.Style("nav", "text-align: center")
-	css.Style("nav ul",
-		"list-style-type: none",
-		"margin: 0 0",
-		"padding: 0 0",
-	)
-	css.Style("nav ul li",
-		"margin: 0 4px",
-		"cursor: pointer",
-		"display: inline",
-	)
-	css.Style("nav ul li.current",
-		"text-decoration: underline",
-	)
-	css.Style(".slide",
-		"background-color: black",
-		"padding: 10px",
-		"text-align: center",
-		"height: calc( 100vh - 50px)",
-	)
-	// goish colors
-	css.Style("a:link, a:visited",
-		"color: #007d9c",
-		"text-decoration: none",
-	)
-	css.Style("a:hover",
-		"text-decoration: underline",
-	)
-	return css
-}
-
 type Deck struct {
-	Title   string // header title
-	Slides  []*Element
-	Styles  []*CSS // first one is the deck default styling
-	NavShow Position
+	Title  string // header title
+	Slides []*Element
+	Styles []*CSS // first one is the deck default styling
 }
-
-type Position int
-
-const (
-	Hidden Position = iota
-	Top
-	Bottom
-)
 
 // Slide appends a new slide to the deck. elements can be anything
 // supported by the web package.

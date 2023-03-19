@@ -13,8 +13,8 @@ import (
 func Presentation() *Deck {
 	d := New()
 	d.Title = "Go concurrency"
-	d.Styles[0] = themeOldstyle() // replace original
 	d.Styles = append(d.Styles,
+		themeOldstyle(),
 		HighlightColors(),
 	)
 
@@ -102,7 +102,8 @@ processes and APIs, not for passing optional parameters to functions.
 
 	// Problem definition
 	// ----------------------------------------
-	d.Slide(H2("Problem definition"),
+	// todo define probelem type
+	d.Slide(H2("Problem"),
 		P("Text is spread out over remotely, use number of requests to gather it."),
 		nav,
 	)
@@ -126,7 +127,6 @@ processes and APIs, not for passing optional parameters to functions.
 		nav,
 	)
 
-	// todo fix first
 	d.Slide(H2("Concurrent"),
 		P("Bug 2; Unprotected write to slice"),
 		srcTest(40),
