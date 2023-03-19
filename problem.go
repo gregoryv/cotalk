@@ -32,9 +32,7 @@ type LettersProblem struct {
 
 type Algorithm func(work []*http.Request) (result []*http.Response)
 
-func (p *LettersProblem) Solve(fn Algorithm) error {
-	srv := SetupServer()
-	defer srv.Close()
+func (p *LettersProblem) Solve(srv *httptest.Server, fn Algorithm) error {
 	work := p.createWork(srv.URL)
 
 	// do the work

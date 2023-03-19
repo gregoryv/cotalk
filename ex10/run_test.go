@@ -3,11 +3,12 @@ package ex10
 import (
 	"testing"
 
-	"github.com/preferit/cotalk"
+	. "github.com/preferit/cotalk"
 )
 
 func TestRun(t *testing.T) {
-	if err := cotalk.NewLettersProblem().Solve(Run); err != nil {
+	srv := SetupServer(t)
+	if err := NewLettersProblem().Solve(srv, Run); err != nil {
 		t.Error(err)
 	}
 }
