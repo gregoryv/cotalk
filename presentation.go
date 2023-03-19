@@ -20,7 +20,6 @@ func Presentation() *deck {
 	)
 
 	nav := &navbar{current: 1}
-
 	alg := &algorithms{current: 1}
 
 	d.Slide(
@@ -162,16 +161,6 @@ processes and APIs, not for passing optional parameters to functions.
 	return d
 }
 
-func srcTest(ex int) *Element {
-	return Wrap(
-		load(fmt.Sprintf("ex%02v/run.go", ex)),
-		shell(
-			fmt.Sprintf("$ go test -count 1 -v ./ex%v/", ex),
-			fmt.Sprintf("ex%v/test_result.html", ex),
-		),
-	)
-}
-
 func load(src string) *Element {
 	v := mustLoad(src)
 	v = strings.ReplaceAll(v, "\t", "    ")
@@ -224,3 +213,40 @@ func mustLoad(src string) string {
 
 //go:embed ex* testdata *.go
 var assets embed.FS
+
+type navbar struct {
+	max     int // number of slides
+	current int // current slide
+}
+
+// BuildElement is called at time of rendering
+func (b *navbar) BuildElement() *Element {
+	ul := Ul()
+	for i := 0; i < b.max; i++ {
+		j := i + 1
+		hash := fmt.Sprintf("#%v", j)
+		li := Li(A(Href(hash), j))
+		if j == b.current {
+			li.With(Class("current"))
+		}
+		ul.With(li)
+	}
+	b.current++
+	return Nav(ul)
+}
+
+type algorithms struct {
+	current int // current algorithm
+}
+
+func (a *algorithms) BuildElement() *Element {
+	name := fmt.Sprintf("Alg%v", a.current)
+	a.current++
+	return Wrap(
+		loadFunc("../alg.go", name),
+		shell(
+			fmt.Sprintf("$ go test -benchmem -run=Benchmark%s .", name),
+			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
+		),
+	)
+}

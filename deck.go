@@ -2,7 +2,6 @@ package cotalk
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/gregoryv/web"
 	. "github.com/gregoryv/web"
@@ -51,43 +50,6 @@ func (d *deck) Page() *web.Page {
 				styles,
 			),
 			body,
-		),
-	)
-}
-
-type navbar struct {
-	max     int // number of slides
-	current int // current slide
-}
-
-// BuildElement is called at time of rendering
-func (b *navbar) BuildElement() *Element {
-	ul := Ul()
-	for i := 0; i < b.max; i++ {
-		j := i + 1
-		hash := fmt.Sprintf("#%v", j)
-		li := Li(A(Href(hash), j))
-		if j == b.current {
-			li.With(Class("current"))
-		}
-		ul.With(li)
-	}
-	b.current++
-	return Nav(ul)
-}
-
-type algorithms struct {
-	current int // current slide
-}
-
-func (a *algorithms) BuildElement() *Element {
-	name := fmt.Sprintf("Alg%v", a.current)
-	a.current++
-	return Wrap(
-		loadFunc("../alg.go", name),
-		shell(
-			fmt.Sprintf("$ go test -benchmem -run=Benchmark%s .", name),
-			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
 		),
 	)
 }
