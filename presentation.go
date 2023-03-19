@@ -95,7 +95,7 @@ processes and APIs, not for passing optional parameters to functions.
 		load("ex07/run_test.go"),
 		shell(
 			"$ cd ex07; go test -benchmark -bench .",
-			"ex07/bench_result.html",
+			"testdata/sequential_benchmark.html",
 		),
 		nav,
 	)
@@ -204,5 +204,5 @@ func mustLoad(src string) string {
 	return string(data)
 }
 
-//go:embed ex*
+//go:embed ex* testdata
 var assets embed.FS
