@@ -89,7 +89,6 @@ processes and APIs, not for passing optional parameters to functions.
 		godoc("context"),
 	)
 
-	// todo slide 7 test -bench
 	d.Slide(H2("go test -bench"),
 		load("ex07/run.go"),
 		load("ex07/run_test.go"),
@@ -109,18 +108,19 @@ processes and APIs, not for passing optional parameters to functions.
 		srcTest(20),
 	)
 
-	d.Slide(H3("Concurrent - fix bug 1"),
-		P("You cannot assume go routines start immediately."),
+	d.Slide(H2("Concurrent"),
+		P("Bug 1; you cannot assume go routines start immediately."),
 		srcTest(30),
 		P("You might get a different result; but why does it fail?"),
 	)
 
-	d.Slide(H3("Concurrent - fix bug 2"),
-		P("Unprotected write to slice"),
+	// todo fix first
+	d.Slide(H2("Concurrent"),
+		P("Bug 2; Unprotected write to slice"),
 		srcTest(40),
 	)
 
-	d.Slide(H3("Concurrent - orderless"),
+	d.Slide(H2("Concurrent - orderless"),
 		P("For instance counting number of words"),
 	)
 
