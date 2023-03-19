@@ -10,6 +10,16 @@ import (
 	"time"
 )
 
+// SetupServer returns a test server that echoes the path without
+// leading / with a 10ms delay.
+func SetupServer() *httptest.Server {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		<-time.After(10 * time.Millisecond)
+		w.Write([]byte(r.URL.Path[1:]))
+	}
+	return httptest.NewServer(http.HandlerFunc(handler))
+}
+
 func NewLettersProblem() *LettersProblem {
 	return &LettersProblem{
 		exp: "0 1 2 3 4 5 6 7 8 9 a b c d e f",
@@ -32,16 +42,6 @@ func (p *LettersProblem) Solve(fn Algorithm) error {
 
 	// verify, todo move this to test as it depends on the requirements
 	return p.complete(work, result)
-}
-
-func SetupServer() *httptest.Server {
-	minTaskDuration := 10 * time.Millisecond
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		<-time.After(minTaskDuration)
-		// echo the requested path
-		w.Write([]byte(r.URL.Path[1:]))
-	}
-	return httptest.NewServer(http.HandlerFunc(handler))
 }
 
 func (p *LettersProblem) createWork(url string) []*http.Request {
