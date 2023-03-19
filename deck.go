@@ -77,8 +77,6 @@ func (d *Deck) Slide(elements ...interface{}) {
 
 // Page returns a web page ready for use.
 func (d *Deck) Page() *web.Page {
-	max := len(d.Slides)
-
 	styles := Style()
 	for _, s := range d.Styles {
 		styles.With(s)
@@ -88,14 +86,8 @@ func (d *Deck) Page() *web.Page {
 		j := i + 1
 		id := fmt.Sprintf("%v", j)
 		slide := Div(Class("slide"), Id(id))
-		nav := nav(j, max)
-		if d.NavShow == Top {
-			slide.With(nav)
-		}
+
 		slide.With(content)
-		if d.NavShow == Bottom {
-			slide.With(nav)
-		}
 		body.With(slide)
 	}
 
@@ -111,16 +103,23 @@ func (d *Deck) Page() *web.Page {
 	)
 }
 
-func nav(current, max int) *Element {
+type navbar struct {
+	max     int // number of slides
+	current int // current slide
+}
+
+// BuildElement is called at time of rendering
+func (b *navbar) BuildElement() *Element {
 	ul := Ul()
-	for i := 0; i < max; i++ {
+	for i := 0; i < b.max; i++ {
 		j := i + 1
 		hash := fmt.Sprintf("#%v", j)
 		li := Li(A(Href(hash), j))
-		if j == current {
+		if j == b.current {
 			li.With(Class("current"))
 		}
 		ul.With(li)
 	}
+	b.current++
 	return Nav(ul)
 }

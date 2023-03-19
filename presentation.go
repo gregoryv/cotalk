@@ -18,26 +18,19 @@ func Presentation() *Deck {
 		HighlightColors(),
 	)
 
+	nav := &navbar{max: 15, current: 1}
+
 	d.Slide(
 		H1("Concurrency design in Go"),
 		Span("2023 by Gregory Vinčić"),
 		P(`Discussion and examples of using concepts related to
 		concurrent design.`),
 
-		Ul(Class("group"),
-			Li("go routines"),
-			Li("channels"),
-		),
-		Ul(Class("group"),
-			Li("package context"),
-			Li("package sync "),
-			Li("go test bench"),
-		),
-		Ul(Class("group"),
-			Li("examples and training"),
-		),
-
+		Ul(Class("group"), Li("go routines"), Li("channels")),
+		Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
+		Ul(Class("group"), Li("examples and training")),
 		Br(Attr("clear", "all")),
+		nav,
 	)
 
 	d.Slide(H2("Background and history"),
@@ -47,6 +40,8 @@ func Presentation() *Deck {
 		),
 		" C. A. R. Hoare, 1985",
 		Br(Attr("clear", "all")),
+
+		nav,
 	)
 
 	d.Slide(H2("Goroutines"),
@@ -54,16 +49,22 @@ func Presentation() *Deck {
 			Href("https://go.dev/tour/concurrency/1"),
 			Img(Class("center"), Src("gotour_concurrency_1.png")),
 		),
+		nav,
 	)
+
 	d.Slide(H2("channels"),
 		A(Attr("target", "_blank"),
 			Href("https://go.dev/tour/concurrency/2"),
 			Img(Class("center"), Src("gotour_concurrency_2.png")),
 		),
+		nav,
 	)
 
+	// packages
+	// ----------------------------------------
 	d.Slide(H2("package sync"),
 		godoc("sync"),
+		nav,
 	)
 
 	d.Slide(H2("package context"),
@@ -86,6 +87,7 @@ processes and APIs, not for passing optional parameters to functions.
 		`)),
 
 		godoc("context"),
+		nav,
 	)
 
 	d.Slide(H2("go test -bench"),
@@ -95,36 +97,45 @@ processes and APIs, not for passing optional parameters to functions.
 			"$ cd ex07; go test -benchmark -bench .",
 			"ex07/bench_result.html",
 		),
+		nav,
 	)
 
+	// Problem definition
+	// ----------------------------------------
 	d.Slide(H2("Problem definition"),
 		P("Text is spread out over remotely, use number of requests to gather it."),
+		nav,
 	)
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
 		srcTest(10),
+		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Depending on your concurrent requirements this implementation has couple of bugs"),
 		srcTest(20),
+		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
 		srcTest(30),
 		P("You might get a different result; but why does it fail?"),
+		nav,
 	)
 
 	// todo fix first
 	d.Slide(H2("Concurrent"),
 		P("Bug 2; Unprotected write to slice"),
 		srcTest(40),
+		nav,
 	)
 
 	d.Slide(H2("Concurrent - orderless"),
 		P("For instance counting number of words"),
+		nav,
 	)
 
 	d.Slide(H2("Concurrent - ordered"),
@@ -136,11 +147,13 @@ Aa Bb Cc Dd Ed Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Xx Yy Zz
 into
 aA bB cC dD dE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV xX yY zZ
 `),
+		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Using channels"),
 		load("ex50/run.go"),
+		nav,
 	)
 
 	return d
