@@ -161,8 +161,8 @@ processes and APIs, not for passing optional parameters to functions.
 	d.Slide(H2("Concurrent"),
 		P("Using channels with correct order"),
 		alg,
-		nav,
 		P("There is still a bug in this code, do you see it?"),
+		nav,
 	)
 	d.Slide(H2("Concurrent"),
 		P("Clean up resources"),
@@ -235,8 +235,9 @@ type navbar struct {
 func (b *navbar) BuildElement() *Element {
 	ul := Ul()
 	groupDivider := map[int]bool{
-		6: true,
-		9: true,
+		6:  true,
+		9:  true,
+		15: true,
 	}
 
 	for i := 0; i < b.max; i++ {
