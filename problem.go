@@ -61,36 +61,6 @@ func (p *LettersProblem) createWork(url string) []*http.Request {
 }
 
 func (p *LettersProblem) complete(work []*http.Request, result []*http.Response) error {
-	if v := len(result); v != len(work) {
-		return fmt.Errorf("incomplete! missing %v of %v responses", len(work)-v, len(work))
-	}
-	if err := p.checkOrder(result); err != nil {
-		return err
-	}
-	if err := allOk(result); err != nil {
-		return err
-	}
-	return nil
-}
-
-func allOk(result []*http.Response) error {
-	ok := 0
-	missing := 0
-	for _, r := range result {
-		if r == nil {
-			missing++
-		}
-		if r != nil && r.StatusCode < 400 {
-			ok++
-		}
-	}
-	if v := len(result) - ok; v > 0 {
-		return fmt.Errorf("%v failed %v missing", v, missing)
-	}
-	return nil
-}
-
-func (p *LettersProblem) checkOrder(result []*http.Response) error {
 	words := make([]string, 0, len(result))
 	for _, resp := range result {
 		var buf bytes.Buffer

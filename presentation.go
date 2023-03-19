@@ -21,6 +21,8 @@ func Presentation() *deck {
 
 	nav := &navbar{current: 1}
 
+	alg := &algorithms{current: 1}
+
 	d.Slide(
 		H1("Concurrency design in Go"),
 		Span("2023 by Gregory Vinčić"),
@@ -114,11 +116,7 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
-		loadFunc("../alg.go", "Alg1"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg1 .",
-			"testdata/alg1_bench.html",
-		),
+		alg,
 		nav,
 	)
 
@@ -126,16 +124,13 @@ processes and APIs, not for passing optional parameters to functions.
 	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
 		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
-		loadFunc("../alg.go", "Alg2"),
-		shell(
-			"$ go test -benchmem -run=BenchmarkAlg2 .",
-			"testdata/alg2_bench.html",
-		),
+		alg,
 		nav,
 	)
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
+		loadFunc("../alg.go", "Alg3"),
 		shell(
 			"$ go test -benchmem -run=BenchmarkAlg3 .",
 			"testdata/alg3_bench.html",
@@ -146,6 +141,7 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Concurrent"),
 		P("Bug 2; Unprotected write to slice"),
+		loadFunc("../alg.go", "Alg4"),
 		shell(
 			"$ go test -benchmem -run=BenchmarkAlg4 .",
 			"testdata/alg4_bench.html",
@@ -155,10 +151,21 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("Concurrent"),
-		P("Using channels"),
+		P("Bug 3; Fix order"),
+		loadFunc("../alg.go", "Alg5"),
 		shell(
 			"$ go test -benchmem -run=BenchmarkAlg5 .",
 			"testdata/alg5_bench.html",
+		),
+		nav,
+	)
+
+	d.Slide(H2("Concurrent"),
+		P("Using channels"),
+		loadFunc("../alg.go", "Alg6"),
+		shell(
+			"$ go test -benchmem -run=BenchmarkAlg6 .",
+			"testdata/alg6_bench.html",
 		),
 		nav,
 	)

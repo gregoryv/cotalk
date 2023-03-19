@@ -155,6 +155,7 @@ color: darkgreen;
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -173,6 +174,7 @@ color: darkgreen;
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -191,6 +193,7 @@ color: darkgreen;
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -209,6 +212,7 @@ color: darkgreen;
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -237,6 +241,7 @@ color: darkgreen;
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -282,6 +287,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -317,6 +323,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -339,6 +346,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -373,6 +381,7 @@ ok  	github.com/preferit/cotalk	1.238s
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
@@ -414,15 +423,31 @@ exit status 1
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
 <div class="slide" id="11"><h2>Concurrent</h2>
 <p>Bug 1; you cannot assume go routines start immediately.</p>
+<div class="srcfile"><pre><code><span class="comment">// Alg3 fixes reference problem inside loop</span>
+<span class="keyword">func</span> Alg3(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+
+            resp, _ := http.DefaultClient.Do(lr)
+            result = append(result, resp)
+            wg.Done()
+        }(r)
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
     alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: e a b f 3 d 4 6 c 0 8 9 1 7 2 5
+        got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
 <span style="color:red;">FAIL</span>
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
@@ -442,11 +467,31 @@ exit status 1
 <li class="current"><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
 <div class="slide" id="12"><h2>Concurrent</h2>
 <p>Bug 2; Unprotected write to slice</p>
+<div class="srcfile"><pre><code><span class="comment">// Alg4 synchronizes writes accross <span class="keyword">go</span> routines</span>
+<span class="keyword">func</span> Alg4(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">var</span> m <span class="type">sync.Mutex</span>
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr)
+
+            m.Lock()
+            result = append(result, resp)
+            m.Unlock()
+
+            wg.Done()
+        }(r)
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg4 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg4
     alg_test.go:42: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
@@ -469,19 +514,39 @@ exit status 1
 <li><a href="#11">11</a></li>
 <li class="current"><a href="#12">12</a></li>
 <li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>
 <div class="slide" id="13"><h2>Concurrent</h2>
-<p>Using channels</p>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg5 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg5
-    alg_test.go:52: 
-        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: 8 3 4 9 b 0 6 f a c 5 e d 7 2 1
-<span style="color:red;">FAIL</span>
-exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
-<span style="color:red;">FAIL</span>
+<p>Bug 3; Fix order</p>
+<div class="srcfile"><pre><code><span class="comment">// Alg5 fix order</span>
+<span class="keyword">func</span> Alg5(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
+    <span class="keyword">var</span> m <span class="type">sync.Mutex</span>
+    result = make([]*http.Response, len(work))
+    <span class="keyword">for</span> i, r := <span class="keyword">range</span> work {
+        wg.Add(1)
+        <span class="keyword">go</span> <span class="keyword">func</span>(i int, lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr)
+
+            m.Lock()
+            result[i] = resp
+            m.Unlock()
+
+            wg.Done()
+        }(i, r)
+    }
+    wg.Wait()
+    <span class="keyword">return</span>
+}</code></pre></div>
+<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg5 .<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/cotalk
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg5-16    	     100	  13281838 ns/op	  289424 B/op	    2018 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk	1.344s
 </pre><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -496,6 +561,44 @@ exit status 1
 <li><a href="#11">11</a></li>
 <li><a href="#12">12</a></li>
 <li class="current"><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+</ul>
+</nav>
+</div>
+<div class="slide" id="14"><h2>Concurrent</h2>
+<p>Using channels</p>
+<div class="srcfile"><pre><code><span class="comment">// Alg6 uses channel to synchronize responses</span>
+<span class="keyword">func</span> Alg6(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
+    c := make(chan *<span class="type">http.Response</span>)
+    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
+        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
+            resp, _ := http.DefaultClient.Do(lr)
+            c <- resp
+        }(r)
+    }
+    <span class="keyword">for</span> <span class="keyword">range</span> work {
+        resp := <-c
+        result = append(result, resp)
+    }
+    <span class="keyword">return</span>
+}</code></pre></div>
+<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg6 .<br/><span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk	0.002s
+</pre><nav><ul>
+<li><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li class="current"><a href="#14">14</a></li>
 </ul>
 </nav>
 </div>

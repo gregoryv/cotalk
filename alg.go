@@ -35,7 +35,8 @@ func Alg3(work []*http.Request) (result []*http.Response) {
 	for _, r := range work {
 		wg.Add(1)
 		go func(lr *http.Request) {
-			resp, _ := http.DefaultClient.Do(lr) // use argument
+			// use local argument
+			resp, _ := http.DefaultClient.Do(lr)
 			result = append(result, resp)
 			wg.Done()
 		}(r) // make a copy of pointer with argument
@@ -65,8 +66,30 @@ func Alg4(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg5 uses channel to synchronize responses
+// Alg5 fix order
 func Alg5(work []*http.Request) (result []*http.Response) {
+	var wg sync.WaitGroup
+	var m sync.Mutex
+	result = make([]*http.Response, len(work))
+	for i, r := range work {
+		wg.Add(1)
+		go func(i int, lr *http.Request) {
+			resp, _ := http.DefaultClient.Do(lr)
+
+			// protect result
+			m.Lock()
+			result[i] = resp
+			m.Unlock()
+
+			wg.Done()
+		}(i, r)
+	}
+	wg.Wait()
+	return
+}
+
+// Alg6 uses channel to synchronize responses
+func Alg6(work []*http.Request) (result []*http.Response) {
 	c := make(chan *http.Response)
 	for _, r := range work {
 		go func(lr *http.Request) {

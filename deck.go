@@ -2,6 +2,7 @@ package cotalk
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gregoryv/web"
 	. "github.com/gregoryv/web"
@@ -73,4 +74,20 @@ func (b *navbar) BuildElement() *Element {
 	}
 	b.current++
 	return Nav(ul)
+}
+
+type algorithms struct {
+	current int // current slide
+}
+
+func (a *algorithms) BuildElement() *Element {
+	name := fmt.Sprintf("Alg%v", a.current)
+	a.current++
+	return Wrap(
+		loadFunc("../alg.go", name),
+		shell(
+			fmt.Sprintf("$ go test -benchmem -run=Benchmark%s .", name),
+			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
+		),
+	)
 }
