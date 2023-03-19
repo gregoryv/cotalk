@@ -18,3 +18,11 @@ func ConcurrentWaitGroup(work []*http.Request) (result []*http.Response) {
 	wg.Wait()
 	return
 }
+
+func Sequential(work []*http.Request) (result []*http.Response) {
+	for _, r := range work {
+		resp, _ := http.DefaultClient.Do(r)
+		result = append(result, resp)
+	}
+	return
+}
