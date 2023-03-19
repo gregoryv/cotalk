@@ -113,6 +113,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P("To simplify the examples we define the Algorithm that does the work as",
 			Pre(Code(highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
 		),
+		load("ex10/run_test.go"),
 		nav,
 	)
 
@@ -125,7 +126,7 @@ processes and APIs, not for passing optional parameters to functions.
 	// Concurrent
 	// ----------------------------------------
 	d.Slide(H2("Concurrent"),
-		P("This algorithm uses the sync.WaitGroup to wait for all requests to finnish; however it has several bugs."),
+		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
 		srcTest(20),
 		nav,
 	)

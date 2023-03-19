@@ -349,6 +349,18 @@ ok  	github.com/preferit/cotalk/ex07	1.337s
 			and assemble them in the correct order. Each letter is
 			found on /L, ie. GET /3 would return '3'.</p>
 <p>To simplify the examples we define the Algorithm that does the work as<pre><code><span class="keyword">type</span> Algorithm <span class="keyword">func</span>(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>)</code></pre></p>
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex10
+
+<span class="keyword">import</span> (
+    "testing"
+
+    "github.com/preferit/cotalk"
+)
+
+<span class="keyword">func</span> TestRun(t *<span class="type">testing.T</span>) {
+    cotalk.SolveLettersProblem(t, Run)
+}
+</code></pre></div>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -408,7 +420,7 @@ ok  	github.com/preferit/cotalk/ex10	0.180s
 </nav>
 </div>
 <div class="slide" id="10"><h2>Concurrent</h2>
-<p>This algorithm uses the sync.WaitGroup to wait for all requests to finnish; however it has several bugs.</p>
+<p>This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs.</p>
 <div class="srcfile"><pre><code><span class="keyword">package</span> ex20
 
 <span class="keyword">import</span> (
