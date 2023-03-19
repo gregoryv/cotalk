@@ -23,7 +23,7 @@ func highlightGoDoc(v string) string {
 }
 
 var types = regexp.MustCompile(`(\W)(\w+\.\w+)(\)|\n)`)
-var keywords = regexp.MustCompile(`(\W?)(^package|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
+var keywords = regexp.MustCompile(`(\W?)(^package|select|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
 var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
 var comments = regexp.MustCompile(`(//[^\n]*)`)
 

@@ -1,0 +1,14 @@
+goos: linux
+goarch: amd64
+pkg: github.com/preferit/cotalk
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg9-16    	panic: send on closed channel
+
+goroutine 791 [running]:
+github.com/preferit/cotalk.Alg9.func1.1(0x4, 0x0?)
+	/home/gregory/src/github.com/preferit/cotalk/alg.go:162 +0x55
+created by github.com/preferit/cotalk.Alg9.func1
+	/home/gregory/src/github.com/preferit/cotalk/alg.go:160 +0x8e
+exit status 2
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.095s
+<span style="color:red;">FAIL</span>

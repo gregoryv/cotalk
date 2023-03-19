@@ -169,6 +169,10 @@ processes and APIs, not for passing optional parameters to functions.
 		alg,
 		nav,
 	)
+	d.Slide(H2("Interrupt"),
+		alg,
+		nav,
+	)
 	nav.max = len(d.Slides)
 	return d
 }
