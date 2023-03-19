@@ -68,8 +68,6 @@ func Presentation() *deck.Deck {
 	)
 
 	d.Slide(H2("package context"),
-		godoc("context"),
-
 		Pre(deck.HighlightGoDoc(`
 Programs that use Contexts should follow these rules
 
@@ -87,6 +85,8 @@ context.TODO if you are unsure about which Context to use.
 Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		`)),
+
+		godoc("context"),
 	)
 
 	// todo slide 7 test -bench

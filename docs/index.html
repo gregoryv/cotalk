@@ -247,18 +247,7 @@ color: darkgreen;
 </nav>
 </div>
 <div class="slide" id="6"><h2>package context</h2>
-<div class="srcfile"><pre><code>var Canceled = errors.New("context canceled")
-var DeadlineExceeded error = deadlineExceededError{}
-<span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
-<span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
-<span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
-<span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
-<span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
-    <span class="keyword">func</span> Background() Context
-    <span class="keyword">func</span> TODO() Context
-    <span class="keyword">func</span> WithValue(parent Context, key, val any) Context
-</code></pre></div>
-<a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a><pre>
+<pre>
 Programs that use Contexts should follow these rules
 
 Do not store Contexts inside a <span class="keyword">struct</span> <span class="keyword">type</span>; instead, pass a Context
@@ -274,7 +263,18 @@ context.TODO if you are unsure about which Context to use.
 
 Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
-		</pre><nav><ul>
+		</pre><div class="srcfile"><pre><code>var Canceled = errors.New("context canceled")
+var DeadlineExceeded error = deadlineExceededError{}
+<span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+<span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
+<span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
+<span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
+<span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
+    <span class="keyword">func</span> Background() Context
+    <span class="keyword">func</span> TODO() Context
+    <span class="keyword">func</span> WithValue(parent Context, key, val any) Context
+</code></pre></div>
+<a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
