@@ -91,7 +91,12 @@ processes and APIs, not for passing optional parameters to functions.
 
 	// todo slide 7 test -bench
 	d.Slide(H2("go test -bench"),
-		flow("ex07/run.go", "go test -benchmark -bench .", "ex07/bench_result.txt"),
+		load("ex07/run.go"),
+		load("ex07/run_test.go"),
+		shell(
+			"$ cd ex07; go test -benchmark -bench .",
+			"ex07/bench_result.html",
+		),
 	)
 
 	d.Slide(H2("Sequential"),
@@ -164,8 +169,8 @@ func themeOldstyle() *CSS {
 		"-moz-tab-size: 4",
 	)
 
-	css.Style(".srcfile a",
-		"float: right",
+	css.Style(".filename",
+		"float: left",
 		"margin-right: 1.6em",
 		"margin-top: -1.6em",
 	)
@@ -228,13 +233,6 @@ func themeOldstyle() *CSS {
 	return css
 }
 
-func flow(src, cmd, result string) *Element {
-	return Wrap(
-		load(src),
-		shell(cmd, result),
-	)
-}
-
 func srcTest(ex int) *Element {
 	return Wrap(
 		load(fmt.Sprintf("ex%02v/run.go", ex)),
@@ -246,7 +244,6 @@ func srcTest(ex int) *Element {
 }
 
 func load(src string) *Element {
-
 	v := mustLoad(src)
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = deck.Highlight(v)

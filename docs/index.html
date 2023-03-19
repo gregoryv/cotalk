@@ -58,8 +58,8 @@ background-color: #fafafa;
 tab-size: 4;
 -moz-tab-size: 4;
 }
-.srcfile a {
-float: right;
+.filename {
+float: left;
 margin-right: 1.6em;
 margin-top: -1.6em;
 }
@@ -301,13 +301,25 @@ processes and APIs, not for passing optional parameters to functions.
     time.Sleep(<span class="type">time.Millisecond</span>)
 }
 </code></pre></div>
-<pre class="shell dark">go test -benchmark -bench .<br/>goos: linux
+<div class="srcfile"><pre><code><span class="keyword">package</span> ex07
+
+<span class="keyword">import</span> (
+    "testing"
+)
+
+<span class="keyword">func</span> BenchmarkRun(b *<span class="type">testing.B</span>) {
+    <span class="keyword">for</span> i := 0; i < b.N; i++ {
+        Run()
+    }
+}
+</code></pre></div>
+<pre class="shell dark">$ cd ex07; go test -benchmark -bench .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk/ex07
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkRun-16    	    1092	   1103832 ns/op	     200 B/op	       3 allocs/op
-[32mPASS[0m
-ok  	github.com/preferit/cotalk/ex07	1.320s
+BenchmarkRun-16    	    1117	   1097216 ns/op	       0 B/op	       0 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk/ex07	1.337s
 </pre><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
