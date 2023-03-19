@@ -135,18 +135,22 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("Concurrent"),
-		P("Bug 2; Unprotected write to slice"),
-		srcTest(40),
-		nav,
-	)
-
-	d.Slide(H2("Concurrent"),
 		P("Bug 1; you cannot assume go routines start immediately."),
 		shell(
 			"$ go test -benchmem -run=BenchmarkAlg3 .",
 			"testdata/alg3_bench.html",
 		),
 		P("You might get a different result; but why does it fail?"),
+		nav,
+	)
+
+	d.Slide(H2("Concurrent"),
+		P("Bug 2; Unprotected write to slice"),
+		shell(
+			"$ go test -benchmem -run=BenchmarkAlg4 .",
+			"testdata/alg4_bench.html",
+		),
+
 		nav,
 	)
 

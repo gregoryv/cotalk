@@ -356,9 +356,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg1-16    	       6	 175132654 ns/op	  281784 B/op	    1991 allocs/op
+BenchmarkAlg1-16    	       6	 175723081 ns/op	  276461 B/op	    1978 allocs/op
 <span style="color:green;">PASS</span>
-ok  	github.com/preferit/cotalk	1.233s
+ok  	github.com/preferit/cotalk	1.238s
 </pre><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -393,10 +393,12 @@ ok  	github.com/preferit/cotalk	1.233s
     <span class="keyword">return</span>
 }</code></pre></div>
 <pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg2 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg2
-    alg_test.go:22: incomplete! missing 1 of 16 responses
+    alg_test.go:22: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: f f f f f f f f f f f f f f f f
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.013s
 <span style="color:red;">FAIL</span>
 </pre><nav><ul>
 <li><a href="#1">1</a></li>
@@ -416,43 +418,17 @@ exit status 1
 </nav>
 </div>
 <div class="slide" id="11"><h2>Concurrent</h2>
-<p>Bug 2; Unprotected write to slice</p>
-<div class="srcfile"><pre><code><span class="keyword">package</span> ex40
-
-<span class="keyword">import</span> (
-    "net/http"
-    "sync"
-)
-
-<span class="keyword">func</span> Run(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
-    <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
-    <span class="keyword">var</span> m <span class="type">sync.Mutex</span>
-    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {
-        wg.Add(1)
-        <span class="keyword">go</span> <span class="keyword">func</span>(lr *<span class="type">http.Request</span>) {
-            resp, _ := http.DefaultClient.Do(lr)
-
-            <span class="comment">// protect result</span>
-            m.Lock()
-            result = append(result, resp)
-            m.Unlock()
-
-            wg.Done()
-        }(r)
-    }
-    wg.Wait()
-    <span class="keyword">return</span>
-}
-</code></pre></div>
-<pre class="shell dark">$ go test -count 1 -v ./ex40/<br/><span style="color:olive;">=== RUN</span>   TestRun
-    run_test.go:10: 
+<p>Bug 1; you cannot assume go routines start immediately.</p>
+<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
+    alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: e 5 6 b d 0 3 9 4 2 8 1 c a 7 f
-<span style="color:red;">--- FAIL:</span> TestRun (0.01s)
+        got: e a b f 3 d 4 6 c 0 8 9 1 7 2 5
 <span style="color:red;">FAIL</span>
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk/ex40	0.013s
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre><p>You might get a different result; but why does it fail?</p>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -470,15 +446,16 @@ exit status 1
 </nav>
 </div>
 <div class="slide" id="12"><h2>Concurrent</h2>
-<p>Bug 1; you cannot assume go routines start immediately.</p>
-<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg3 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg3
-    alg_test.go:32: incomplete! missing 1 of 16 responses
+<p>Bug 2; Unprotected write to slice</p>
+<pre class="shell dark">$ go test -benchmem -run=BenchmarkAlg4 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg4
+    alg_test.go:42: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.017s
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><p>You might get a different result; but why does it fail?</p>
-<nav><ul>
+</pre><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
