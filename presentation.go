@@ -36,7 +36,14 @@ func Presentation() *deck {
 			Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
 			Ul(Class("group"), Li("examples and training")),
 		),
+		Br(Attr("clear", "all")),
 
+		P(`Follow along by cloning the examples with `),
+
+		Pre(Class("shell dark"),
+			"$ git clone github.com/preferit/cotalk\n",
+			"$ cd cotalk",
+		),
 		Br(Attr("clear", "all")),
 		nav,
 	)
