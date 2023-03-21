@@ -17,13 +17,17 @@ height: calc( 100vh - 50px);
 p, pre {
 text-align: left;
 }
-nav {
+.slide ul {
+text-align: left;
+}
+.slide nav {
 text-align: center;
 }
-nav ul {
+.slide nav ul {
 list-style-type: none;
 margin: 0 0;
 padding: 0 0;
+text-align: center;
 }
 nav ul li {
 margin: 0 4px;
@@ -74,6 +78,10 @@ display: block;
 text-align: left;
 }
 nav {
+float: left;
+clear: both;
+width: 100%;
+display: block;
 margin-top: 1em;
 text-align: center;
 }
@@ -173,7 +181,16 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </nav>
 </div>
 <div class="slide" id="3"><h2>Background and history</h2>
-<img class="left" src="th_small.jpg"/><br/><a href="http://www.usingcsp.com/cspbook.pdf">Communicating Sequential Processes</a> C. A. R. Hoare, 1985<br clear="all"/><nav><ul>
+<img class="left" src="th_small.jpg"/><br/><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
+			Moscow. His research spanned program correctness, sorting
+			and programming languages. His work is freely accessible
+			online and the Go developers uses his concept of <em>channels</em>
+			in the language.</p>
+<ul>
+<li><a href="https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf">Communicating Sequential Processes (CSP), paper 1978</a></li>
+<li><a href="http://www.usingcsp.com/cspbook.pdf">CSP, book 1985</a></li>
+</ul>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li class="current"><a href="#3">3</a></li>

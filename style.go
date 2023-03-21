@@ -17,12 +17,16 @@ func themeOldstyle() *CSS {
 	css.Style("p, pre",
 		"text-align: left",
 	)
+	css.Style(".slide ul",
+		"text-align: left",
+	)
 	// navbar
-	css.Style("nav", "text-align: center")
-	css.Style("nav ul",
+	css.Style(".slide nav", "text-align: center")
+	css.Style(".slide nav ul",
 		"list-style-type: none",
 		"margin: 0 0",
 		"padding: 0 0",
+		"text-align: center",
 	)
 	css.Style("nav ul li",
 		"margin: 0 4px",
@@ -78,6 +82,10 @@ func themeOldstyle() *CSS {
 	)
 
 	css.Style("nav",
+		"float: left",
+		"clear: both",
+		"width: 100%",
+		"display: block",
 		"margin-top: 1em",
 		"text-align: center",
 	)
