@@ -14,6 +14,8 @@ func newDeck() *deck {
 	}
 }
 
+// Had this idea of a deck of slides; turned out to be less
+// useful. Leaving it here for now.
 type deck struct {
 	Title  string // header title
 	Slides []*Element

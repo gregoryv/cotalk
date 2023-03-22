@@ -4,7 +4,11 @@ Presentation about concurrency design in Go
 
 To build the presentation
 
-  $ ./generate.sh
   $ cd docs
   $ go run .
   $ $BROWSER index.html
+
+the testdata fragments where generated with eg.
+
+  $ go test -benchmem -bench=BenchmarkAlg1 . | gocolor | aha -n > testdata/alg1_bench.html
+
