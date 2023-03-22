@@ -174,27 +174,25 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 
 	// Concurrent
 	// ----------------------------------------
-	d.Slide(H2("Concurrent"),
-		P("This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs."),
+	d.Slide(H2("Concurrent using sync.WaitGroup"),
 		alg,
+		P("Why does it fail?"),
 		nav,
 	)
 
-	d.Slide(H2("Concurrent"),
-		P("Bug 1; you cannot assume go routines start immediately."),
+	d.Slide(H2("Arguments are evaluated at calltime"),
 		alg,
-		P("You might get a different result; but why does it fail?"),
+		P("You might get a different result; why does it still fail?"),
 		nav,
 	)
 
-	d.Slide(H2("Concurrent"),
-		P("Bug 2; Unprotected write to slice"),
+	d.Slide(H2("Protect concurrent writes with sync.Mutex"),
 		alg,
+		P("Why does it fail?"),
 		nav,
 	)
 
-	d.Slide(H2("Concurrent"),
-		P("Bug 3; Fix order"),
+	d.Slide(H2("Sort results"),
 		alg,
 		nav,
 	)

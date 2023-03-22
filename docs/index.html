@@ -547,8 +547,7 @@ ok  	github.com/preferit/cotalk	1.238s
 </ul>
 </nav>
 </div>
-<div class="slide" id="12"><h2>Concurrent</h2>
-<p>This algorithm uses the sync.WaitGroup to wait for all requests to complete; however it has several bugs.</p>
+<div class="slide" id="12"><h2>Concurrent using sync.WaitGroup</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg2 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span>
 <span class="keyword">func</span> Alg2(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
@@ -572,7 +571,8 @@ ok  	github.com/preferit/cotalk	1.238s
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.013s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre><p>Why does it fail?</p>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -599,8 +599,7 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="13"><h2>Concurrent</h2>
-<p>Bug 1; you cannot assume go routines start immediately.</p>
+<div class="slide" id="13"><h2>Arguments are evaluated at calltime</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg3 fixes reference problem inside loop</span>
 <span class="keyword">func</span> Alg3(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
@@ -625,7 +624,7 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><p>You might get a different result; but why does it fail?</p>
+</pre><p>You might get a different result; why does it still fail?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -653,8 +652,7 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="14"><h2>Concurrent</h2>
-<p>Bug 2; Unprotected write to slice</p>
+<div class="slide" id="14"><h2>Protect concurrent writes with sync.Mutex</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg4 synchronizes writes accross <span class="keyword">go</span> routines</span>
 <span class="keyword">func</span> Alg4(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
@@ -682,7 +680,8 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre><p>Why does it fail?</p>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -709,8 +708,7 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="15"><h2>Concurrent</h2>
-<p>Bug 3; Fix order</p>
+<div class="slide" id="15"><h2>Sort results</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg5 fix order</span>
 <span class="keyword">func</span> Alg5(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span>
