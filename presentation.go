@@ -20,7 +20,7 @@ func Presentation() *deck {
 	)
 
 	nav := &navbar{current: 2}
-	alg := &algorithms{current: 1, atLine: 8} // 8 where first func starts
+	alg := &algorithms{current: 1, atLine: 9} // 8 where first func starts
 
 	d.Slide(
 		A(Href("#2"), Img(Src("cotalk.png"))),
