@@ -360,11 +360,13 @@ var DeadlineExceeded error = deadlineExceededError{}
 <div class="srcfile"><pre><code><span class="keyword">package</span> cotalk
 
 <span class="keyword">import</span> (
+    "fmt"
     "testing"
     "time"
 )
 
 <span class="keyword">func</span> BenchmarkX(b *<span class="type">testing.B</span>) {
+    fmt.Println("N is", <span class="type">b.N</span>)
     <span class="keyword">for</span> i := 0; i < b.N; i++ {
         X()
     }
@@ -374,7 +376,18 @@ var DeadlineExceeded error = deadlineExceededError{}
     time.Sleep(<span class="type">time.Millisecond</span>)
 }
 </code></pre></div>
-<nav><ul>
+<pre class="shell dark">$ go test -bench=BenchmarkX -v .<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/cotalk
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkX
+N is 1
+N is 100
+N is 1100
+BenchmarkX-16    	    1100	   1095229 ns/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/cotalk	1.320s
+</pre><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>

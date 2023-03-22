@@ -119,6 +119,10 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("go test -bench"),
 		load("benchx_test.go"),
+		shell(
+			"$ go test -bench=BenchmarkX -v .",
+			"testdata/benchx.html",
+		),
 		nav,
 	)
 
