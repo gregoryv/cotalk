@@ -202,6 +202,15 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 		nav,
 	)
 
+	d.Slide(H2("Improved performance paid with complexity"),
+
+		P(`Comparing the sequential working algorithm to the working
+		concurrent one, tests reveal a substantial improvement.`),
+
+		load("testdata/compare_bench.html"),
+		nav,
+	)
+
 	d.Slide(H2("Using channel"),
 		alg,
 		nav,
@@ -293,7 +302,7 @@ func (b *navbar) BuildElement() *Element {
 	groupDivider := map[int]bool{
 		8:  true,
 		12: true, // concurrent
-		16: true, // channels
+		17: true, // channels
 	}
 
 	for i := 0; i < b.max; i++ {
