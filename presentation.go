@@ -47,7 +47,8 @@ func Presentation() *deck {
 		),
 		Ul(Class("group"),
 			Li("using channels"),
-			Li("synchronizing"),
+			Li("sync and interrupt"),
+			Li("compare performance"),
 		),
 
 		Br(Attr("clear", "all")),
