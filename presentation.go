@@ -199,20 +199,17 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 		nav,
 	)
 
-	d.Slide(H2("Concurrent"),
-		P("Using channels"),
+	d.Slide(H2("Using channel"),
 		alg,
 		nav,
 	)
 
-	d.Slide(H2("Concurrent"),
-		P("Using channels with correct order"),
+	d.Slide(H2("Correct order using channel"),
 		alg,
 		P("There is still a bug in this code, do you see it?"),
 		nav,
 	)
-	d.Slide(H2("Concurrent"),
-		P("Clean up resources"),
+	d.Slide(H2("Clean up resources"),
 		alg,
 		nav,
 	)

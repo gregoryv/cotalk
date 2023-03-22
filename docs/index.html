@@ -751,8 +751,7 @@ ok  	github.com/preferit/cotalk	1.344s
 </ul>
 </nav>
 </div>
-<div class="slide" id="16"><h2>Concurrent</h2>
-<p>Using channels</p>
+<div class="slide" id="16"><h2>Using channel</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg6 uses channel to synchronize responses</span>
 <span class="keyword">func</span> Alg6(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     c := make(chan *<span class="type">http.Response</span>)
@@ -803,8 +802,7 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="17"><h2>Concurrent</h2>
-<p>Using channels with correct order</p>
+<div class="slide" id="17"><h2>Correct order using channel</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg7 uses channel to synchronize responses with ordered result</span>
 <span class="keyword">func</span> Alg7(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">type</span> m <span class="keyword">struct</span> {
@@ -860,8 +858,7 @@ ok  	github.com/preferit/cotalk	1.357s
 </ul>
 </nav>
 </div>
-<div class="slide" id="18"><h2>Concurrent</h2>
-<p>Clean up resources</p>
+<div class="slide" id="18"><h2>Clean up resources</h2>
 <div class="srcfile"><pre><code><span class="comment">// Alg8 uses channel to synchronize responses with ordered result</span>
 <span class="keyword">func</span> Alg8(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {
     <span class="keyword">type</span> m <span class="keyword">struct</span> {
@@ -953,15 +950,15 @@ ok  	github.com/preferit/cotalk	1.356s
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg9-16    	panic: send on closed channel
+BenchmarkAlg9-16    	panic: <span style="color:red;">send on closed channel</span>
 
-goroutine 791 [running]:
-github.com/preferit/cotalk.Alg9.func1.1(0x4, 0x0?)
+goroutine 499 [running]:
+github.com/preferit/cotalk.Alg9.func1.1(0x3, 0xc00040a780?)
 	/home/gregory/src/github.com/preferit/cotalk/alg.go:162 +0x55
 created by github.com/preferit/cotalk.Alg9.func1
 	/home/gregory/src/github.com/preferit/cotalk/alg.go:160 +0x8e
 exit status 2
-<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.095s
+<span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.054s
 <span style="color:red;">FAIL</span>
 </pre><nav><ul>
 <li><a href="#1">1</a></li>
