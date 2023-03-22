@@ -142,6 +142,17 @@ processes and APIs, not for passing optional parameters to functions.
 		nav,
 	)
 
+	d.Slide(H2("Verification"),
+
+		P(`Each algorithm in these examples is tested like this`),
+
+		loadFunc("../alg_test.go", "BenchmarkAlg1"),
+
+		P(`The problem and it's verification method Solve is found
+in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "problem.go"),
+		),
+	)
+
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
 		alg,
@@ -262,8 +273,8 @@ type navbar struct {
 func (b *navbar) BuildElement() *Element {
 	ul := Ul()
 	groupDivider := map[int]bool{
-		6:  true,
-		9:  true,
+		8:  true,
+		11: true,
 		15: true,
 	}
 
