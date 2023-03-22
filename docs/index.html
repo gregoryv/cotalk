@@ -321,7 +321,16 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </nav>
 </div>
 <div class="slide" id="6"><h2>package sync</h2>
-<div class="srcfile"><pre><code><span class="keyword">type</span> Cond <span class="keyword">struct</span>{ ... }
+<pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
+
+Package sync provides basic synchronization primitives such as mutual exclusion
+locks. Other than the Once and WaitGroup types, most are intended for use by
+low-level library routines. Higher-level synchronization is better done via
+channels and communication.
+
+Values containing the types defined in this package should not be copied.
+
+<span class="keyword">type</span> Cond <span class="keyword">struct</span>{ ... }
     <span class="keyword">func</span> NewCond(l Locker) *Cond
 <span class="keyword">type</span> Locker <span class="keyword">interface</span>{ ... }
 <span class="keyword">type</span> Map <span class="keyword">struct</span>{ ... }
@@ -330,8 +339,7 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 <span class="keyword">type</span> Pool <span class="keyword">struct</span>{ ... }
 <span class="keyword">type</span> RWMutex <span class="keyword">struct</span>{ ... }
 <span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
-</code></pre></div>
-<a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a><nav><ul>
+</pre><a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -362,7 +370,10 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </nav>
 </div>
 <div class="slide" id="7"><h2>package context</h2>
-<pre>
+<pre><span class="keyword">package</span> context
+
+...
+
 Programs that use Contexts should follow these rules
 
 Do not store Contexts inside a <span class="keyword">struct</span> <span class="keyword">type</span>; instead, pass a Context
@@ -378,7 +389,7 @@ context.TODO if you are unsure about which Context to use.
 
 Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
-		</pre><div class="srcfile"><pre><code>var Canceled = errors.New("context canceled")
+		</pre><pre>var Canceled = errors.New("context canceled")
 var DeadlineExceeded error = deadlineExceededError{}
 <span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
 <span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
@@ -388,8 +399,7 @@ var DeadlineExceeded error = deadlineExceededError{}
     <span class="keyword">func</span> Background() Context
     <span class="keyword">func</span> TODO() Context
     <span class="keyword">func</span> WithValue(parent Context, key, val any) Context
-</code></pre></div>
-<a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a><nav><ul>
+</pre><a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -1144,7 +1154,7 @@ exit status 2
                 resp, _ := http.DefaultClient.Do(lr)
                 <span class="keyword">select</span> {
                 <span class="keyword">case</span> <-ctx.Done():
-                <span class="keyword">default</span>:
+                default:
                     c <- m{i, resp} <span class="comment">// write to channel</span>
                 }
             }(i, r)

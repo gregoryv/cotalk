@@ -112,12 +112,15 @@ func Presentation() *deck {
 	// packages
 	// ----------------------------------------
 	d.Slide(H2("package sync"),
-		godoc("sync"),
+		godoc("sync", ""),
 		nav,
 	)
 
 	d.Slide(H2("package context"),
-		Pre(highlightGoDoc(`
+		Pre(highlightGoDoc(`package context
+
+...
+
 Programs that use Contexts should follow these rules
 
 Do not store Contexts inside a struct type; instead, pass a Context
@@ -135,7 +138,7 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		`)),
 
-		godoc("context"),
+		godoc("context", "-short"),
 		nav,
 	)
 
@@ -296,16 +299,18 @@ func loadFunc(file, src string) *Element {
 	)
 }
 
-func godoc(pkg string) *Element {
-	out, _ := exec.Command("go", "doc", "-short", pkg).Output()
+func godoc(pkg, short string) *Element {
+	var out []byte
+	if short != "" {
+		out, _ = exec.Command("go", "doc", short, pkg).Output()
+	} else {
+		out, _ = exec.Command("go", "doc", pkg).Output()
+	}
 	v := string(out)
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlightGoDoc(v)
 	return Wrap(
-		Div(
-			Class("srcfile"),
-			Pre(Code(v)),
-		),
+		Pre(v),
 		A(Attr("target", "_blank"),
 			Href("https://pkg.go.dev/"+pkg),
 			"pkg.go.dev/", pkg,
