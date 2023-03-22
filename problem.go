@@ -7,20 +7,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
-	"testing"
 	"time"
 )
-
-func SolveLettersProblem(t *testing.T, fn Algorithm) {
-	t.Helper()
-	srv, problem := Setup()
-	defer srv.Close()
-	if err := problem.Solve(fn); err != nil {
-		t.Error(err)
-	}
-}
-
-const Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
 
 // Setup returns running test server and the letters problem to solve.
 // The problem can be solved multiple times.
@@ -36,6 +24,8 @@ func Setup() (*httptest.Server, *LettersProblem) {
 	}
 	return srv, prob
 }
+
+const Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
 
 type LettersProblem struct {
 	srv *httptest.Server
