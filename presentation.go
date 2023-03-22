@@ -41,7 +41,7 @@ func Presentation() *deck {
 		P(`Follow along by cloning the examples with `),
 
 		Pre(Class("shell dark"),
-			"$ git clone github.com/preferit/cotalk\n",
+			"$ git clone git@github.com:preferit/cotalk.git\n",
 			"$ cd cotalk",
 		),
 		Br(Attr("clear", "all")),
