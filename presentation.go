@@ -151,6 +151,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P(`The problem and it's verification method Solve is found
 in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "problem.go"),
 		),
+		nav,
 	)
 
 	d.Slide(H2("Sequential"),
@@ -274,8 +275,8 @@ func (b *navbar) BuildElement() *Element {
 	ul := Ul()
 	groupDivider := map[int]bool{
 		8:  true,
-		11: true,
-		15: true,
+		12: true, // concurrent
+		16: true, // channels
 	}
 
 	for i := 0; i < b.max; i++ {
