@@ -23,7 +23,9 @@ func Presentation() *deck {
 	alg := &algorithms{current: 1, atLine: 9} // 8 where first func starts
 
 	d.Slide(
+		Br(),
 		A(Href("#2"), Img(Src("cotalk.png"))),
+		Br(), Br(), Br(),
 		Span("2023 by Gregory Vinčić"),
 	)
 

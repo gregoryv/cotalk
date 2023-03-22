@@ -13,27 +13,38 @@ func themeOldstyle() *CSS {
 		"text-align: center",
 		"height: calc( 100vh - 50px)",
 	)
-	css.Style("p, pre",
+	css.Style(".slide ul, p, pre",
 		"text-align: left",
 	)
-	css.Style(".slide ul",
-		"text-align: left",
-	)
+
 	// navbar
-	css.Style(".slide nav", "text-align: center")
+	css.Style(".slide nav",
+		"text-align: center",
+		"float: left",
+		"clear: both",
+		"width: 100%",
+		"display: block",
+		"margin-top: 1em",
+	)
 	css.Style(".slide nav ul",
 		"list-style-type: none",
 		"margin: 0 0",
 		"padding: 0 0",
 		"text-align: center",
 	)
-	css.Style("nav ul li",
-		"margin: 0 4px",
-		"cursor: pointer",
+	css.Style(".slide nav ul li",
+		"margin: 0 1px",
 		"display: inline",
 	)
-	css.Style("nav ul li.current",
-		"text-decoration: underline",
+	css.Style(".slide nav ul li.current a, .slide nav ul li:hover a",
+		"background-color: #e2e2e2",
+		"border-radius: 5px",
+	)
+	css.Style("nav a:link, nav a:visited",
+		"color: #727272",
+		"padding: 3px 5px",
+		"text-decoration: none",
+		"cursor: pointer",
 	)
 
 	// goish colors
@@ -78,25 +89,6 @@ func themeOldstyle() *CSS {
 		"background-position: right top",
 		"display: block",
 		"text-align: left",
-	)
-
-	css.Style("nav",
-		"float: left",
-		"clear: both",
-		"width: 100%",
-		"display: block",
-		"margin-top: 1em",
-		"text-align: center",
-	)
-	css.Style("nav a:link, nav a:visited",
-		"color: #727272",
-		"padding: 0 5px",
-		"margin: 0 2px",
-		"text-decoration: none",
-	)
-	css.Style("nav a.current, nav a:hover",
-		"color: black",
-		"border-bottom: 1px solid black",
 	)
 	// toc
 	css.Style("li.h3",

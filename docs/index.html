@@ -13,14 +13,16 @@ padding: 10px 20%;
 text-align: center;
 height: calc( 100vh - 50px);
 }
-p, pre {
-text-align: left;
-}
-.slide ul {
+.slide ul, p, pre {
 text-align: left;
 }
 .slide nav {
 text-align: center;
+float: left;
+clear: both;
+width: 100%;
+display: block;
+margin-top: 1em;
 }
 .slide nav ul {
 list-style-type: none;
@@ -28,13 +30,19 @@ margin: 0 0;
 padding: 0 0;
 text-align: center;
 }
-nav ul li {
-margin: 0 4px;
-cursor: pointer;
+.slide nav ul li {
+margin: 0 1px;
 display: inline;
 }
-nav ul li.current {
-text-decoration: underline;
+.slide nav ul li.current a, .slide nav ul li:hover a {
+background-color: #e2e2e2;
+border-radius: 5px;
+}
+nav a:link, nav a:visited {
+color: #727272;
+padding: 3px 5px;
+text-decoration: none;
+cursor: pointer;
 }
 a:link, a:visited {
 color: #007d9c;
@@ -75,24 +83,6 @@ background-repeat: repeat-y;
 background-position: right top;
 display: block;
 text-align: left;
-}
-nav {
-float: left;
-clear: both;
-width: 100%;
-display: block;
-margin-top: 1em;
-text-align: center;
-}
-nav a:link, nav a:visited {
-color: #727272;
-padding: 0 5px;
-margin: 0 2px;
-text-decoration: none;
-}
-nav a.current, nav a:hover {
-color: black;
-border-bottom: 1px solid black;
 }
 li.h3 {
 margin-left: 2em;
@@ -135,7 +125,7 @@ color: darkgreen;
 </style>
 </head>
 <body>
-<div class="slide" id="1"><a href="#2"><img src="cotalk.png"/></a><span>2023 by Gregory Vinčić</span></div>
+<div class="slide" id="1"><br/><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>2023 by Gregory Vinčić</span></div>
 <div class="slide" id="2"><h1>Content</h1>
 <ul class="group">
 <li>background and history</li>
