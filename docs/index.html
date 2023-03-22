@@ -22,7 +22,7 @@ float: left;
 clear: both;
 width: 100%;
 display: block;
-margin-top: 1em;
+margin-top: 2em;
 }
 .slide nav ul {
 list-style-type: none;
@@ -113,6 +113,12 @@ float: left;
 text-align: left;
 margin-right: 3em;
 }
+td {
+vertical-align: top;
+}
+td:nth-child(2) {
+padding-left: 2em;
+}
 .keyword {
 color: darkviolet;
 }
@@ -125,7 +131,36 @@ color: darkgreen;
 </style>
 </head>
 <body>
-<div class="slide" id="1"><br/><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>2023 by Gregory Vinčić</span></div>
+<div class="slide" id="1"><br/><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/><nav><ul>
+<li class="current"><a href="#1">1</a></li>
+<li><a href="#2">2</a></li>
+<li><a href="#3">3</a></li>
+<li><a href="#4">4</a></li>
+<li><a href="#5">5</a></li>
+<li><a href="#6">6</a></li>
+<li><a href="#7">7</a></li>
+<li> | </li>
+<li><a href="#8">8</a></li>
+<li><a href="#9">9</a></li>
+<li><a href="#10">10</a></li>
+<li><a href="#11">11</a></li>
+<li> | </li>
+<li><a href="#12">12</a></li>
+<li><a href="#13">13</a></li>
+<li><a href="#14">14</a></li>
+<li><a href="#15">15</a></li>
+<li><a href="#16">16</a></li>
+<li> | </li>
+<li><a href="#17">17</a></li>
+<li><a href="#18">18</a></li>
+<li><a href="#19">19</a></li>
+<li><a href="#20">20</a></li>
+<li><a href="#21">21</a></li>
+<li><a href="#22">22</a></li>
+<li><a href="#23">23</a></li>
+</ul>
+</nav>
+</div>
 <div class="slide" id="2"><h1>Content</h1>
 <ul class="group">
 <li>background and history</li>
@@ -181,15 +216,18 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </nav>
 </div>
 <div class="slide" id="3"><h2>Background and history</h2>
-<img class="left" src="th_small.jpg"/><br/><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
+<table>
+<tr><td><img src="th_small.jpg"/></td><td><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
 			Moscow. His research spanned program correctness, sorting
 			and programming languages. His work is freely accessible
-			online and the Go developers uses his concept of <em>channels</em>
-			in the language.</p>
+			online and the Go channel construct is his concept.
+			</p>
 <ul>
 <li><a href="https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf">Communicating Sequential Processes (CSP), paper 1978</a></li>
 <li><a href="http://www.usingcsp.com/cspbook.pdf">CSP, book 1985</a></li>
 </ul>
+</td></tr>
+</table>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>

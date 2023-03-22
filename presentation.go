@@ -19,14 +19,16 @@ func Presentation() *deck {
 		highlightColors(),
 	)
 
-	nav := &navbar{current: 2}
+	nav := &navbar{current: 1}
 	alg := &algorithms{current: 1, atLine: 9} // 8 where first func starts
 
 	d.Slide(
 		Br(),
 		A(Href("#2"), Img(Src("cotalk.png"))),
 		Br(), Br(), Br(),
-		Span("2023 by Gregory Vinčić"),
+		Span("Gregory Vinčić, 2023"),
+		Br(), Br(), Br(),
+		nav,
 	)
 
 	d.Slide(
@@ -64,25 +66,30 @@ func Presentation() *deck {
 	)
 
 	d.Slide(H2("Background and history"),
-		Img(Class("left"), Src("th_small.jpg")), Br(),
-		P("Sir Charles Antony Richard Hoare (",
-			A(Href("https://en.wikipedia.org/wiki/Tony_Hoare"), "Tony Hoare"),
+		Table(
+			Tr(
+				Td(Img(Src("th_small.jpg"))),
+				Td(
+					P("Sir Charles Antony Richard Hoare (",
+						A(Href("https://en.wikipedia.org/wiki/Tony_Hoare"), "Tony Hoare"),
 
-			`). Born 1934 in Sri Lanka, studied at Oxford and in
+						`). Born 1934 in Sri Lanka, studied at Oxford and in
 			Moscow. His research spanned program correctness, sorting
 			and programming languages. His work is freely accessible
-			online and the Go developers uses his concept of <em>channels</em>
-			in the language.`),
+			online and the Go channel construct is his concept.
+			`),
 
-		Ul(
-			Li(
-				A(Href("https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf"), "Communicating Sequential Processes (CSP), paper 1978"),
-			),
-			Li(
-				A(Href("http://www.usingcsp.com/cspbook.pdf"), "CSP, book 1985"),
+					Ul(
+						Li(
+							A(Href("https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf"), "Communicating Sequential Processes (CSP), paper 1978"),
+						),
+						Li(
+							A(Href("http://www.usingcsp.com/cspbook.pdf"), "CSP, book 1985"),
+						),
+					),
+				),
 			),
 		),
-
 		nav,
 	)
 

@@ -24,7 +24,7 @@ func themeOldstyle() *CSS {
 		"clear: both",
 		"width: 100%",
 		"display: block",
-		"margin-top: 1em",
+		"margin-top: 2em",
 	)
 	css.Style(".slide nav ul",
 		"list-style-type: none",
@@ -119,6 +119,12 @@ func themeOldstyle() *CSS {
 		"float: left",
 		"text-align: left",
 		"margin-right: 3em",
+	)
+	css.Style("td",
+		"vertical-align: top",
+	)
+	css.Style("td:nth-child(2)",
+		"padding-left: 2em",
 	)
 
 	return css
