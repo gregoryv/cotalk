@@ -263,10 +263,10 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 		nav,
 	)
 
-	d.Slide(H2("Summary"),
+	d.Slide(H2("Go concurrency design summary"),
 
 		Ul(
-			Li("concurrency is difficult to get right even in Go"),
+			Li("concurrency is difficult to get right; even in Go"),
 			Li("tests are an invaluable tool when debugging concurrency issues"),
 			Li("never assume performance optimizations, always measure"),
 			Li("if performance is good enough with a sequential algorithm, skip the complexity of concurrency"),
