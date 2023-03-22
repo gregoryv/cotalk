@@ -182,7 +182,12 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 
 	d.Slide(H2("Arguments are evaluated at calltime"),
 		alg,
-		P("You might get a different result; why does it still fail?"),
+		P(
+			"You might get a different result; why does it still fail? and can the tooling help identify the problem, try ",
+			Pre(Class("shell dark"),
+				"$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1",
+			),
+		),
 		nav,
 	)
 
