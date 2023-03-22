@@ -105,3 +105,22 @@ func BenchmarkAlg9(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkAlg10(b *testing.B) {
+	srv, problem := Setup()
+	defer srv.Close()
+
+	// wrap algorithm
+	alg := func() Algorithm {
+		return func(work []*http.Request) []*http.Response {
+			ctx, _ := context.WithTimeout(context.Background(), 12*time.Millisecond)
+			return Alg10(ctx, work)
+		}
+	}()
+
+	for i := 0; i < b.N; i++ {
+		if err := problem.Solve(alg); err != nil {
+			b.Fatal(err)
+		}
+	}
+}

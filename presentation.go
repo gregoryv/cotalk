@@ -217,6 +217,11 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 		alg,
 		nav,
 	)
+	d.Slide(H2("Respect context cancellation"),
+		alg,
+		nav,
+	)
+
 	nav.max = len(d.Slides)
 	return d
 }

@@ -53,10 +53,14 @@ func (p *LettersProblem) createWork(url string) []*http.Request {
 func (p *LettersProblem) complete(work []*http.Request, result []*http.Response) error {
 	words := make([]string, 0, len(result))
 	for _, resp := range result {
-		var buf bytes.Buffer
-		io.Copy(&buf, resp.Body)
-		resp.Body.Close()
-		words = append(words, buf.String())
+		if resp != nil {
+			var buf bytes.Buffer
+			io.Copy(&buf, resp.Body)
+			resp.Body.Close()
+			words = append(words, buf.String())
+		} else {
+			words = append(words, " ") // makes it easier to see
+		}
 	}
 	got := strings.Join(words, " ")
 	if p.exp != got {

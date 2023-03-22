@@ -174,3 +174,38 @@ func Alg9(ctx context.Context, work []*http.Request) (result []*http.Response) {
 	}
 	return
 }
+
+// Alg10 returns when all work is done or context is cancelled
+func Alg10(ctx context.Context, work []*http.Request) (result []*http.Response) {
+	type m struct {
+		index int
+		*http.Response
+	}
+	c := make(chan m)
+	complete := make(chan struct{})
+	defer close(c) // make sure you clean up when done
+	result = make([]*http.Response, len(work))
+	go func() {
+		defer close(complete)
+		for i, r := range work {
+			go func(i int, lr *http.Request) {
+				resp, _ := http.DefaultClient.Do(lr)
+				select {
+				case <-ctx.Done():
+				default:
+					c <- m{i, resp} // write to channel
+				}
+			}(i, r)
+		}
+		for range work {
+			v := <-c // read from channel
+			result[v.index] = v.Response
+		}
+	}()
+	select {
+	case <-ctx.Done():
+		// interrupted
+	case <-complete:
+	}
+	return
+}
