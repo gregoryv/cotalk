@@ -209,7 +209,10 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 		P(`Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.`),
 
-		load("testdata/compare_bench.html"),
+		shell(
+			`$ go test -benchmem -bench="(Alg1|Alg5)$"`,
+			"testdata/compare_bench.html",
+		),
 		nav,
 	)
 
@@ -233,6 +236,31 @@ in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "proble
 	)
 	d.Slide(H2("Respect context cancellation"),
 		alg,
+		nav,
+	)
+	d.Slide(H2("Compare all"),
+
+		P(`In this example using channels and sync package primitives
+		seem to yield more or less the same result. There performance
+		boost would be to try and minimize number of allocations. But
+		that is out of scope of this talk.`),
+
+		shell(
+			`$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"`,
+			"testdata/compare_all.html",
+		),
+		nav,
+	)
+
+	d.Slide(H2("Summary"),
+
+		Ul(
+			Li("concurrency is difficult to get right even in Go"),
+			Li("tests are an invaluable tool when debugging concurrency issues"),
+			Li("never assume performance optimizations, always measure"),
+			Li("if performance is good enough with a sequential algorithm, skip the complexity of concurrency"),
+		),
+		//
 		nav,
 	)
 
