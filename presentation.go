@@ -29,13 +29,25 @@ func Presentation() *deck {
 
 	d.Slide(
 		H1("Content"),
-		P(`Discussion and examples of using concepts related to
-		concurrent design.`,
 
-			Ul(Class("group"), Li("background and history"), Li("goroutines"), Li("channels")),
-			Ul(Class("group"), Li("package context"), Li("package sync "), Li("go test bench")),
-			Ul(Class("group"), Li("examples and training")),
+		Ul(Class("group"),
+			Li("background and history"), Li("goroutines"), Li("channels"),
+			Li("package context"), Li("package sync "),
 		),
+		Ul(Class("group"),
+			Li("go test bench"),
+			Li("problem definition"),
+			Li("sequential solution"),
+		),
+		Ul(Class("group"),
+			Li("concurrent solution"),
+			Li("fixing bugs"),
+		),
+		Ul(Class("group"),
+			Li("using channels"),
+			Li("synchronizing"),
+		),
+
 		Br(Attr("clear", "all")),
 
 		P(`Follow along by cloning the examples with `),

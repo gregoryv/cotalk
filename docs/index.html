@@ -9,7 +9,6 @@ margin: 0 0;
 padding: 0 0;
 }
 .slide {
-font-size: 150%;
 padding: 10px 20%;
 text-align: center;
 height: calc( 100vh - 50px);
@@ -138,21 +137,26 @@ color: darkgreen;
 <body>
 <div class="slide" id="1"><a href="#2"><img src="cotalk.png"/></a><span>2023 by Gregory Vinčić</span></div>
 <div class="slide" id="2"><h1>Content</h1>
-<p>Discussion and examples of using concepts related to
-		concurrent design.<ul class="group">
+<ul class="group">
 <li>background and history</li>
 <li>goroutines</li>
 <li>channels</li>
-</ul>
-<ul class="group">
 <li>package context</li>
 <li>package sync </li>
-<li>go test bench</li>
 </ul>
 <ul class="group">
-<li>examples and training</li>
+<li>go test bench</li>
+<li>problem definition</li>
+<li>sequential solution</li>
 </ul>
-</p>
+<ul class="group">
+<li>concurrent solution</li>
+<li>fixing bugs</li>
+</ul>
+<ul class="group">
+<li>using channels</li>
+<li>synchronizing</li>
+</ul>
 <br clear="all"/><p>Follow along by cloning the examples with </p>
 <pre class="shell dark">$ git clone git@github.com:preferit/cotalk.git
 $ cd cotalk</pre><br clear="all"/><nav><ul>
