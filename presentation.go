@@ -331,7 +331,7 @@ func mustLoad(src string) string {
 	return string(data)
 }
 
-//go:embed ex* testdata *.go
+//go:embed testdata *.go
 var assets embed.FS
 
 type navbar struct {
