@@ -7,12 +7,16 @@ import (
 )
 
 // Alg1 solves the work sequentially
-func Alg1(work []*http.Request) (result []*http.Response) {
+func Alg1(work []*http.Request) ([]*http.Response) {
+	result := make([]*http.Response, 0, len(work))
 	for _, r := range work {
-		resp, _ := http.DefaultClient.Do(r)
+		resp, err := http.DefaultClient.Do(r)
+		if err != nil {
+			panic(err.Error())
+		}
 		result = append(result, resp)
 	}
-	return
+	return result
 }
 
 // Alg2 uses sync.WaitGroup to wait for all responses
