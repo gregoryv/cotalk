@@ -6,8 +6,8 @@ import (
 	"sync"
 )
 
-// Alg1 solves the work sequentially
-func Alg1(work []*http.Request) ([]*http.Response) {
+// Alg01 solves the work sequentially
+func Alg01(work []*http.Request) []*http.Response {
 	result := make([]*http.Response, 0, len(work))
 	for _, r := range work {
 		resp, err := http.DefaultClient.Do(r)
@@ -19,8 +19,8 @@ func Alg1(work []*http.Request) ([]*http.Response) {
 	return result
 }
 
-// Alg2 uses sync.WaitGroup to wait for all responses
-func Alg2(work []*http.Request) (result []*http.Response) {
+// Alg02 uses sync.WaitGroup to wait for all responses
+func Alg02(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
 		wg.Add(1)
@@ -34,8 +34,8 @@ func Alg2(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg3 fixes reference problem inside loop
-func Alg3(work []*http.Request) (result []*http.Response) {
+// Alg03 fixes reference problem inside loop
+func Alg03(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	for _, r := range work {
 		wg.Add(1)
@@ -50,8 +50,8 @@ func Alg3(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg4 synchronizes writes accross go routines
-func Alg4(work []*http.Request) (result []*http.Response) {
+// Alg04 synchronizes writes accross go routines
+func Alg04(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	var m sync.Mutex
 	for _, r := range work {
@@ -69,8 +69,8 @@ func Alg4(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg5 fix order
-func Alg5(work []*http.Request) (result []*http.Response) {
+// Alg05 fix order
+func Alg05(work []*http.Request) (result []*http.Response) {
 	var wg sync.WaitGroup
 	var m sync.Mutex
 	result = make([]*http.Response, len(work))
@@ -89,8 +89,8 @@ func Alg5(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg6 uses channel to synchronize responses
-func Alg6(work []*http.Request) (result []*http.Response) {
+// Alg06 uses channel to synchronize responses
+func Alg06(work []*http.Request) (result []*http.Response) {
 	c := make(chan *http.Response)
 	for _, r := range work {
 		go func(lr *http.Request) {
@@ -105,8 +105,8 @@ func Alg6(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg7 uses channel to synchronize responses with ordered result
-func Alg7(work []*http.Request) (result []*http.Response) {
+// Alg07 uses channel to synchronize responses with ordered result
+func Alg07(work []*http.Request) (result []*http.Response) {
 	type m struct {
 		index int
 		*http.Response
@@ -126,8 +126,8 @@ func Alg7(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg8 uses channel to synchronize responses with ordered result
-func Alg8(work []*http.Request) (result []*http.Response) {
+// Alg08 uses channel to synchronize responses with ordered result
+func Alg08(work []*http.Request) (result []*http.Response) {
 	type m struct {
 		index int
 		*http.Response
@@ -148,8 +148,8 @@ func Alg8(work []*http.Request) (result []*http.Response) {
 	return
 }
 
-// Alg9 returns when all work is done or context is cancelled
-func Alg9(ctx context.Context, work []*http.Request) (result []*http.Response) {
+// Alg09 returns when all work is done or context is cancelled
+func Alg09(ctx context.Context, work []*http.Request) (result []*http.Response) {
 	type m struct {
 		index int
 		*http.Response

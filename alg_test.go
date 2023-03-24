@@ -7,87 +7,87 @@ import (
 	"time"
 )
 
-func BenchmarkAlg1(b *testing.B) {
+func BenchmarkAlg01(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg1); err != nil {
+		if err := problem.Solve(Alg01); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg2(b *testing.B) {
+func BenchmarkAlg02(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg2); err != nil {
+		if err := problem.Solve(Alg02); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg3(b *testing.B) {
+func BenchmarkAlg03(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg3); err != nil {
+		if err := problem.Solve(Alg03); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg4(b *testing.B) {
+func BenchmarkAlg04(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg4); err != nil {
+		if err := problem.Solve(Alg04); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg5(b *testing.B) {
+func BenchmarkAlg05(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg5); err != nil {
+		if err := problem.Solve(Alg05); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg6(b *testing.B) {
+func BenchmarkAlg06(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg6); err != nil {
+		if err := problem.Solve(Alg06); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg7(b *testing.B) {
+func BenchmarkAlg07(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg7); err != nil {
+		if err := problem.Solve(Alg07); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg8(b *testing.B) {
+func BenchmarkAlg08(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
-		if err := problem.Solve(Alg8); err != nil {
+		if err := problem.Solve(Alg08); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-func BenchmarkAlg9(b *testing.B) {
+func BenchmarkAlg09(b *testing.B) {
 	srv, problem := Setup()
 	defer srv.Close()
 
@@ -95,7 +95,7 @@ func BenchmarkAlg9(b *testing.B) {
 	alg := func() Algorithm {
 		return func(work []*http.Request) []*http.Response {
 			ctx, _ := context.WithTimeout(context.Background(), 12*time.Millisecond)
-			return Alg9(ctx, work)
+			return Alg09(ctx, work)
 		}
 	}()
 

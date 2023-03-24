@@ -2,8 +2,9 @@
 
 ## [unreleased]
 
-- Fix embed problem
+- rename test methods to simplify -bench regexp
+- fix embed problem
 
 ## [0.1.0] 2023-03-22
 
-- Initial version presented at Preferit conference 2023-03-23
+- initial version presented at Preferit conference 2023-03-23

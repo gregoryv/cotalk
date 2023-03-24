@@ -171,7 +171,7 @@ processes and APIs, not for passing optional parameters to functions.
 
 		P(`Each algorithm in these examples is tested like this`),
 
-		loadFunc("../alg_test.go", "BenchmarkAlg1"),
+		loadFunc("../alg_test.go", "BenchmarkAlg01"),
 
 		P(`The problem and it's verification method Solve is found
 in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "problem.go"),
@@ -370,7 +370,7 @@ type algorithms struct {
 }
 
 func (a *algorithms) BuildElement() *Element {
-	name := fmt.Sprintf("Alg%v", a.current)
+	name := fmt.Sprintf("Alg%02v", a.current)
 	a.current++
 	fn := files.MustLoadFunc("../alg.go", name)
 	lines := strings.Count(fn, "\n")
