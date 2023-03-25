@@ -15,6 +15,7 @@ func themeOldstyle() *CSS {
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",
+		"font-size: 1.5vh",
 	)
 
 	// navbar
