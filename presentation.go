@@ -334,6 +334,9 @@ func mustLoad(src string) string {
 //go:embed testdata *.go
 var assets embed.FS
 
+//go:embed docs/enhance.js
+var enhancejs string
+
 type navbar struct {
 	max     int // number of slides
 	current int // current slide

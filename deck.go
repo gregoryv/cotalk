@@ -43,7 +43,7 @@ func (d *deck) Page() *web.Page {
 		slide.With(content)
 		body.With(slide)
 	}
-
+	body.With(Script(enhancejs))
 	return NewFile("index.html",
 		Html(
 			Head(

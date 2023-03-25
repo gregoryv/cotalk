@@ -1,9 +1,16 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/preferit/cotalk"
 )
 
 func main() {
-	cotalk.Presentation().Page().SaveAs("index.html")
+	page := cotalk.Presentation().Page()
+	if err := page.SaveAs("index.html"); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }

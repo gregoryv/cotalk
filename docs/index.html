@@ -391,12 +391,9 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		</pre><pre>var Canceled = errors.New("context canceled")
 var DeadlineExceeded error = deadlineExceededError{}
-<span class="keyword">func</span> Cause(c Context) error
 <span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
-<span class="keyword">func</span> WithCancelCause(parent Context) (ctx Context, cancel CancelCauseFunc)
 <span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
 <span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
-<span class="keyword">type</span> CancelCauseFunc <span class="keyword">func</span>(cause error)
 <span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
 <span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
     <span class="keyword">func</span> Background() Context
@@ -1302,5 +1299,44 @@ ok  	github.com/preferit/cotalk	3.652s
 </ul>
 </nav>
 </div>
+<script>function enhance() {
+    // if there is no hash, start with the first slide
+    var hash = window.location.hash;
+    if (hash == "") {
+	window.location += "#1"
+	return
+    }
+
+    // handle clicks on slide changes
+    window.onhashchange = toggleSlide;
+
+    hash = hash.substring(1) // ignore the #
+    var slides = document.getElementsByClassName("slide");
+    for (var i = 0; i < slides.length; i++) {
+	var s = slides.item(i);
+
+	// hide all but the hashed one	
+	if (s.id != hash) {
+	    s.style.display = 'none';
+	} else {
+	    s.style.diplay = 'block';
+	}
+    }
+}
+
+var currentHash = window.location.hash;
+
+function toggleSlide() {
+    var c = document.getElementById(currentHash.substring(1));
+    c.style.display = 'none';
+    var n = document.getElementById(window.location.hash.substring(1))
+    n.style.display = 'block';
+    currentHash = window.location.hash;
+}
+
+
+
+enhance()
+</script>
 </body>
 </html>
