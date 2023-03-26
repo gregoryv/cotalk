@@ -357,7 +357,7 @@ type navbar struct {
 func (b *navbar) BuildElement() *Element {
 	ul := Ul()
 	groupDivider := map[int]bool{
-		8:  true,
+		9:  true,
 		12: true, // concurrent
 		17: true, // channels
 	}
