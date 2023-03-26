@@ -547,6 +547,10 @@ func theme() *CSS {
 		"margin: 0 0",
 		"background-color: "+bg,
 		"vertical-align: center",
+		"background-image: url('halfgopher.png')",
+		"background-repeat: no-repeat",
+		"background-position: 90% 3.7vh",
+		"height: 9vh",
 	)
 	css.Style("header h1, header h2",
 		"font-size: 3vh",
@@ -616,7 +620,7 @@ func theme() *CSS {
 		"background-color: #fafafa",
 		"tab-size: 4",
 		"-moz-tab-size: 4",
-		"min-width: 40vw",
+		"min-width: 35vw",
 	)
 
 	css.Style(".srcfile code",
@@ -627,6 +631,7 @@ func theme() *CSS {
 		"display: block",
 		"text-align: left",
 		"font-family: Inconsolata",
+		"overflow: wrap",
 	)
 	css.Style(".srcfile code .line", // each line
 		"display: block",
@@ -651,6 +656,7 @@ func theme() *CSS {
 		"padding: 1em",
 		"border-radius: 10px",
 		"min-width: 40vw",
+		"overflow: wrap",
 	)
 	css.Style(".dark",
 		"background-color: #2e2e34",
