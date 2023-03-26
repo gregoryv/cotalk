@@ -10,26 +10,33 @@ import (
 	"time"
 )
 
-// Setup returns running test server and the letters problem to solve.
-// The problem can be solved multiple times.
-func Setup() (*httptest.Server, *OrderedLetters) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		<-time.After(10 * time.Millisecond)
-		w.Write([]byte(r.URL.Path[1:]))
+// NewOrderedLetters returns a problem defined as
+//
+//   - get all letters using a list of requests
+//   - in the given order
+//
+// letters should be a space separated string of letters
+func NewOrderedLetters(letters string) *OrderedLetters {
+	return &OrderedLetters{
+		exp: letters,
 	}
-	srv := httptest.NewServer(http.HandlerFunc(handler))
-	prob := &OrderedLetters{
-		srv: srv,
-		exp: Letters,
-	}
-	return srv, prob
 }
 
 const Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"
 
 type OrderedLetters struct {
-	srv *httptest.Server
+	url string
 	exp string
+}
+
+func (p *OrderedLetters) Server() *httptest.Server {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		<-time.After(10 * time.Millisecond)
+		w.Write([]byte(r.URL.Path[1:]))
+	}
+	srv := httptest.NewServer(http.HandlerFunc(handler))
+	p.url = srv.URL
+	return srv
 }
 
 func (p *OrderedLetters) Solve(alg Algorithm) error {
@@ -37,7 +44,7 @@ func (p *OrderedLetters) Solve(alg Algorithm) error {
 	words := strings.Split(p.exp, " ")
 	work := make([]*http.Request, len(words))
 	for i, word := range words {
-		work[i], _ = http.NewRequest("GET", p.srv.URL+"/"+word, http.NoBody)
+		work[i], _ = http.NewRequest("GET", p.url+"/"+word, http.NoBody)
 	}
 
 	// run the algorithm

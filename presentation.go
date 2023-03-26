@@ -168,7 +168,7 @@ processes and APIs, not for passing optional parameters to functions.
 			//
 		),
 
-		load("letters.go"),
+		loadFunc("../letters.go", "NewOrderedLetters"),
 		nav,
 	)
 
