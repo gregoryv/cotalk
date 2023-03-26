@@ -34,26 +34,30 @@ func Presentation() *deck {
 
 	d.Slide(
 		H2("Content"),
-
-		Ul(Class("group"),
-			Li("background and history"), Li("goroutines"), Li("channels"),
-			Li("package context"), Li("package sync "), Li("go test bench"),
+		Table(Tr(Td(
+			Ul(Class("group"),
+				Li("background and history"), Li("goroutines"), Li("channels"),
+				Li("package context"), Li("package sync "), Li("go test bench"),
+			),
+		), Td(
+			Ul(Class("group"),
+				Li("problem definition"),
+				Li("letters challenge"),
+				Li("sequential solution"),
+			),
+		), Td(
+			Ul(Class("group"),
+				Li("concurrent solution"),
+				Li("fixing bugs"),
+			),
+		), Td(
+			Ul(Class("group"),
+				Li("using channels"),
+				Li("sync and interrupt"),
+				Li("compare performance"),
+			),
+		)),
 		),
-		Ul(Class("group"),
-			Li("problem definition"),
-			Li("letters challenge"),
-			Li("sequential solution"),
-		),
-		Ul(Class("group"),
-			Li("concurrent solution"),
-			Li("fixing bugs"),
-		),
-		Ul(Class("group"),
-			Li("using channels"),
-			Li("sync and interrupt"),
-			Li("compare performance"),
-		),
-
 		Br(Attr("clear", "all")),
 
 		P(`Follow along by cloning the examples with `),
@@ -657,10 +661,13 @@ func theme() *CSS {
 		"margin-right: 2em",
 	)
 	css.Style(".group",
-		"float: left",
 		"text-align: left",
 		"margin-right: 3em",
 	)
+	css.Style(".group:first-child",
+		"margin-left: 5vw",
+	)
+
 	css.Style("td",
 		"vertical-align: top",
 	)
