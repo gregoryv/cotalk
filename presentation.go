@@ -284,6 +284,7 @@ func load(src string) *Element {
 	v := mustLoad(src)
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlight(v)
+	v = numLines(v, 1)
 	return Div(
 		Class("srcfile"),
 		Pre(Code(v)),
@@ -298,6 +299,15 @@ func loadFunc(file, src string) *Element {
 		Class("srcfile"),
 		Pre(Code(v)),
 	)
+}
+
+func numLines(v string, n int) string {
+	lines := strings.Split(v, "\n")
+	for i, l := range lines {
+		lines[i] = fmt.Sprintf("<span class=line><i>%3v</i> %s</span>", n, l)
+		n++
+	}
+	return strings.Join(lines, "\n")
 }
 
 func godoc(pkg, short string) *Element {
@@ -378,11 +388,13 @@ func (a *algorithms) BuildElement() *Element {
 	a.current++
 	fn := files.MustLoadFunc("../alg.go", name)
 	lines := strings.Count(fn, "\n")
+	from := a.atLine
 	v := files.MustLoadLines("../alg.go", a.atLine, a.atLine+lines)
 	a.atLine = a.atLine + lines + 2
 
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlight(v)
+	v = numLines(v, from)
 	return Wrap(
 		Div(
 			Class("srcfile"),
@@ -554,20 +566,29 @@ func themeOldstyle() *CSS {
 		"-moz-tab-size: 4",
 	)
 
-	css.Style(".filename",
-		"float: left",
-		"margin-right: 1.6em",
-		"margin-top: -1.6em",
-	)
-
 	css.Style(".srcfile code",
-		"padding: .6em 0 .6em 0",
+		"padding: .6em 0 2vh 0",
 		"background-image: url(\"printout-whole.png\")",
 		"background-repeat: repeat-y",
 		"background-position: right top",
 		"display: block",
 		"text-align: left",
 	)
+	css.Style(".srcfile code .line", // each line
+		"display: block",
+		"width: 98%",
+		"clear: both",
+		"margin-bottom: -1.5vh",
+	)
+	css.Style(".srcfile code span:hover", // each line
+		"background-color: wheat",
+	)
+
+	css.Style(".srcfile code i",
+		"font-style: normal",
+		"color: #a2a2a2",
+	)
+
 	// toc
 	css.Style("li.h3",
 		"margin-left: 2em",

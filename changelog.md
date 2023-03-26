@@ -2,6 +2,7 @@
 
 ## [unreleased]
 
+- show line numbers in code examples
 - improve styling for better visibility
 - enhance with javascript
 - rename test methods to simplify -bench regexp
