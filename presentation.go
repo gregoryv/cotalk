@@ -549,7 +549,7 @@ func theme() *CSS {
 		"vertical-align: center",
 		"background-image: url('halfgopher.png')",
 		"background-repeat: no-repeat",
-		"background-position: 90% 3.7vh",
+		"background-position: 90% 4.4vh",
 		"height: 9vh",
 	)
 	css.Style("header h1, header h2",
