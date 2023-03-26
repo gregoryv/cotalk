@@ -22,10 +22,6 @@ border: 1px solid #cde9e9;
 margin: 0 0;
 background-color: #cde9e9;
 vertical-align: center;
-background-image: url('halfgopher.png');
-background-repeat: no-repeat;
-background-position: 90% 4.4vh;
-height: 9vh;
 }
 header h1, header h2 {
 font-size: 3vh;
@@ -513,7 +509,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <span class=line><i> 17</i>     time.Sleep(<span class="type">time.Millisecond</span>)</span>
 <span class=line><i> 18</i> }</span>
 <span class=line><i> 19</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -bench=BenchmarkX -v .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -bench=BenchmarkX -v<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz

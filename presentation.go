@@ -155,7 +155,7 @@ processes and APIs, not for passing optional parameters to functions.
 			load("benchx_test.go"),
 		), Td(
 			shell(
-				"$ go test -bench=BenchmarkX -v .",
+				"$ go test -bench=BenchmarkX -v",
 				"testdata/benchx.html",
 			),
 		))),
@@ -547,10 +547,6 @@ func theme() *CSS {
 		"margin: 0 0",
 		"background-color: "+bg,
 		"vertical-align: center",
-		"background-image: url('halfgopher.png')",
-		"background-repeat: no-repeat",
-		"background-position: 90% 4.4vh",
-		"height: 9vh",
 	)
 	css.Style("header h1, header h2",
 		"font-size: 3vh",
