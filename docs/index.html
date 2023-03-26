@@ -14,25 +14,24 @@ padding: 0 0;
 margin: 0 0;
 padding: 0 0;
 text-align: center;
-height: calc( 100vh - 50px);
+height: 100vh ;
 }
 .slide header {
 display: block;
 border: 1px solid #cde9e9;
-height: 10vh;
 margin: 0 0;
 background-color: #cde9e9;
 vertical-align: center;
 }
-header h2 {
+header h1, header h2 {
 font-size: 3vh;
 }
 .slide .content {
-padding: 2vh 10vh;
+padding: 2vh 10%;
 }
 .slide ul, p, pre {
 text-align: left;
-font-size: 1.5vh;
+font-size: 1.7vh;
 }
 .slide nav {
 text-align: center;
@@ -88,6 +87,7 @@ padding-left: 36px;
 background-color: #fafafa;
 tab-size: 4;
 -moz-tab-size: 4;
+min-width: 40vw;
 }
 .srcfile code {
 padding: .6em 0 2vh 0;
@@ -105,7 +105,7 @@ clear: both;
 margin-bottom: -1.5vh;
 }
 .srcfile code span:hover {
-background-color: wheat;
+background-color: #b4eeb4;
 }
 .srcfile code i {
 font-style: normal;
@@ -117,6 +117,7 @@ margin-left: 2em;
 .shell {
 padding: 1em;
 border-radius: 10px;
+min-width: 40vw;
 }
 .dark {
 background-color: #2e2e34;
@@ -481,7 +482,8 @@ var DeadlineExceeded error = deadlineExceededError{}
 </div>
 <div class="slide" id="8"><header><h2>go test -bench</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
 <span class=line><i>  2</i> </span>
 <span class=line><i>  3</i> <span class="keyword">import</span> (</span>
 <span class=line><i>  4</i>     "fmt"</span>
@@ -500,7 +502,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <span class=line><i> 17</i>     time.Sleep(<span class="type">time.Millisecond</span>)</span>
 <span class=line><i> 18</i> }</span>
 <span class=line><i> 19</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -bench=BenchmarkX -v .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -bench=BenchmarkX -v .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -511,7 +513,9 @@ N is 1100
 BenchmarkX-16    	    1100	   1095229 ns/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.320s
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -597,7 +601,8 @@ ok  	github.com/preferit/cotalk	1.320s
 </div>
 <div class="slide" id="10"><header><h2>The letter challenge</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 13</i> <span class="comment">// NewLetterChallenge returns a problem defined as</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 13</i> <span class="comment">// NewLetterChallenge returns a problem defined as</span></span>
 <span class=line><i> 14</i> <span class="comment">//</span></span>
 <span class=line><i> 15</i> <span class="comment">//   - get all letters using a list of requests</span></span>
 <span class=line><i> 16</i> <span class="comment">//   - in the given order</span></span>
@@ -623,8 +628,8 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 36</i>     p.url = <span class="type">srv.URL</span></span>
 <span class=line><i> 37</i>     <span class="keyword">return</span> srv</span>
 <span class=line><i> 38</i> }</span>
-<span class=line><i> 39</i> </span>
-<span class=line><i> 40</i> <span class="keyword">func</span> (p *OrderedLetters) Solve(alg Algorithm) error {</span>
+<span class=line><i> 39</i> </span></code></pre></div>
+</td><td><div class="srcfile"><pre><code><span class=line><i> 40</i> <span class="keyword">func</span> (p *OrderedLetters) Solve(alg Algorithm) error {</span>
 <span class=line><i> 41</i>     <span class="comment">// create the workload, ie. requests</span></span>
 <span class=line><i> 42</i>     words := strings.Split(p.exp, " ")</span>
 <span class=line><i> 43</i>     work := make([]*http.Request, len(words))</span>
@@ -638,7 +643,27 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 51</i>     <span class="comment">// verify the result</span></span>
 <span class=line><i> 52</i>     <span class="keyword">return</span> p.verify(work, result)</span>
 <span class=line><i> 53</i> }</span>
-<span class=line><i> 54</i> </span></code></pre></div>
+<span class=line><i> 54</i> </span>
+<span class=line><i> 55</i> <span class="keyword">func</span> (p *OrderedLetters) verify(work []*http.Request, result []*<span class="type">http.Response</span>) error {</span>
+<span class=line><i> 56</i>     got := make([]string, 0, len(result))</span>
+<span class=line><i> 57</i>     <span class="keyword">for</span> _, resp := <span class="keyword">range</span> result {</span>
+<span class=line><i> 58</i>         <span class="keyword">if</span> resp != nil {</span>
+<span class=line><i> 59</i>             <span class="keyword">var</span> buf <span class="type">bytes.Buffer</span></span>
+<span class=line><i> 60</i>             io.Copy(&buf, <span class="type">resp.Body</span>)</span>
+<span class=line><i> 61</i>             resp.Body.Close()</span>
+<span class=line><i> 62</i>             got = append(got, buf.String())</span>
+<span class=line><i> 63</i>         } else {</span>
+<span class=line><i> 64</i>             got = append(got, " ") <span class="comment">// makes it easier to see</span></span>
+<span class=line><i> 65</i>         }</span>
+<span class=line><i> 66</i>     }</span>
+<span class=line><i> 67</i>     <span class="keyword">if</span> got := strings.Join(got, " "); p.exp != got {</span>
+<span class=line><i> 68</i>         <span class="keyword">return</span> fmt.Errorf("\nexp: %s\ngot: %s", p.exp, got)</span>
+<span class=line><i> 69</i>     }</span>
+<span class=line><i> 70</i>     <span class="keyword">return</span> nil</span>
+<span class=line><i> 71</i> }</span>
+<span class=line><i> 72</i> </span></code></pre></div>
+</td></tr>
+</table>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -725,7 +750,8 @@ ok  	github.com/preferit/cotalk	1.320s
 <div class="slide" id="12"><header><h2>Sequential</h2>
 </header>
 <div class="content"><p>Simple implementation though very low performance</p>
-<div class="srcfile"><pre><code><span class=line><i>  9</i> <span class="comment">// Alg01 solves the work sequentially</span></span>
+<table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>  9</i> <span class="comment">// Alg01 solves the work sequentially</span></span>
 <span class=line><i> 10</i> <span class="keyword">func</span> Alg01(work []*<span class="type">http.Request</span>) []*http.Response {</span>
 <span class=line><i> 11</i>     result := make([]*http.Response, 0, len(work))</span>
 <span class=line><i> 12</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -738,14 +764,16 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 19</i>     <span class="keyword">return</span> result</span>
 <span class=line><i> 20</i> }</span>
 <span class=line><i> 21</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 BenchmarkAlg01-16    	       6	 175604692 ns/op	  279224 B/op	    1980 allocs/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.236s
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -779,7 +807,8 @@ ok  	github.com/preferit/cotalk	1.236s
 </div>
 <div class="slide" id="13"><header><h2>Concurrent using sync.WaitGroup</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 22</i> <span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 22</i> <span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></span>
 <span class=line><i> 23</i> <span class="keyword">func</span> Alg02(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 24</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 25</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -794,7 +823,7 @@ ok  	github.com/preferit/cotalk	1.236s
 <span class=line><i> 34</i>     <span class="keyword">return</span></span>
 <span class=line><i> 35</i> }</span>
 <span class=line><i> 36</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
     alg_test.go:22: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f f f f f f f f f f f f f f f f
@@ -802,7 +831,9 @@ ok  	github.com/preferit/cotalk	1.236s
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.013s
 <span style="color:red;">FAIL</span>
-</pre><p>Why does it fail?</p>
+</pre></td></tr>
+</table>
+<p>Why does it fail?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -837,7 +868,8 @@ exit status 1
 </div>
 <div class="slide" id="14"><header><h2>Arguments are evaluated at calltime</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 37</i> <span class="comment">// Alg03 fixes reference problem inside loop</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 37</i> <span class="comment">// Alg03 fixes reference problem inside loop</span></span>
 <span class=line><i> 38</i> <span class="keyword">func</span> Alg03(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 39</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 40</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -853,7 +885,7 @@ exit status 1
 <span class=line><i> 50</i>     <span class="keyword">return</span></span>
 <span class=line><i> 51</i> }</span>
 <span class=line><i> 52</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
     alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
@@ -861,7 +893,9 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1</pre></p>
+</pre></td></tr>
+</table>
+<p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1</pre></p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -896,7 +930,8 @@ exit status 1
 </div>
 <div class="slide" id="15"><header><h2>Protect concurrent writes with sync.Mutex</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 53</i> <span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 53</i> <span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></span>
 <span class=line><i> 54</i> <span class="keyword">func</span> Alg04(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 55</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 56</i>     <span class="keyword">var</span> m <span class="type">sync.Mutex</span></span>
@@ -915,7 +950,7 @@ exit status 1
 <span class=line><i> 69</i>     <span class="keyword">return</span></span>
 <span class=line><i> 70</i> }</span>
 <span class=line><i> 71</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
     alg_test.go:42: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
@@ -923,7 +958,9 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><p>Why does it fail?</p>
+</pre></td></tr>
+</table>
+<p>Why does it fail?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -958,7 +995,8 @@ exit status 1
 </div>
 <div class="slide" id="16"><header><h2>Sort results</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 72</i> <span class="comment">// Alg05 fix order</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 72</i> <span class="comment">// Alg05 fix order</span></span>
 <span class=line><i> 73</i> <span class="keyword">func</span> Alg05(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 74</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 75</i>     <span class="keyword">var</span> m <span class="type">sync.Mutex</span></span>
@@ -978,14 +1016,16 @@ exit status 1
 <span class=line><i> 89</i>     <span class="keyword">return</span></span>
 <span class=line><i> 90</i> }</span>
 <span class=line><i> 91</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 BenchmarkAlg05-16    	     100	  13281838 ns/op	  289424 B/op	    2018 allocs/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.344s
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -1063,7 +1103,8 @@ ok  	github.com/preferit/cotalk	2.413s
 </div>
 <div class="slide" id="18"><header><h2>Using channel</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i> 92</i> <span class="comment">// Alg06 uses channel to synchronize responses</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i> 92</i> <span class="comment">// Alg06 uses channel to synchronize responses</span></span>
 <span class=line><i> 93</i> <span class="keyword">func</span> Alg06(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 94</i>     c := make(chan *<span class="type">http.Response</span>)</span>
 <span class=line><i> 95</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -1079,7 +1120,7 @@ ok  	github.com/preferit/cotalk	2.413s
 <span class=line><i>105</i>     <span class="keyword">return</span></span>
 <span class=line><i>106</i> }</span>
 <span class=line><i>107</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
     alg_test.go:62: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8
@@ -1087,7 +1128,9 @@ ok  	github.com/preferit/cotalk	2.413s
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -1121,7 +1164,8 @@ exit status 1
 </div>
 <div class="slide" id="19"><header><h2>Correct order using channel</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i>108</i> <span class="comment">// Alg07 uses channel to synchronize responses with ordered result</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>108</i> <span class="comment">// Alg07 uses channel to synchronize responses with ordered result</span></span>
 <span class=line><i>109</i> <span class="keyword">func</span> Alg07(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>110</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>111</i>         index int</span>
@@ -1142,14 +1186,16 @@ exit status 1
 <span class=line><i>126</i>     <span class="keyword">return</span></span>
 <span class=line><i>127</i> }</span>
 <span class=line><i>128</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 BenchmarkAlg07-16    	     100	  13411328 ns/op	  293160 B/op	    2025 allocs/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.357s
-</pre><p>There is still a bug in this code, do you see it?</p>
+</pre></td></tr>
+</table>
+<p>There is still a bug in this code, do you see it?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -1184,7 +1230,8 @@ ok  	github.com/preferit/cotalk	1.357s
 </div>
 <div class="slide" id="20"><header><h2>Clean up resources</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i>129</i> <span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>129</i> <span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></span>
 <span class=line><i>130</i> <span class="keyword">func</span> Alg08(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>131</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>132</i>         index int</span>
@@ -1206,14 +1253,16 @@ ok  	github.com/preferit/cotalk	1.357s
 <span class=line><i>148</i>     <span class="keyword">return</span></span>
 <span class=line><i>149</i> }</span>
 <span class=line><i>150</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 BenchmarkAlg08-16    	      99	  13400211 ns/op	  292396 B/op	    2022 allocs/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.356s
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -1247,7 +1296,8 @@ ok  	github.com/preferit/cotalk	1.356s
 </div>
 <div class="slide" id="21"><header><h2>Interrupt</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i>151</i> <span class="comment">// Alg09 returns when all work is done or context is cancelled</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>151</i> <span class="comment">// Alg09 returns when all work is done or context is cancelled</span></span>
 <span class=line><i>152</i> <span class="keyword">func</span> Alg09(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>153</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>154</i>         index int</span>
@@ -1278,7 +1328,7 @@ ok  	github.com/preferit/cotalk	1.356s
 <span class=line><i>179</i>     <span class="keyword">return</span></span>
 <span class=line><i>180</i> }</span>
 <span class=line><i>181</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1292,7 +1342,9 @@ created by github.com/preferit/cotalk.Alg9.func1
 exit status 2
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.054s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -1326,7 +1378,8 @@ exit status 2
 </div>
 <div class="slide" id="22"><header><h2>Respect context cancellation</h2>
 </header>
-<div class="content"><div class="srcfile"><pre><code><span class=line><i>182</i> <span class="comment">// Alg10 returns when all work is done or context is cancelled</span></span>
+<div class="content"><table>
+<tr><td><div class="srcfile"><pre><code><span class=line><i>182</i> <span class="comment">// Alg10 returns when all work is done or context is cancelled</span></span>
 <span class=line><i>183</i> <span class="keyword">func</span> Alg10(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>184</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>185</i>         index int</span>
@@ -1361,7 +1414,7 @@ exit status 2
 <span class=line><i>214</i>     <span class="keyword">return</span></span>
 <span class=line><i>215</i> }</span>
 <span class=line><i>216</i> </span></code></pre></div>
-<pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10 .<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1373,7 +1426,9 @@ cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.074s
 <span style="color:red;">FAIL</span>
-</pre><nav><ul>
+</pre></td></tr>
+</table>
+<nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>

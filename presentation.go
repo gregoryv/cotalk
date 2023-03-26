@@ -144,11 +144,14 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("go test -bench"),
-		load("benchx_test.go"),
-		shell(
-			"$ go test -bench=BenchmarkX -v .",
-			"testdata/benchx.html",
-		),
+		Table(Tr(Td(
+			load("benchx_test.go"),
+		), Td(
+			shell(
+				"$ go test -bench=BenchmarkX -v .",
+				"testdata/benchx.html",
+			),
+		))),
 		nav,
 	)
 
@@ -160,7 +163,11 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("The letter challenge"),
-		mustLoadLines("../letters.go", 13, 53),
+		Table(Tr(Td(
+			mustLoadLines("../letters.go", 13, 38),
+		), Td(
+			mustLoadLines("../letters.go", 40, 71),
+		))),
 		nav,
 	)
 
@@ -398,13 +405,19 @@ func (a *algorithms) BuildElement() *Element {
 	v = highlight(v)
 	v = numLines(v, from)
 	return Wrap(
-		Div(
-			Class("srcfile"),
-			Pre(Code(v)),
+		Table(Tr(Td(
+			Div(
+				Class("srcfile"),
+				Pre(Code(v)),
+			),
 		),
-		shell(
-			fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s .", name),
-			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
+			Td(
+				shell(
+					fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s .", name),
+					fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
+				),
+			),
+		),
 		),
 	)
 }
@@ -512,26 +525,25 @@ func theme() *CSS {
 		"margin: 0 0",
 		"padding: 0 0",
 		"text-align: center",
-		"height: calc( 100vh - 50px)",
+		"height: 100vh ",
 	)
 	bg := "#cde9e9"
 	css.Style(".slide header",
 		"display: block",
 		"border: 1px solid "+bg, // needed to make it without margins ?!
-		"height: 10vh",
 		"margin: 0 0",
 		"background-color: "+bg,
 		"vertical-align: center",
 	)
-	css.Style("header h2",
+	css.Style("header h1, header h2",
 		"font-size: 3vh",
 	)
 	css.Style(".slide .content",
-		"padding: 2vh 10vh",
+		"padding: 2vh 10%",
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",
-		"font-size: 1.5vh",
+		"font-size: 1.7vh",
 	)
 
 	// navbar
@@ -591,6 +603,7 @@ func theme() *CSS {
 		"background-color: #fafafa",
 		"tab-size: 4",
 		"-moz-tab-size: 4",
+		"min-width: 40vw",
 	)
 
 	css.Style(".srcfile code",
@@ -609,7 +622,7 @@ func theme() *CSS {
 		"margin-bottom: -1.5vh",
 	)
 	css.Style(".srcfile code span:hover", // each line
-		"background-color: wheat",
+		"background-color: #b4eeb4",
 	)
 
 	css.Style(".srcfile code i",
@@ -624,6 +637,7 @@ func theme() *CSS {
 	css.Style(".shell",
 		"padding: 1em",
 		"border-radius: 10px",
+		"min-width: 40vw",
 	)
 	css.Style(".dark",
 		"background-color: #2e2e34",
