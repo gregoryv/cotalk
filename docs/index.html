@@ -4,7 +4,9 @@
 <head>
 <title>Go concurrency</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<style>html, body {
+<style>@import url('https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro');
+html, body {
+font-family: 'Source Sans Pro', sans-serif;
 margin: 0 0;
 padding: 0 0;
 }
@@ -16,16 +18,17 @@ height: calc( 100vh - 50px);
 }
 .slide header {
 display: block;
-border: 1px solid #f2f2f2;
+border: 1px solid #cde9e9;
 height: 10vh;
 margin: 0 0;
-background-color: #f2f2f2;
+background-color: #cde9e9;
+vertical-align: center;
 }
 header h2 {
 font-size: 3vh;
 }
 .slide .content {
-padding: 2vh 4vh;
+padding: 2vh 10vh;
 }
 .slide ul, p, pre {
 text-align: left;
@@ -93,6 +96,7 @@ background-repeat: repeat-y;
 background-position: right top;
 display: block;
 text-align: left;
+font-family: Inconsolata;
 }
 .srcfile code .line {
 display: block;
@@ -154,7 +158,8 @@ color: darkgreen;
 </style>
 </head>
 <body>
-<div class="slide" id="1"><header><br/></header>
+<div class="slide" id="1"><header><h1>Go concurrency design</h1>
+</header>
 <div class="content"><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/><nav><ul>
 <li class="current"><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -187,7 +192,7 @@ color: darkgreen;
 </nav>
 </div>
 </div>
-<div class="slide" id="2"><header><h1>Content</h1>
+<div class="slide" id="2"><header><h2>Content</h2>
 </header>
 <div class="content"><ul class="group">
 <li>background and history</li>

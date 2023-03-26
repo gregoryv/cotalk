@@ -24,7 +24,7 @@ func Presentation() *deck {
 	alg := &algorithms{current: 1, atLine: 9} // 8 where first func starts
 
 	d.Slide(
-		Br(),
+		H1("Go concurrency design"),
 		A(Href("#2"), Img(Src("cotalk.png"))),
 		Br(), Br(), Br(),
 		Span("Gregory Vinčić, 2023"),
@@ -33,7 +33,7 @@ func Presentation() *deck {
 	)
 
 	d.Slide(
-		H1("Content"),
+		H2("Content"),
 
 		Ul(Class("group"),
 			Li("background and history"), Li("goroutines"), Li("channels"),
@@ -500,7 +500,10 @@ func highlightColors() *CSS {
 
 func theme() *CSS {
 	css := NewCSS()
+	css.Import("https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro")
+
 	css.Style("html, body",
+		"font-family: 'Source Sans Pro', sans-serif",
 		"margin: 0 0",
 		"padding: 0 0",
 	)
@@ -511,19 +514,20 @@ func theme() *CSS {
 		"text-align: center",
 		"height: calc( 100vh - 50px)",
 	)
-	bg := "#f2f2f2"
+	bg := "#cde9e9"
 	css.Style(".slide header",
 		"display: block",
 		"border: 1px solid "+bg, // needed to make it without margins ?!
 		"height: 10vh",
 		"margin: 0 0",
 		"background-color: "+bg,
+		"vertical-align: center",
 	)
 	css.Style("header h2",
 		"font-size: 3vh",
 	)
 	css.Style(".slide .content",
-		"padding: 2vh 4vh",
+		"padding: 2vh 10vh",
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",
@@ -596,6 +600,7 @@ func theme() *CSS {
 		"background-position: right top",
 		"display: block",
 		"text-align: left",
+		"font-family: Inconsolata",
 	)
 	css.Style(".srcfile code .line", // each line
 		"display: block",
