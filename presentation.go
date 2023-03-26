@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"regexp"
 	"strings"
 
 	. "github.com/gregoryv/web"
@@ -392,4 +393,217 @@ func (a *algorithms) BuildElement() *Element {
 			fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
 		),
 	)
+}
+
+// ----------------------------------------
+
+// newDeck returns a deck with default styling and navigation on bottom
+func newDeck() *deck {
+	return &deck{
+		Styles: []*CSS{},
+	}
+}
+
+// Had this idea of a deck of slides; turned out to be less
+// useful. Leaving it here for now.
+type deck struct {
+	Title  string // header title
+	Slides []*Element
+	Styles []*CSS // first one is the deck default styling
+}
+
+// Slide appends a new slide to the deck. elements can be anything
+// supported by the web package.
+func (d *deck) Slide(elements ...interface{}) {
+	d.Slides = append(d.Slides, Wrap(elements...))
+}
+
+// Page returns a web page ready for use.
+func (d *deck) Page() *Page {
+	styles := Style()
+	for _, s := range d.Styles {
+		styles.With(s)
+	}
+	body := Body()
+	for i, content := range d.Slides {
+		j := i + 1
+		id := fmt.Sprintf("%v", j)
+		slide := Div(Class("slide"), Id(id))
+
+		slide.With(content)
+		body.With(slide)
+	}
+	body.With(Script(enhancejs))
+	return NewFile("index.html",
+		Html(
+			Head(
+				Title(d.Title),
+				Meta(Name("viewport"), Content("width=device-width, initial-scale=1")),
+				styles,
+			),
+			body,
+		),
+	)
+}
+
+// ----------------------------------------
+
+// highlight go source code
+func highlight(v string) string {
+	v = keywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
+	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
+	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
+	return v
+}
+
+// highlightGoDoc output
+func highlightGoDoc(v string) string {
+	v = docKeywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
+	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
+	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
+	return v
+}
+
+var types = regexp.MustCompile(`(\W)(\w+\.\w+)(\)|\n)`)
+var keywords = regexp.MustCompile(`(\W?)(^package|select|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
+var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
+var comments = regexp.MustCompile(`(//[^\n]*)`)
+
+func highlightColors() *CSS {
+	css := NewCSS()
+	css.Style(".keyword", "color: darkviolet")
+	css.Style(".type", "color: dodgerblue")
+	css.Style(".comment, .comment>span", "color: darkgreen")
+	return css
+}
+
+// ----------------------------------------
+
+func themeOldstyle() *CSS {
+	css := NewCSS()
+	css.Style("html, body",
+		"margin: 0 0",
+		"padding: 0 0",
+	)
+	css.Style(".slide",
+		"padding: 10px 20%",
+		"text-align: center",
+		"height: calc( 100vh - 50px)",
+	)
+	css.Style(".slide ul, p, pre",
+		"text-align: left",
+		"font-size: 1.5vh",
+	)
+
+	// navbar
+	css.Style(".slide nav",
+		"text-align: center",
+		"float: left",
+		"clear: both",
+		"width: 100%",
+		"display: block",
+		"margin-top: 2em",
+	)
+	css.Style(".slide nav ul",
+		"list-style-type: none",
+		"margin: 0 0",
+		"padding: 0 0",
+		"text-align: center",
+	)
+	css.Style(".slide nav ul li",
+		"margin: 0 1px",
+		"display: inline",
+	)
+	css.Style(".slide nav ul li.current a, .slide nav ul li:hover a",
+		"background-color: #e2e2e2",
+		"border-radius: 5px",
+	)
+	css.Style("nav a:link, nav a:visited",
+		"color: #727272",
+		"padding: 3px 5px",
+		"text-decoration: none",
+		"cursor: pointer",
+	)
+
+	// goish colors
+	css.Style("a:link, a:visited",
+		"color: #007d9c",
+		"text-decoration: none",
+	)
+	css.Style("a:hover",
+		"text-decoration: underline",
+	)
+	css.Style(".header",
+		"width: 100%",
+		"border-bottom: 1px solid #727272",
+		"text-align: right",
+		"margin-top: -2em",
+		"margin-bottom: 1em",
+	)
+	css.Style("h1, h2, h3",
+		"text-align: center",
+	)
+	css.Style(".srcfile",
+		"margin-top: 1.6em",
+		"margin-bottom: 1.6em",
+		"background-image: url(\"printout-whole.png\")",
+		"background-repeat: repeat-y",
+		"padding-left: 36px",
+		"background-color: #fafafa",
+		"tab-size: 4",
+		"-moz-tab-size: 4",
+	)
+
+	css.Style(".filename",
+		"float: left",
+		"margin-right: 1.6em",
+		"margin-top: -1.6em",
+	)
+
+	css.Style(".srcfile code",
+		"padding: .6em 0 .6em 0",
+		"background-image: url(\"printout-whole.png\")",
+		"background-repeat: repeat-y",
+		"background-position: right top",
+		"display: block",
+		"text-align: left",
+	)
+	// toc
+	css.Style("li.h3",
+		"margin-left: 2em",
+	)
+	css.Style(".shell",
+		"padding: 1em",
+		"border-radius: 10px",
+	)
+	css.Style(".dark",
+		"background-color: #2e2e34",
+		"color: aliceblue",
+	)
+	css.Style(".light",
+		"background-color: #ffffff",
+		"color: #3b2616",
+	)
+	css.Style("img.center",
+		"display: block",
+		"margin-left: auto",
+		"margin-right: auto",
+	)
+	css.Style("img.left",
+		"float: left",
+		"margin-right: 2em",
+	)
+	css.Style(".group",
+		"float: left",
+		"text-align: left",
+		"margin-right: 3em",
+	)
+	css.Style("td",
+		"vertical-align: top",
+	)
+	css.Style("td:nth-child(2)",
+		"padding-left: 2em",
+	)
+
+	return css
 }

@@ -2,6 +2,8 @@
 
 ## [unreleased]
 
+- improve styling for better visibility
+- enhance with javascript
 - rename test methods to simplify -bench regexp
 - fix embed problem
 
