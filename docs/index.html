@@ -769,7 +769,7 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 19</i>     <span class="keyword">return</span> result</span>
 <span class=line><i> 20</i> }</span>
 <span class=line><i> 21</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -828,7 +828,7 @@ ok  	github.com/preferit/cotalk	1.236s
 <span class=line><i> 34</i>     <span class="keyword">return</span></span>
 <span class=line><i> 35</i> }</span>
 <span class=line><i> 36</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
     alg_test.go:22: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f f f f f f f f f f f f f f f f
@@ -836,9 +836,9 @@ ok  	github.com/preferit/cotalk	1.236s
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.013s
 <span style="color:red;">FAIL</span>
-</pre></td></tr>
+</pre><p>Why does it fail?</p>
+</td></tr>
 </table>
-<p>Why does it fail?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -890,7 +890,7 @@ exit status 1
 <span class=line><i> 50</i>     <span class="keyword">return</span></span>
 <span class=line><i> 51</i> }</span>
 <span class=line><i> 52</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
     alg_test.go:32: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
@@ -898,9 +898,9 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre></td></tr>
+</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1</pre></p>
+</td></tr>
 </table>
-<p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1</pre></p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -955,7 +955,7 @@ exit status 1
 <span class=line><i> 69</i>     <span class="keyword">return</span></span>
 <span class=line><i> 70</i> }</span>
 <span class=line><i> 71</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
     alg_test.go:42: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
@@ -963,9 +963,9 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre></td></tr>
+</pre><p>Why does it fail?</p>
+</td></tr>
 </table>
-<p>Why does it fail?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -1021,7 +1021,7 @@ exit status 1
 <span class=line><i> 89</i>     <span class="keyword">return</span></span>
 <span class=line><i> 90</i> }</span>
 <span class=line><i> 91</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1125,7 +1125,7 @@ ok  	github.com/preferit/cotalk	2.413s
 <span class=line><i>105</i>     <span class="keyword">return</span></span>
 <span class=line><i>106</i> }</span>
 <span class=line><i>107</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06 .<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
     alg_test.go:62: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8
@@ -1191,16 +1191,16 @@ exit status 1
 <span class=line><i>126</i>     <span class="keyword">return</span></span>
 <span class=line><i>127</i> }</span>
 <span class=line><i>128</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
 BenchmarkAlg07-16    	     100	  13411328 ns/op	  293160 B/op	    2025 allocs/op
 <span style="color:green;">PASS</span>
 ok  	github.com/preferit/cotalk	1.357s
-</pre></td></tr>
+</pre><p>There is still a bug in this code, do you see it?</p>
+</td></tr>
 </table>
-<p>There is still a bug in this code, do you see it?</p>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -1258,7 +1258,7 @@ ok  	github.com/preferit/cotalk	1.357s
 <span class=line><i>148</i>     <span class="keyword">return</span></span>
 <span class=line><i>149</i> }</span>
 <span class=line><i>150</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1333,7 +1333,7 @@ ok  	github.com/preferit/cotalk	1.356s
 <span class=line><i>179</i>     <span class="keyword">return</span></span>
 <span class=line><i>180</i> }</span>
 <span class=line><i>181</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1419,7 +1419,7 @@ exit status 2
 <span class=line><i>214</i>     <span class="keyword">return</span></span>
 <span class=line><i>215</i> }</span>
 <span class=line><i>216</i> </span></code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10 .<br/>goos: linux
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1470,7 +1470,7 @@ exit status 1
 <div class="content"><p>In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
-		that is out of scope of this talk.</p>
+		that is out of scope for this talk.</p>
 <pre class="shell dark">$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk

@@ -21,7 +21,10 @@ func Presentation() *deck {
 	)
 
 	nav := &navbar{current: 1}
-	alg := &algorithms{current: 1, atLine: 9} // 8 where first func starts
+	alg := &algorithms{
+		current: 1,
+		atLine:  9,
+	} // 8 where first func starts
 
 	d.Slide(
 		H1("Go concurrency design"),
@@ -183,37 +186,40 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
-		alg,
+		alg.next(),
 		nav,
 	)
 
 	// Concurrent
 	// ----------------------------------------
 	d.Slide(H2("Concurrent using sync.WaitGroup"),
-		alg,
-		P("Why does it fail?"),
+		alg.next(
+			P("Why does it fail?"),
+		),
 		nav,
 	)
 
 	d.Slide(H2("Arguments are evaluated at calltime"),
-		alg,
-		P(
-			"You might get a different result; why does it still fail? and can the tooling help identify the problem, try ",
-			Pre(Class("shell dark"),
-				"$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1",
+		alg.next(
+			P(
+				"You might get a different result; why does it still fail? and can the tooling help identify the problem, try ",
+				Pre(Class("shell dark"),
+					"$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1",
+				),
 			),
 		),
 		nav,
 	)
 
 	d.Slide(H2("Protect concurrent writes with sync.Mutex"),
-		alg,
-		P("Why does it fail?"),
+		alg.next(
+			P("Why does it fail?"),
+		),
 		nav,
 	)
 
 	d.Slide(H2("Sort results"),
-		alg,
+		alg.next(),
 		nav,
 	)
 
@@ -230,25 +236,26 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("Using channel"),
-		alg,
+		alg.next(),
 		nav,
 	)
 
 	d.Slide(H2("Correct order using channel"),
-		alg,
-		P("There is still a bug in this code, do you see it?"),
+		alg.next(
+			P("There is still a bug in this code, do you see it?"),
+		),
 		nav,
 	)
 	d.Slide(H2("Clean up resources"),
-		alg,
+		alg.next(),
 		nav,
 	)
 	d.Slide(H2("Interrupt"),
-		alg,
+		alg.next(),
 		nav,
 	)
 	d.Slide(H2("Respect context cancellation"),
-		alg,
+		alg.next(),
 		nav,
 	)
 	d.Slide(H2("Compare all"),
@@ -256,7 +263,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P(`In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
-		that is out of scope of this talk.`),
+		that is out of scope for this talk.`),
 
 		shell(
 			`$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"`,
@@ -396,7 +403,7 @@ type algorithms struct {
 	atLine  int
 }
 
-func (a *algorithms) BuildElement() *Element {
+func (a *algorithms) next(extra ...interface{}) *Element {
 	name := fmt.Sprintf("Alg%02v", a.current)
 	a.current++
 	fn := files.MustLoadFunc("../alg.go", name)
@@ -408,6 +415,7 @@ func (a *algorithms) BuildElement() *Element {
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlight(v)
 	v = numLines(v, from)
+
 	return Wrap(
 		Table(Tr(Td(
 			Div(
@@ -417,9 +425,10 @@ func (a *algorithms) BuildElement() *Element {
 		),
 			Td(
 				shell(
-					fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s .", name),
+					fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s", name),
 					fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
 				),
+				Wrap(extra...),
 			),
 		),
 		),
