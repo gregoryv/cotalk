@@ -155,6 +155,11 @@ processes and APIs, not for passing optional parameters to functions.
 	// Problem definition
 	// ----------------------------------------
 	d.Slide(H2("Problem"),
+		load("problem.go"),
+		nav,
+	)
+
+	d.Slide(H2("Letters challenge"),
 		P("A set of letters ", Code(Letters),
 
 			` are available on a server; the problem is to GET them
@@ -162,9 +167,8 @@ processes and APIs, not for passing optional parameters to functions.
 			found on /L, ie. GET /3 would return '3'.`,
 			//
 		),
-		P("To simplify the examples we define the Algorithm that does the work as",
-			Pre(Code(highlight("type Algorithm func(work []*http.Request) (result []*http.Response)"))),
-		),
+
+		load("letters.go"),
 		nav,
 	)
 
@@ -358,7 +362,7 @@ func (b *navbar) BuildElement() *Element {
 	ul := Ul()
 	groupDivider := map[int]bool{
 		9:  true,
-		12: true, // concurrent
+		13: true, // concurrent
 		17: true, // channels
 	}
 
