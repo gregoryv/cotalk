@@ -558,21 +558,51 @@ ok  	github.com/preferit/cotalk	1.320s
 </ul>
 </nav>
 </div>
-<div class="slide" id="10"><h2>Letters challenge</h2>
-<p>A set of letters <code>0 1 2 3 4 5 6 7 8 9 a b c d e f</code> are available on a server; the problem is to GET them
-			and assemble them in the correct order. Each letter is
-			found on /L, ie. GET /3 would return '3'.</p>
-<div class="srcfile"><pre><code><span class="comment">// NewLetterChallenge returns a problem defined as</span>
-<span class="comment">//</span>
-<span class="comment">//   - get all letters using a list of requests</span>
-<span class="comment">//   - in the given order</span>
-<span class="comment">//</span>
-<span class="comment">// letters should be a space separated string of letters</span>
-<span class="keyword">func</span> NewLetterChallenge(letters string) *OrderedLetters {
-    <span class="keyword">return</span> &OrderedLetters{
-        exp: letters,
-    }
-}</code></pre></div>
+<div class="slide" id="10"><h2>The letter challenge</h2>
+<div class="srcfile"><pre><code><span class=line><i> 13</i> <span class="comment">// NewLetterChallenge returns a problem defined as</span></span>
+<span class=line><i> 14</i> <span class="comment">//</span></span>
+<span class=line><i> 15</i> <span class="comment">//   - get all letters using a list of requests</span></span>
+<span class=line><i> 16</i> <span class="comment">//   - in the given order</span></span>
+<span class=line><i> 17</i> <span class="comment">//</span></span>
+<span class=line><i> 18</i> <span class="comment">// letters should be a space separated string of letters</span></span>
+<span class=line><i> 19</i> <span class="keyword">func</span> NewLetterChallenge(letters string) *OrderedLetters {</span>
+<span class=line><i> 20</i>     <span class="keyword">return</span> &OrderedLetters{</span>
+<span class=line><i> 21</i>         exp: letters,</span>
+<span class=line><i> 22</i>     }</span>
+<span class=line><i> 23</i> }</span>
+<span class=line><i> 24</i> </span>
+<span class=line><i> 25</i> <span class="keyword">type</span> OrderedLetters <span class="keyword">struct</span> {</span>
+<span class=line><i> 26</i>     url string</span>
+<span class=line><i> 27</i>     exp string</span>
+<span class=line><i> 28</i> }</span>
+<span class=line><i> 29</i> </span>
+<span class=line><i> 30</i> <span class="keyword">func</span> (p *OrderedLetters) Server() *httptest.Server {</span>
+<span class=line><i> 31</i>     handler := <span class="keyword">func</span>(w http.ResponseWriter, r *<span class="type">http.Request</span>) {</span>
+<span class=line><i> 32</i>         <-time.After(10 * <span class="type">time.Millisecond</span>)</span>
+<span class=line><i> 33</i>         w.Write([]byte(r.URL.Path[1:]))</span>
+<span class=line><i> 34</i>     }</span>
+<span class=line><i> 35</i>     srv := httptest.NewServer(http.HandlerFunc(handler))</span>
+<span class=line><i> 36</i>     p.url = <span class="type">srv.URL</span></span>
+<span class=line><i> 37</i>     <span class="keyword">return</span> srv</span>
+<span class=line><i> 38</i> }</span>
+<span class=line><i> 39</i> </span>
+<span class=line><i> 40</i> <span class="keyword">func</span> (p *OrderedLetters) Solve(alg Algorithm) error {</span>
+<span class=line><i> 41</i>     <span class="comment">// create the workload, ie. requests</span></span>
+<span class=line><i> 42</i>     words := strings.Split(p.exp, " ")</span>
+<span class=line><i> 43</i>     work := make([]*http.Request, len(words))</span>
+<span class=line><i> 44</i>     <span class="keyword">for</span> i, word := <span class="keyword">range</span> words {</span>
+<span class=line><i> 45</i>         work[i], _ = http.NewRequest("GET", p.url+"/"+word, <span class="type">http.NoBody</span>)</span>
+<span class=line><i> 46</i>     }</span>
+<span class=line><i> 47</i> </span>
+<span class=line><i> 48</i>     <span class="comment">// run the algorithm</span></span>
+<span class=line><i> 49</i>     result := alg(work)</span>
+<span class=line><i> 50</i> </span>
+<span class=line><i> 51</i>     <span class="comment">// verify the result</span></span>
+<span class=line><i> 52</i>     <span class="keyword">return</span> p.complete(work, result)</span>
+<span class=line><i> 53</i> }</span>
+<span class=line><i> 54</i> </span>
+<span class=line><i> 55</i> <span class="keyword">func</span> (p *OrderedLetters) complete(work []*http.Request, result []*<span class="type">http.Response</span>) error {</span>
+<span class=line><i> 56</i> </span></code></pre></div>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
@@ -606,18 +636,22 @@ ok  	github.com/preferit/cotalk	1.320s
 </div>
 <div class="slide" id="11"><h2>Verification</h2>
 <p>Each algorithm in these examples is tested like this</p>
-<div class="srcfile"><pre><code><span class="keyword">func</span> BenchmarkAlg01(b *<span class="type">testing.B</span>) {
-    problem := NewLetterChallenge(Letters)
-    srv := problem.Server()
-    <span class="keyword">defer</span> srv.Close()
-    <span class="keyword">for</span> i := 0; i < b.N; i++ {
-        <span class="keyword">if</span> err := problem.Solve(Alg01); err != nil {
-            b.Fatal(err)
-        }
-    }
-}</code></pre></div>
-<p>The problem and it's verification method Solve is found
-in <a href="https://github.com/preferit/cotalk/blob/main/problem.go">problem.go</a></p>
+<div class="srcfile"><pre><code><span class=line><i> 10</i> <span class="keyword">const</span> Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"</span>
+<span class=line><i> 11</i> </span>
+<span class=line><i> 12</i> <span class="keyword">func</span> BenchmarkAlg01(b *<span class="type">testing.B</span>) {</span>
+<span class=line><i> 13</i>     <span class="comment">// setup problem outside the loop</span></span>
+<span class=line><i> 14</i>     problem := NewLetterChallenge(Letters)</span>
+<span class=line><i> 15</i>     srv := problem.Server()</span>
+<span class=line><i> 16</i>     <span class="keyword">defer</span> srv.Close()</span>
+<span class=line><i> 17</i>     b.ResetTimer()</span>
+<span class=line><i> 18</i> </span>
+<span class=line><i> 19</i>     <span class="keyword">for</span> i := 0; i < b.N; i++ {</span>
+<span class=line><i> 20</i>         <span class="keyword">if</span> err := problem.Solve(Alg01); err != nil {</span>
+<span class=line><i> 21</i>             b.Fatal(err)</span>
+<span class=line><i> 22</i>         }</span>
+<span class=line><i> 23</i>     }</span>
+<span class=line><i> 24</i> }</span>
+<span class=line><i> 25</i> </span></code></pre></div>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>

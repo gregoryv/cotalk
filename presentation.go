@@ -159,28 +159,14 @@ processes and APIs, not for passing optional parameters to functions.
 		nav,
 	)
 
-	d.Slide(H2("Letters challenge"),
-		P("A set of letters ", Code(Letters),
-
-			` are available on a server; the problem is to GET them
-			and assemble them in the correct order. Each letter is
-			found on /L, ie. GET /3 would return '3'.`,
-			//
-		),
-
-		loadFunc("../letters.go", "NewLetterChallenge"),
+	d.Slide(H2("The letter challenge"),
+		mustLoadLines("../letters.go", 13, 55),
 		nav,
 	)
 
 	d.Slide(H2("Verification"),
-
 		P(`Each algorithm in these examples is tested like this`),
-
-		loadFunc("../alg_test.go", "BenchmarkAlg01"),
-
-		P(`The problem and it's verification method Solve is found
-in `, A(Href("https://github.com/preferit/cotalk/blob/main/problem.go"), "problem.go"),
-		),
+		mustLoadLines("../alg_test.go", 10, 24),
 		nav,
 	)
 
@@ -346,6 +332,18 @@ func mustLoad(src string) string {
 	return string(data)
 }
 
+func mustLoadLines(filename string, from, to int) *Element {
+	v := files.MustLoadLines(filename, from, to)
+
+	v = strings.ReplaceAll(v, "\t", "    ")
+	v = highlight(v)
+	v = numLines(v, from)
+	return Div(
+		Class("srcfile"),
+		Pre(Code(v)),
+	)
+}
+
 //go:embed testdata *.go
 var assets embed.FS
 
@@ -481,7 +479,7 @@ func highlightGoDoc(v string) string {
 }
 
 var types = regexp.MustCompile(`(\W)(\w+\.\w+)(\)|\n)`)
-var keywords = regexp.MustCompile(`(\W?)(^package|select|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
+var keywords = regexp.MustCompile(`(\W?)(^package|const|select|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
 var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
 var comments = regexp.MustCompile(`(//[^\n]*)`)
 
