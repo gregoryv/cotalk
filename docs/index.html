@@ -9,9 +9,23 @@ margin: 0 0;
 padding: 0 0;
 }
 .slide {
-padding: 10px 20%;
+margin: 0 0;
+padding: 0 0;
 text-align: center;
 height: calc( 100vh - 50px);
+}
+.slide header {
+display: block;
+border: 1px solid #f2f2f2;
+height: 10vh;
+margin: 0 0;
+background-color: #f2f2f2;
+}
+header h2 {
+font-size: 3vh;
+}
+.slide .content {
+padding: 2vh 4vh;
 }
 .slide ul, p, pre {
 text-align: left;
@@ -140,7 +154,8 @@ color: darkgreen;
 </style>
 </head>
 <body>
-<div class="slide" id="1"><br/><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/><nav><ul>
+<div class="slide" id="1"><header><br/></header>
+<div class="content"><a href="#2"><img src="cotalk.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/><nav><ul>
 <li class="current"><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -171,8 +186,10 @@ color: darkgreen;
 </ul>
 </nav>
 </div>
-<div class="slide" id="2"><h1>Content</h1>
-<ul class="group">
+</div>
+<div class="slide" id="2"><header><h1>Content</h1>
+</header>
+<div class="content"><ul class="group">
 <li>background and history</li>
 <li>goroutines</li>
 <li>channels</li>
@@ -227,8 +244,10 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </ul>
 </nav>
 </div>
-<div class="slide" id="3"><h2>Background and history</h2>
-<table>
+</div>
+<div class="slide" id="3"><header><h2>Background and history</h2>
+</header>
+<div class="content"><table>
 <tr><td><img src="th_small.jpg"/></td><td><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
 			Moscow. His research spanned program correctness, sorting
 			and programming languages. His work is freely accessible
@@ -271,8 +290,10 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </ul>
 </nav>
 </div>
-<div class="slide" id="4"><h2>Goroutines</h2>
-<a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a><nav><ul>
+</div>
+<div class="slide" id="4"><header><h2>Goroutines</h2>
+</header>
+<div class="content"><a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -303,8 +324,10 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </ul>
 </nav>
 </div>
-<div class="slide" id="5"><h2>channels</h2>
-<a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a><nav><ul>
+</div>
+<div class="slide" id="5"><header><h2>channels</h2>
+</header>
+<div class="content"><a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a><nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>
 <li><a href="#3">3</a></li>
@@ -335,8 +358,10 @@ $ cd cotalk</pre><br clear="all"/><nav><ul>
 </ul>
 </nav>
 </div>
-<div class="slide" id="6"><h2>package sync</h2>
-<pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
+</div>
+<div class="slide" id="6"><header><h2>package sync</h2>
+</header>
+<div class="content"><pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
 
 Package sync provides basic synchronization primitives such as mutual exclusion
 locks. Other than the Once and WaitGroup types, most are intended for use by
@@ -385,8 +410,10 @@ Values containing the types defined in this package should not be copied.
 </ul>
 </nav>
 </div>
-<div class="slide" id="7"><h2>package context</h2>
-<pre><span class="keyword">package</span> context
+</div>
+<div class="slide" id="7"><header><h2>package context</h2>
+</header>
+<div class="content"><pre><span class="keyword">package</span> context
 
 ...
 
@@ -446,8 +473,10 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ul>
 </nav>
 </div>
-<div class="slide" id="8"><h2>go test -bench</h2>
-<div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
+</div>
+<div class="slide" id="8"><header><h2>go test -bench</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
 <span class=line><i>  2</i> </span>
 <span class=line><i>  3</i> <span class="keyword">import</span> (</span>
 <span class=line><i>  4</i>     "fmt"</span>
@@ -508,8 +537,10 @@ ok  	github.com/preferit/cotalk	1.320s
 </ul>
 </nav>
 </div>
-<div class="slide" id="9"><h2>Problem</h2>
-<div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
+</div>
+<div class="slide" id="9"><header><h2>Problem</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>  1</i> <span class="keyword">package</span> cotalk</span>
 <span class=line><i>  2</i> </span>
 <span class=line><i>  3</i> <span class="keyword">import</span> (</span>
 <span class=line><i>  4</i>     "net/http"</span>
@@ -558,8 +589,10 @@ ok  	github.com/preferit/cotalk	1.320s
 </ul>
 </nav>
 </div>
-<div class="slide" id="10"><h2>The letter challenge</h2>
-<div class="srcfile"><pre><code><span class=line><i> 13</i> <span class="comment">// NewLetterChallenge returns a problem defined as</span></span>
+</div>
+<div class="slide" id="10"><header><h2>The letter challenge</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 13</i> <span class="comment">// NewLetterChallenge returns a problem defined as</span></span>
 <span class=line><i> 14</i> <span class="comment">//</span></span>
 <span class=line><i> 15</i> <span class="comment">//   - get all letters using a list of requests</span></span>
 <span class=line><i> 16</i> <span class="comment">//   - in the given order</span></span>
@@ -632,8 +665,10 @@ ok  	github.com/preferit/cotalk	1.320s
 </ul>
 </nav>
 </div>
-<div class="slide" id="11"><h2>Verification</h2>
-<p>Each algorithm in these examples is tested like this</p>
+</div>
+<div class="slide" id="11"><header><h2>Verification</h2>
+</header>
+<div class="content"><p>Each algorithm in these examples is tested like this</p>
 <div class="srcfile"><pre><code><span class=line><i> 10</i> <span class="keyword">const</span> Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"</span>
 <span class=line><i> 11</i> </span>
 <span class=line><i> 12</i> <span class="keyword">func</span> BenchmarkAlg01(b *<span class="type">testing.B</span>) {</span>
@@ -681,8 +716,10 @@ ok  	github.com/preferit/cotalk	1.320s
 </ul>
 </nav>
 </div>
-<div class="slide" id="12"><h2>Sequential</h2>
-<p>Simple implementation though very low performance</p>
+</div>
+<div class="slide" id="12"><header><h2>Sequential</h2>
+</header>
+<div class="content"><p>Simple implementation though very low performance</p>
 <div class="srcfile"><pre><code><span class=line><i>  9</i> <span class="comment">// Alg01 solves the work sequentially</span></span>
 <span class=line><i> 10</i> <span class="keyword">func</span> Alg01(work []*<span class="type">http.Request</span>) []*http.Response {</span>
 <span class=line><i> 11</i>     result := make([]*http.Response, 0, len(work))</span>
@@ -734,8 +771,10 @@ ok  	github.com/preferit/cotalk	1.236s
 </ul>
 </nav>
 </div>
-<div class="slide" id="13"><h2>Concurrent using sync.WaitGroup</h2>
-<div class="srcfile"><pre><code><span class=line><i> 22</i> <span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></span>
+</div>
+<div class="slide" id="13"><header><h2>Concurrent using sync.WaitGroup</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 22</i> <span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></span>
 <span class=line><i> 23</i> <span class="keyword">func</span> Alg02(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 24</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 25</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -790,8 +829,10 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="14"><h2>Arguments are evaluated at calltime</h2>
-<div class="srcfile"><pre><code><span class=line><i> 37</i> <span class="comment">// Alg03 fixes reference problem inside loop</span></span>
+</div>
+<div class="slide" id="14"><header><h2>Arguments are evaluated at calltime</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 37</i> <span class="comment">// Alg03 fixes reference problem inside loop</span></span>
 <span class=line><i> 38</i> <span class="keyword">func</span> Alg03(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 39</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 40</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -847,8 +888,10 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="15"><h2>Protect concurrent writes with sync.Mutex</h2>
-<div class="srcfile"><pre><code><span class=line><i> 53</i> <span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></span>
+</div>
+<div class="slide" id="15"><header><h2>Protect concurrent writes with sync.Mutex</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 53</i> <span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></span>
 <span class=line><i> 54</i> <span class="keyword">func</span> Alg04(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 55</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 56</i>     <span class="keyword">var</span> m <span class="type">sync.Mutex</span></span>
@@ -907,8 +950,10 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="16"><h2>Sort results</h2>
-<div class="srcfile"><pre><code><span class=line><i> 72</i> <span class="comment">// Alg05 fix order</span></span>
+</div>
+<div class="slide" id="16"><header><h2>Sort results</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 72</i> <span class="comment">// Alg05 fix order</span></span>
 <span class=line><i> 73</i> <span class="keyword">func</span> Alg05(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 74</i>     <span class="keyword">var</span> wg <span class="type">sync.WaitGroup</span></span>
 <span class=line><i> 75</i>     <span class="keyword">var</span> m <span class="type">sync.Mutex</span></span>
@@ -966,8 +1011,10 @@ ok  	github.com/preferit/cotalk	1.344s
 </ul>
 </nav>
 </div>
-<div class="slide" id="17"><h2>Improved performance paid with complexity</h2>
-<p>Comparing the sequential working algorithm to the working
+</div>
+<div class="slide" id="17"><header><h2>Improved performance paid with complexity</h2>
+</header>
+<div class="content"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
 <pre class="shell dark">$ go test -benchmem -bench="(Alg1|Alg5)$"<br/>goos: linux
 goarch: amd64
@@ -1008,8 +1055,10 @@ ok  	github.com/preferit/cotalk	2.413s
 </ul>
 </nav>
 </div>
-<div class="slide" id="18"><h2>Using channel</h2>
-<div class="srcfile"><pre><code><span class=line><i> 92</i> <span class="comment">// Alg06 uses channel to synchronize responses</span></span>
+</div>
+<div class="slide" id="18"><header><h2>Using channel</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i> 92</i> <span class="comment">// Alg06 uses channel to synchronize responses</span></span>
 <span class=line><i> 93</i> <span class="keyword">func</span> Alg06(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i> 94</i>     c := make(chan *<span class="type">http.Response</span>)</span>
 <span class=line><i> 95</i>     <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</span>
@@ -1064,8 +1113,10 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="19"><h2>Correct order using channel</h2>
-<div class="srcfile"><pre><code><span class=line><i>108</i> <span class="comment">// Alg07 uses channel to synchronize responses with ordered result</span></span>
+</div>
+<div class="slide" id="19"><header><h2>Correct order using channel</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>108</i> <span class="comment">// Alg07 uses channel to synchronize responses with ordered result</span></span>
 <span class=line><i>109</i> <span class="keyword">func</span> Alg07(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>110</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>111</i>         index int</span>
@@ -1125,8 +1176,10 @@ ok  	github.com/preferit/cotalk	1.357s
 </ul>
 </nav>
 </div>
-<div class="slide" id="20"><h2>Clean up resources</h2>
-<div class="srcfile"><pre><code><span class=line><i>129</i> <span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></span>
+</div>
+<div class="slide" id="20"><header><h2>Clean up resources</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>129</i> <span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></span>
 <span class=line><i>130</i> <span class="keyword">func</span> Alg08(work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>131</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>132</i>         index int</span>
@@ -1186,8 +1239,10 @@ ok  	github.com/preferit/cotalk	1.356s
 </ul>
 </nav>
 </div>
-<div class="slide" id="21"><h2>Interrupt</h2>
-<div class="srcfile"><pre><code><span class=line><i>151</i> <span class="comment">// Alg09 returns when all work is done or context is cancelled</span></span>
+</div>
+<div class="slide" id="21"><header><h2>Interrupt</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>151</i> <span class="comment">// Alg09 returns when all work is done or context is cancelled</span></span>
 <span class=line><i>152</i> <span class="keyword">func</span> Alg09(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>153</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>154</i>         index int</span>
@@ -1263,8 +1318,10 @@ exit status 2
 </ul>
 </nav>
 </div>
-<div class="slide" id="22"><h2>Respect context cancellation</h2>
-<div class="srcfile"><pre><code><span class=line><i>182</i> <span class="comment">// Alg10 returns when all work is done or context is cancelled</span></span>
+</div>
+<div class="slide" id="22"><header><h2>Respect context cancellation</h2>
+</header>
+<div class="content"><div class="srcfile"><pre><code><span class=line><i>182</i> <span class="comment">// Alg10 returns when all work is done or context is cancelled</span></span>
 <span class=line><i>183</i> <span class="keyword">func</span> Alg10(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*<span class="type">http.Response</span>) {</span>
 <span class=line><i>184</i>     <span class="keyword">type</span> m <span class="keyword">struct</span> {</span>
 <span class=line><i>185</i>         index int</span>
@@ -1342,8 +1399,10 @@ exit status 1
 </ul>
 </nav>
 </div>
-<div class="slide" id="23"><h2>Compare all</h2>
-<p>In this example using channels and sync package primitives
+</div>
+<div class="slide" id="23"><header><h2>Compare all</h2>
+</header>
+<div class="content"><p>In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
 		that is out of scope of this talk.</p>
@@ -1387,8 +1446,10 @@ ok  	github.com/preferit/cotalk	3.652s
 </ul>
 </nav>
 </div>
-<div class="slide" id="24"><h2>Go concurrency design summary</h2>
-<ul>
+</div>
+<div class="slide" id="24"><header><h2>Go concurrency design summary</h2>
+</header>
+<div class="content"><ul>
 <li>concurrency is difficult to get right; even in Go</li>
 <li>tests are an invaluable tool when debugging concurrency issues</li>
 <li>never assume performance optimizations, always measure</li>
@@ -1424,6 +1485,7 @@ ok  	github.com/preferit/cotalk	3.652s
 <li class="current"><a href="#24">24</a></li>
 </ul>
 </nav>
+</div>
 </div>
 <script>function enhance() {
     // if there is no hash, start with the first slide

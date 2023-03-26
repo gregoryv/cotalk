@@ -16,7 +16,7 @@ func Presentation() *deck {
 	d := newDeck()
 	d.Title = "Go concurrency"
 	d.Styles = append(d.Styles,
-		themeOldstyle(),
+		theme(),
 		highlightColors(),
 	)
 
@@ -444,7 +444,12 @@ func (d *deck) Page() *Page {
 		id := fmt.Sprintf("%v", j)
 		slide := Div(Class("slide"), Id(id))
 
-		slide.With(content)
+		slide.With(
+			Header(content.Children[0]),
+		)
+		div := Div(Class("content"))
+		div.With(content.Children[1:]...)
+		slide.With(div)
 		body.With(slide)
 	}
 	body.With(Script(enhancejs))
@@ -493,16 +498,32 @@ func highlightColors() *CSS {
 
 // ----------------------------------------
 
-func themeOldstyle() *CSS {
+func theme() *CSS {
 	css := NewCSS()
 	css.Style("html, body",
 		"margin: 0 0",
 		"padding: 0 0",
 	)
 	css.Style(".slide",
-		"padding: 10px 20%",
+		//		"border: 1px solid red",
+		"margin: 0 0",
+		"padding: 0 0",
 		"text-align: center",
 		"height: calc( 100vh - 50px)",
+	)
+	bg := "#f2f2f2"
+	css.Style(".slide header",
+		"display: block",
+		"border: 1px solid "+bg, // needed to make it without margins ?!
+		"height: 10vh",
+		"margin: 0 0",
+		"background-color: "+bg,
+	)
+	css.Style("header h2",
+		"font-size: 3vh",
+	)
+	css.Style(".slide .content",
+		"padding: 2vh 4vh",
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",
