@@ -160,7 +160,7 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.Slide(H2("The letter challenge"),
-		mustLoadLines("../letters.go", 13, 55),
+		mustLoadLines("../letters.go", 13, 53),
 		nav,
 	)
 

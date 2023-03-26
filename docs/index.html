@@ -598,11 +598,9 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 49</i>     result := alg(work)</span>
 <span class=line><i> 50</i> </span>
 <span class=line><i> 51</i>     <span class="comment">// verify the result</span></span>
-<span class=line><i> 52</i>     <span class="keyword">return</span> p.complete(work, result)</span>
+<span class=line><i> 52</i>     <span class="keyword">return</span> p.verify(work, result)</span>
 <span class=line><i> 53</i> }</span>
-<span class=line><i> 54</i> </span>
-<span class=line><i> 55</i> <span class="keyword">func</span> (p *OrderedLetters) complete(work []*http.Request, result []*<span class="type">http.Response</span>) error {</span>
-<span class=line><i> 56</i> </span></code></pre></div>
+<span class=line><i> 54</i> </span></code></pre></div>
 <nav><ul>
 <li><a href="#1">1</a></li>
 <li><a href="#2">2</a></li>

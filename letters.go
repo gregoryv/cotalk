@@ -49,10 +49,10 @@ func (p *OrderedLetters) Solve(alg Algorithm) error {
 	result := alg(work)
 
 	// verify the result
-	return p.complete(work, result)
+	return p.verify(work, result)
 }
 
-func (p *OrderedLetters) complete(work []*http.Request, result []*http.Response) error {
+func (p *OrderedLetters) verify(work []*http.Request, result []*http.Response) error {
 	got := make([]string, 0, len(result))
 	for _, resp := range result {
 		if resp != nil {
