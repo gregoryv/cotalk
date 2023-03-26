@@ -575,13 +575,13 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 12</i> </span>
 <span class=line><i> 13</i> <span class="comment">// Setup returns running test server and the letters problem to solve.</span></span>
 <span class=line><i> 14</i> <span class="comment">// The problem can be solved multiple times.</span></span>
-<span class=line><i> 15</i> <span class="keyword">func</span> Setup() (*httptest.Server, *LettersProblem) {</span>
+<span class=line><i> 15</i> <span class="keyword">func</span> Setup() (*httptest.Server, *OrderedLetters) {</span>
 <span class=line><i> 16</i>     handler := <span class="keyword">func</span>(w http.ResponseWriter, r *<span class="type">http.Request</span>) {</span>
 <span class=line><i> 17</i>         <-time.After(10 * <span class="type">time.Millisecond</span>)</span>
 <span class=line><i> 18</i>         w.Write([]byte(r.URL.Path[1:]))</span>
 <span class=line><i> 19</i>     }</span>
 <span class=line><i> 20</i>     srv := httptest.NewServer(http.HandlerFunc(handler))</span>
-<span class=line><i> 21</i>     prob := &LettersProblem{</span>
+<span class=line><i> 21</i>     prob := &OrderedLetters{</span>
 <span class=line><i> 22</i>         srv: srv,</span>
 <span class=line><i> 23</i>         exp: Letters,</span>
 <span class=line><i> 24</i>     }</span>
@@ -590,12 +590,12 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 27</i> </span>
 <span class=line><i> 28</i> const Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"</span>
 <span class=line><i> 29</i> </span>
-<span class=line><i> 30</i> <span class="keyword">type</span> LettersProblem <span class="keyword">struct</span> {</span>
+<span class=line><i> 30</i> <span class="keyword">type</span> OrderedLetters <span class="keyword">struct</span> {</span>
 <span class=line><i> 31</i>     srv *<span class="type">httptest.Server</span></span>
 <span class=line><i> 32</i>     exp string</span>
 <span class=line><i> 33</i> }</span>
 <span class=line><i> 34</i> </span>
-<span class=line><i> 35</i> <span class="keyword">func</span> (p *LettersProblem) Solve(alg Algorithm) error {</span>
+<span class=line><i> 35</i> <span class="keyword">func</span> (p *OrderedLetters) Solve(alg Algorithm) error {</span>
 <span class=line><i> 36</i>     <span class="comment">// create the workload, ie. requests</span></span>
 <span class=line><i> 37</i>     words := strings.Split(p.exp, " ")</span>
 <span class=line><i> 38</i>     work := make([]*http.Request, len(words))</span>
@@ -610,7 +610,7 @@ ok  	github.com/preferit/cotalk	1.320s
 <span class=line><i> 47</i>     <span class="keyword">return</span> p.complete(work, result)</span>
 <span class=line><i> 48</i> }</span>
 <span class=line><i> 49</i> </span>
-<span class=line><i> 50</i> <span class="keyword">func</span> (p *LettersProblem) complete(work []*http.Request, result []*<span class="type">http.Response</span>) error {</span>
+<span class=line><i> 50</i> <span class="keyword">func</span> (p *OrderedLetters) complete(work []*http.Request, result []*<span class="type">http.Response</span>) error {</span>
 <span class=line><i> 51</i>     got := make([]string, 0, len(result))</span>
 <span class=line><i> 52</i>     <span class="keyword">for</span> _, resp := <span class="keyword">range</span> result {</span>
 <span class=line><i> 53</i>         <span class="keyword">if</span> resp != nil {</span>
