@@ -10,5 +10,5 @@ To build the presentation
 
 the testdata fragments where generated with eg.
 
-  $ go test -benchmem -bench=BenchmarkAlg1 . | gocolor | aha -n > testdata/alg1_bench.html
+  $ go test -benchmem -bench=BenchmarkAlg01 . | gocolor | aha -n > testdata/alg01_bench.html
 
