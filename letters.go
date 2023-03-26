@@ -10,13 +10,13 @@ import (
 	"time"
 )
 
-// NewOrderedLetters returns a problem defined as
+// NewLetterChallenge returns a problem defined as
 //
 //   - get all letters using a list of requests
 //   - in the given order
 //
 // letters should be a space separated string of letters
-func NewOrderedLetters(letters string) *OrderedLetters {
+func NewLetterChallenge(letters string) *OrderedLetters {
 	return &OrderedLetters{
 		exp: letters,
 	}

@@ -8,7 +8,7 @@ import (
 )
 
 func BenchmarkAlg01(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -19,7 +19,7 @@ func BenchmarkAlg01(b *testing.B) {
 }
 
 func BenchmarkAlg02(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -30,7 +30,7 @@ func BenchmarkAlg02(b *testing.B) {
 }
 
 func BenchmarkAlg03(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -41,7 +41,7 @@ func BenchmarkAlg03(b *testing.B) {
 }
 
 func BenchmarkAlg04(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -52,7 +52,7 @@ func BenchmarkAlg04(b *testing.B) {
 }
 
 func BenchmarkAlg05(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -63,7 +63,7 @@ func BenchmarkAlg05(b *testing.B) {
 }
 
 func BenchmarkAlg06(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -74,7 +74,7 @@ func BenchmarkAlg06(b *testing.B) {
 }
 
 func BenchmarkAlg07(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -85,7 +85,7 @@ func BenchmarkAlg07(b *testing.B) {
 }
 
 func BenchmarkAlg08(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 	for i := 0; i < b.N; i++ {
@@ -96,7 +96,7 @@ func BenchmarkAlg08(b *testing.B) {
 }
 
 func BenchmarkAlg09(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 
@@ -116,7 +116,7 @@ func BenchmarkAlg09(b *testing.B) {
 }
 
 func BenchmarkAlg10(b *testing.B) {
-	problem := NewOrderedLetters(Letters)
+	problem := NewLetterChallenge(Letters)
 	srv := problem.Server()
 	defer srv.Close()
 

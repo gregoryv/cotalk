@@ -178,10 +178,11 @@ color: darkgreen;
 <li>channels</li>
 <li>package context</li>
 <li>package sync </li>
+<li>go test bench</li>
 </ul>
 <ul class="group">
-<li>go test bench</li>
 <li>problem definition</li>
+<li>letters challenge</li>
 <li>sequential solution</li>
 </ul>
 <ul class="group">
@@ -561,13 +562,13 @@ ok  	github.com/preferit/cotalk	1.320s
 <p>A set of letters <code>0 1 2 3 4 5 6 7 8 9 a b c d e f</code> are available on a server; the problem is to GET them
 			and assemble them in the correct order. Each letter is
 			found on /L, ie. GET /3 would return '3'.</p>
-<div class="srcfile"><pre><code><span class="comment">// NewOrderedLetters returns a problem defined as</span>
+<div class="srcfile"><pre><code><span class="comment">// NewLetterChallenge returns a problem defined as</span>
 <span class="comment">//</span>
 <span class="comment">//   - get all letters using a list of requests</span>
 <span class="comment">//   - in the given order</span>
 <span class="comment">//</span>
 <span class="comment">// letters should be a space separated string of letters</span>
-<span class="keyword">func</span> NewOrderedLetters(letters string) *OrderedLetters {
+<span class="keyword">func</span> NewLetterChallenge(letters string) *OrderedLetters {
     <span class="keyword">return</span> &OrderedLetters{
         exp: letters,
     }
@@ -606,7 +607,7 @@ ok  	github.com/preferit/cotalk	1.320s
 <div class="slide" id="11"><h2>Verification</h2>
 <p>Each algorithm in these examples is tested like this</p>
 <div class="srcfile"><pre><code><span class="keyword">func</span> BenchmarkAlg01(b *<span class="type">testing.B</span>) {
-    problem := NewOrderedLetters(Letters)
+    problem := NewLetterChallenge(Letters)
     srv := problem.Server()
     <span class="keyword">defer</span> srv.Close()
     <span class="keyword">for</span> i := 0; i < b.N; i++ {

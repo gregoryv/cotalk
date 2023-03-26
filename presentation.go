@@ -37,11 +37,11 @@ func Presentation() *deck {
 
 		Ul(Class("group"),
 			Li("background and history"), Li("goroutines"), Li("channels"),
-			Li("package context"), Li("package sync "),
+			Li("package context"), Li("package sync "), Li("go test bench"),
 		),
 		Ul(Class("group"),
-			Li("go test bench"),
 			Li("problem definition"),
+			Li("letters challenge"),
 			Li("sequential solution"),
 		),
 		Ul(Class("group"),
@@ -168,7 +168,7 @@ processes and APIs, not for passing optional parameters to functions.
 			//
 		),
 
-		loadFunc("../letters.go", "NewOrderedLetters"),
+		loadFunc("../letters.go", "NewLetterChallenge"),
 		nav,
 	)
 
