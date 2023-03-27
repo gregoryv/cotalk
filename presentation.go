@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
-	"regexp"
 	"strings"
 
 	. "github.com/gregoryv/web"
@@ -20,7 +19,6 @@ func Presentation() *deck {
 		highlightColors(),
 	)
 
-	nav := &navbar{current: 1}
 	alg := &algorithms{
 		current: 1,
 		atLine:  9,
@@ -32,7 +30,6 @@ func Presentation() *deck {
 		Br(), Br(), Br(),
 		Span("Gregory Vinčić, 2023"),
 		Br(), Br(), Br(),
-		nav,
 	)
 
 	d.Slide(
@@ -69,8 +66,6 @@ func Presentation() *deck {
 			"$ git clone git@github.com:preferit/cotalk.git\n",
 			"$ cd cotalk",
 		),
-		Br(Attr("clear", "all")),
-		nav,
 	)
 
 	d.Slide(H2("Background and history"),
@@ -98,7 +93,6 @@ func Presentation() *deck {
 				),
 			),
 		),
-		nav,
 	)
 
 	d.Slide(H2("Goroutines"),
@@ -106,7 +100,6 @@ func Presentation() *deck {
 			Href("https://go.dev/tour/concurrency/1"),
 			Img(Class("center"), Src("gotour_concurrency_1.png")),
 		),
-		nav,
 	)
 
 	d.Slide(H2("channels"),
@@ -114,14 +107,12 @@ func Presentation() *deck {
 			Href("https://go.dev/tour/concurrency/2"),
 			Img(Class("center"), Src("gotour_concurrency_2.png")),
 		),
-		nav,
 	)
 
 	// packages
 	// ----------------------------------------
 	d.Slide(H2("package sync"),
 		godoc("sync", ""),
-		nav,
 	)
 
 	d.Slide(H2("package context"),
@@ -147,11 +138,10 @@ processes and APIs, not for passing optional parameters to functions.
 		`)),
 
 		godoc("context", "-short"),
-		nav,
 	)
 
 	d.Slide(H2("go test -bench"),
-		Table(Tr(Td(
+		Table(Class("twocolumn"), Tr(Td(
 			load("benchx_test.go"),
 		), Td(
 			shell(
@@ -159,35 +149,30 @@ processes and APIs, not for passing optional parameters to functions.
 				"testdata/benchx.html",
 			),
 		))),
-		nav,
 	)
 
 	// Problem definition
 	// ----------------------------------------
 	d.Slide(H2("Problem"),
 		load("problem.go"),
-		nav,
 	)
 
 	d.Slide(H2("The letter challenge"),
-		Table(Tr(Td(
+		Table(Class("twocolumn"), Tr(Td(
 			mustLoadLines("../letters.go", 13, 38),
 		), Td(
 			mustLoadLines("../letters.go", 40, 71),
 		))),
-		nav,
 	)
 
 	d.Slide(H2("Verification"),
 		P(`Each algorithm in these examples is tested like this`),
 		mustLoadLines("../alg_test.go", 10, 24),
-		nav,
 	)
 
 	d.Slide(H2("Sequential"),
 		P("Simple implementation though very low performance"),
 		alg.next(),
-		nav,
 	)
 
 	// Concurrent
@@ -196,7 +181,6 @@ processes and APIs, not for passing optional parameters to functions.
 		alg.next(
 			P("Why does it fail?"),
 		),
-		nav,
 	)
 
 	d.Slide(H2("Arguments are evaluated at calltime"),
@@ -208,19 +192,16 @@ processes and APIs, not for passing optional parameters to functions.
 				),
 			),
 		),
-		nav,
 	)
 
 	d.Slide(H2("Protect concurrent writes with sync.Mutex"),
 		alg.next(
 			P("Why does it fail?"),
 		),
-		nav,
 	)
 
 	d.Slide(H2("Sort results"),
 		alg.next(),
-		nav,
 	)
 
 	d.Slide(H2("Improved performance paid with complexity"),
@@ -232,31 +213,25 @@ processes and APIs, not for passing optional parameters to functions.
 			`$ go test -benchmem -bench="(Alg1|Alg5)$"`,
 			"testdata/compare_bench.html",
 		),
-		nav,
 	)
 
 	d.Slide(H2("Using channel"),
 		alg.next(),
-		nav,
 	)
 
 	d.Slide(H2("Correct order using channel"),
 		alg.next(
 			P("There is still a bug in this code, do you see it?"),
 		),
-		nav,
 	)
 	d.Slide(H2("Clean up resources"),
 		alg.next(),
-		nav,
 	)
 	d.Slide(H2("Interrupt"),
 		alg.next(),
-		nav,
 	)
 	d.Slide(H2("Respect context cancellation"),
 		alg.next(),
-		nav,
 	)
 	d.Slide(H2("Compare all"),
 
@@ -269,7 +244,6 @@ processes and APIs, not for passing optional parameters to functions.
 			`$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"`,
 			"testdata/compare_all.html",
 		),
-		nav,
 	)
 
 	d.Slide(H2("Go concurrency design summary"),
@@ -281,10 +255,7 @@ processes and APIs, not for passing optional parameters to functions.
 			Li("if performance is good enough with a sequential algorithm, skip the complexity of concurrency"),
 		),
 		//
-		nav,
 	)
-
-	nav.max = len(d.Slides)
 	return d
 }
 
@@ -368,36 +339,6 @@ var assets embed.FS
 //go:embed docs/enhance.js
 var enhancejs string
 
-type navbar struct {
-	max     int // number of slides
-	current int // current slide
-}
-
-// BuildElement is called at time of rendering
-func (b *navbar) BuildElement() *Element {
-	ul := Ul()
-	groupDivider := map[int]bool{
-		9:  true,
-		13: true, // concurrent
-		17: true, // channels
-	}
-
-	for i := 0; i < b.max; i++ {
-		j := i + 1
-		hash := fmt.Sprintf("#%v", j)
-		li := Li(A(Href(hash), j))
-		if j == b.current {
-			li.With(Class("current"))
-		}
-		if groupDivider[j] {
-			ul.With(Li(" | "))
-		}
-		ul.With(li)
-	}
-	b.current++
-	return Nav(ul)
-}
-
 type algorithms struct {
 	current int // current algorithm
 	atLine  int
@@ -417,7 +358,7 @@ func (a *algorithms) next(extra ...interface{}) *Element {
 	v = numLines(v, from)
 
 	return Wrap(
-		Table(Tr(Td(
+		Table(Class("twocolumn"), Tr(Td(
 			Div(
 				Class("srcfile"),
 				Pre(Code(v)),
@@ -465,6 +406,7 @@ func (d *deck) Page() *Page {
 		styles.With(s)
 	}
 	body := Body()
+	nav := &navbar{current: 1, max: len(d.Slides)}
 	for i, content := range d.Slides {
 		j := i + 1
 		id := fmt.Sprintf("%v", j)
@@ -475,7 +417,7 @@ func (d *deck) Page() *Page {
 		)
 		div := Div(Class("content"))
 		div.With(content.Children[1:]...)
-		slide.With(div)
+		slide.With(div, nav.next())
 		body.With(slide)
 	}
 	body.With(Script(enhancejs))
@@ -491,35 +433,34 @@ func (d *deck) Page() *Page {
 	)
 }
 
-// ----------------------------------------
-
-// highlight go source code
-func highlight(v string) string {
-	v = keywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
-	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
-	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
-	return v
+type navbar struct {
+	max     int // number of slides
+	current int // current slide
 }
 
-// highlightGoDoc output
-func highlightGoDoc(v string) string {
-	v = docKeywords.ReplaceAllString(v, `$1<span class="keyword">$2</span>$3`)
-	v = types.ReplaceAllString(v, `$1<span class="type">$2</span>$3`)
-	v = comments.ReplaceAllString(v, `<span class="comment">$1</span>`)
-	return v
-}
+// BuildElement is called at time of rendering
+func (b *navbar) next() *Element {
+	ul := Ul()
+	groupDivider := map[int]bool{
+		9:  true,
+		13: true, // concurrent
+		17: true, // channels
+	}
 
-var types = regexp.MustCompile(`(\W)(\w+\.\w+)(\)|\n)`)
-var keywords = regexp.MustCompile(`(\W?)(^package|const|select|defer|import|for|func|range|return|go|var|switch|if|case|label|type|struct|interface)(\W)`)
-var docKeywords = regexp.MustCompile(`(\W?)(^package|func|type|struct|interface)(\W)`)
-var comments = regexp.MustCompile(`(//[^\n]*)`)
-
-func highlightColors() *CSS {
-	css := NewCSS()
-	css.Style(".keyword", "color: darkviolet")
-	css.Style(".type", "color: dodgerblue")
-	css.Style(".comment, .comment>span", "color: darkgreen")
-	return css
+	for i := 0; i < b.max; i++ {
+		j := i + 1
+		hash := fmt.Sprintf("#%v", j)
+		li := Li(A(Href(hash), j))
+		if j == b.current {
+			li.With(Class("current"))
+		}
+		if groupDivider[j] {
+			ul.With(Li(" | "))
+		}
+		ul.With(li)
+	}
+	b.current++
+	return Nav(ul)
 }
 
 // ----------------------------------------
@@ -534,11 +475,11 @@ func theme() *CSS {
 		"padding: 0 0",
 	)
 	css.Style(".slide",
-		//		"border: 1px solid red",
+		//"border: 3px solid magenta",
 		"margin: 0 0",
 		"padding: 0 0",
 		"text-align: center",
-		"height: 100vh ",
+		"height: 100vh",
 	)
 	bg := "#cde9e9"
 	css.Style(".slide header",
@@ -547,26 +488,30 @@ func theme() *CSS {
 		"margin: 0 0",
 		"background-color: "+bg,
 		"vertical-align: center",
+		"height: 10%",
 	)
-	css.Style("header h1, header h2",
-		"font-size: 3vh",
-	)
+
 	css.Style(".slide .content",
-		"padding: 2vh 10%",
+		// "border: 3px solid red",
+		"margin: 0 0",
+		"padding: 1% 1%",
+		"height: 80%",
+		"overflow: scroll",
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",
-		"font-size: 1.7vh",
 	)
 
 	// navbar
 	css.Style(".slide nav",
+		// "border: 3px solid green",
+		"display: block",
+		"margin: 0 0",
+		"padding: 0 0",
 		"text-align: center",
-		"float: left",
 		"clear: both",
 		"width: 100%",
-		"display: block",
-		"margin-top: 2em",
+		"height: 5%",
 	)
 	css.Style(".slide nav ul",
 		"list-style-type: none",
@@ -606,6 +551,10 @@ func theme() *CSS {
 	)
 	css.Style("h1, h2, h3",
 		"text-align: center",
+	)
+	css.Style(".twocolumn",
+		// "border: 3px solid brown",
+		"width: 100%",
 	)
 	css.Style(".srcfile",
 		"margin-top: 1.6em",
