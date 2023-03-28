@@ -1,6 +1,6 @@
 # Changelog
 
-## [unreleased]
+## [0.2.0] 2023-03-28
 
 - show line numbers in code examples
 - improve styling for better visibility
