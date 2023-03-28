@@ -496,7 +496,7 @@ func theme() *CSS {
 		"margin: 0 0",
 		"padding: 1% 1%",
 		"height: 80%",
-		"overflow: scroll",
+		"overflow: auto",
 	)
 	css.Style(".slide ul, p, pre",
 		"text-align: left",

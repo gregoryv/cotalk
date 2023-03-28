@@ -28,7 +28,7 @@ height: 10%;
 margin: 0 0;
 padding: 1% 1%;
 height: 80%;
-overflow: scroll;
+overflow: auto;
 }
 .slide ul, p, pre {
 text-align: left;
@@ -451,9 +451,12 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		</pre><pre>var Canceled = errors.New("context canceled")
 var DeadlineExceeded error = deadlineExceededError{}
+<span class="keyword">func</span> Cause(c Context) error
 <span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+<span class="keyword">func</span> WithCancelCause(parent Context) (ctx Context, cancel CancelCauseFunc)
 <span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
 <span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
+<span class="keyword">type</span> CancelCauseFunc <span class="keyword">func</span>(cause error)
 <span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
 <span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
     <span class="keyword">func</span> Background() Context
