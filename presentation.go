@@ -25,7 +25,7 @@ func Presentation() *deck {
 	} // 8 where first func starts
 
 	d.Slide(
-		H1("Go concurrency design"),
+		H2("Go concurrency design"),
 		A(Href("#2"), Img(Src("cotalk.png"))),
 		Br(), Br(), Br(),
 		Span("Gregory Vinčić, 2023"),
