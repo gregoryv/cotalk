@@ -1,5 +1,9 @@
 # Changelog
 
+## [unreleased]
+
+- fix go test regexp ie. Alg1 -> Alg01
+
 ## [0.2.0] 2023-03-28
 
 - show line numbers in code examples

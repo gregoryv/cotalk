@@ -451,12 +451,9 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		</pre><pre>var Canceled = errors.New("context canceled")
 var DeadlineExceeded error = deadlineExceededError{}
-<span class="keyword">func</span> Cause(c Context) error
 <span class="keyword">func</span> WithCancel(parent Context) (ctx Context, cancel CancelFunc)
-<span class="keyword">func</span> WithCancelCause(parent Context) (ctx Context, cancel CancelCauseFunc)
 <span class="keyword">func</span> WithDeadline(parent Context, d <span class="type">time.Time</span>) (Context, CancelFunc)
 <span class="keyword">func</span> WithTimeout(parent Context, timeout <span class="type">time.Duration</span>) (Context, CancelFunc)
-<span class="keyword">type</span> CancelCauseFunc <span class="keyword">func</span>(cause error)
 <span class="keyword">type</span> CancelFunc <span class="keyword">func</span>()
 <span class="keyword">type</span> Context <span class="keyword">interface</span>{ ... }
     <span class="keyword">func</span> Background() Context
@@ -907,7 +904,7 @@ exit status 1
 exit status 1
 <span style="color:red;">FAIL</span>	github.com/preferit/cotalk	0.014s
 <span style="color:red;">FAIL</span>
-</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1</pre></p>
+</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1</pre></p>
 </td></tr>
 </table>
 </div>
@@ -1075,7 +1072,7 @@ ok  	github.com/preferit/cotalk	1.344s
 </header>
 <div class="content"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
-<pre class="shell dark">$ go test -benchmem -bench="(Alg1|Alg5)$"<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05)$"<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
@@ -1480,7 +1477,7 @@ exit status 1
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
 		that is out of scope for this talk.</p>
-<pre class="shell dark">$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"<br/>goos: linux
+<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05|Alg08)$"<br/>goos: linux
 goarch: amd64
 pkg: github.com/preferit/cotalk
 cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz

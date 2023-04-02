@@ -188,7 +188,7 @@ processes and APIs, not for passing optional parameters to functions.
 			P(
 				"You might get a different result; why does it still fail? and can the tooling help identify the problem, try ",
 				Pre(Class("shell dark"),
-					"$ go test -benchmem -bench=BenchmarkAlg3 -race -count 1",
+					"$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1",
 				),
 			),
 		),
@@ -210,7 +210,7 @@ processes and APIs, not for passing optional parameters to functions.
 		concurrent one, tests reveal a substantial improvement.`),
 
 		shell(
-			`$ go test -benchmem -bench="(Alg1|Alg5)$"`,
+			`$ go test -benchmem -bench="(Alg01|Alg05)$"`,
 			"testdata/compare_bench.html",
 		),
 	)
@@ -241,7 +241,7 @@ processes and APIs, not for passing optional parameters to functions.
 		that is out of scope for this talk.`),
 
 		shell(
-			`$ go test -benchmem -bench="(Alg1|Alg5|Alg8)$"`,
+			`$ go test -benchmem -bench="(Alg01|Alg05|Alg08)$"`,
 			"testdata/compare_all.html",
 		),
 	)
