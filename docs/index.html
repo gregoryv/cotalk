@@ -2,158 +2,167 @@
 
 <html>
 <head>
-<title>Go concurrency</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<style>@import url('https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro');
-html, body {
-font-family: 'Source Sans Pro', sans-serif;
+<meta charset="utf-8"/>
+<title>Go Concurrency</title>
+<style>html, body {
 margin: 0 0;
 padding: 0 0;
+background-color: #fff;
 }
-.slide {
-margin: 0 0;
-padding: 0 0;
-text-align: center;
+.page {
 height: 100vh;
+position: relative;
+margin-bottom: 1vh;
 }
-.slide header {
-display: block;
-border: 1px solid #cde9e9;
-margin: 0 0;
-background-color: #cde9e9;
-vertical-align: center;
-height: 10%;
+.page .view {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 2vh;
 }
-.slide .content {
-margin: 0 0;
-padding: 1% 1%;
-height: 80%;
-overflow: auto;
-}
-.slide ul, p, pre {
-text-align: left;
-}
-.slide nav {
-display: block;
-margin: 0 0;
-padding: 0 0;
+.page .footer {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
 text-align: center;
-clear: both;
-width: 100%;
-height: 5%;
+height: 2vh;
 }
-.slide nav ul {
-list-style-type: none;
-margin: 0 0;
-padding: 0 0;
-text-align: center;
-}
-.slide nav ul li {
-margin: 0 1px;
-display: inline;
-}
-.slide nav ul li.current a, .slide nav ul li:hover a {
-background-color: #e2e2e2;
-border-radius: 5px;
-}
-nav a:link, nav a:visited {
-color: #727272;
-padding: 3px 5px;
-text-decoration: none;
+.page .footer .next {
+position: absolute;
+right: 1em;
 cursor: pointer;
 }
-a:link, a:visited {
-color: #007d9c;
+.page .footer .prev {
+position: absolute;
+left: 1em;
+cursor: pointer;
+}
+.page .view {
+font-size: 2vw;
+margin: 0 0;
+padding: 0 0;
+}
+.page .view .header {
+text-align: center;
+height: 14vh;
+overflow: hidden;
+}
+.header {
+background-image: url('img/blue_gopher.svg');
+background-repeat: no-repeat;
+background-position: 80px 10px;
+}
+.header h1, .header h2, .header .group {
+font-weight: bold;
+margin-top: 3vh;
+font-size: 5vh;
+margin-bottom: 0vh;
+}
+.header h3 {
+margin-top: 0vh;
+font-size: 3vh;
+}
+.page .view .slide {
+margin: auto;
+padding: 0.8vw 1.6vw 0.8vw 1.6vw;
+height: 79vh;
+overflow: hidden;
+}
+.page .view .cover {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 82vh;
+text-align: center;
+}
+.toc {
+position: absolute;
+left: 27vw;
+width: 55vw;
+padding-top: 1em;
+}
+.toc ul {
+margin-top: 0;
+}
+a {
 text-decoration: none;
+color: #000;
 }
 a:hover {
 text-decoration: underline;
 }
-.header {
-width: 100%;
-border-bottom: 1px solid #727272;
-text-align: right;
-margin-top: -2em;
-margin-bottom: 1em;
+.h3 {
+margin-left: 5vw;
+list-style-type: circle;
 }
-h1, h2, h3 {
+.trail {
+position: absolute;
+height: 6px;
+width: 6px;
+border-radius: 3px;
+background: red;
+}
+.outline {
+border: 1px solid black;
+}
+.center {
 text-align: center;
 }
-.twocolumn {
-width: 100%;
+.double {
+}
+.column.left {
+position: absolute;
+left: 4vw;
+width: 40vw;
+}
+.column.right {
+position: absolute;
+left: 50vw;
+width: 40vw;
 }
 .srcfile {
 margin-top: 1.6em;
 margin-bottom: 1.6em;
-background-image: url("printout-whole.png");
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAlCAMAAAB1cTk3AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAjVBMVEX9/fz4+Pb19fP8/Pz39/Xp6ejr6+rs7Ov29vTt7evo6Oj6+vr7+/vv7+/u7u3v7+37+/ru7uzw8PD////29vbx8fD6+vjq6unz8/L5+ff39/f9/f3y8vHo6Ofx8fHw8O/z8/P6+vn4+Pj09PL+/v729vXp6efy8vDv7+709PTz8/H7+/n8/Pv5+fju7u5JBELWAAAAAWJLR0QB/wIt3gAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+cFHw8tIWAQRK8AAAC5SURBVCjPpZDbEoIgEIaXQLPUNNFOWJrRyQ7v/3gJAs2EFzTuBex+8+/uDwDIiglgGyItJJ4/9YM+DxSczcMowvFCFgmk4lpmVEZeiGolYbCmKjZiQgp4i5C305CVPezOPTVxMLD6wrorj79K0U6kpaQxM0/GPIm5gmdilKise9ZI4UW96HoLGcN3ybpF+hPaomxV+oCn/Ukv4DZMgdqQOkMMb0clG4L5uO3/wAGf3Ll9UJk5Lxpr/gOpxRF8cA+lxgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wNS0zMVQxMzo0NTozMyswMjowMJXHbJYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDUtMzFUMTM6NDU6MzMrMDI6MDDkmtQqAAAAAElFTkSuQmCC);
 background-repeat: repeat-y;
-padding-left: 36px;
+background-size: 20px;
+padding-left: 16px;
 background-color: #fafafa;
 tab-size: 4;
 -moz-tab-size: 4;
-min-width: 35vw;
+font-size: 2vh;
 }
 .srcfile code {
-padding: .6em 0 2vh 0;
-background-image: url("printout-whole.png");
+margin-left: 0px;
+padding-right: 20px;
+padding: 0 0 0 0;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAlCAMAAAB1cTk3AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAjVBMVEX9/fz4+Pb19fP8/Pz39/Xp6ejr6+rs7Ov29vTt7evo6Oj6+vr7+/vv7+/u7u3v7+37+/ru7uzw8PD////29vbx8fD6+vjq6unz8/L5+ff39/f9/f3y8vHo6Ofx8fHw8O/z8/P6+vn4+Pj09PL+/v729vXp6efy8vDv7+709PTz8/H7+/n8/Pv5+fju7u5JBELWAAAAAWJLR0QB/wIt3gAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+cFHw8tIWAQRK8AAAC5SURBVCjPpZDbEoIgEIaXQLPUNNFOWJrRyQ7v/3gJAs2EFzTuBex+8+/uDwDIiglgGyItJJ4/9YM+DxSczcMowvFCFgmk4lpmVEZeiGolYbCmKjZiQgp4i5C305CVPezOPTVxMLD6wrorj79K0U6kpaQxM0/GPIm5gmdilKise9ZI4UW96HoLGcN3ybpF+hPaomxV+oCn/Ukv4DZMgdqQOkMMb0clG4L5uO3/wAGf3Ll9UJk5Lxpr/gOpxRF8cA+lxgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wNS0zMVQxMzo0NTozMyswMjowMJXHbJYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDUtMzFUMTM6NDU6MzMrMDI6MDDkmtQqAAAAAElFTkSuQmCC);
 background-repeat: repeat-y;
 background-position: right top;
+background-size: 20px;
 display: block;
 text-align: left;
-font-family: Inconsolata;
-overflow: wrap;
+font-family: Inconsolata, monospace;
+overflow: hidden;
 }
-.srcfile code .line {
-display: block;
-width: 98%;
-clear: both;
-margin-bottom: -1.5vh;
+.srcfile ol {
+margin-left: 0vw;
+padding-left: 3vw;
 }
-.srcfile code span:hover {
-background-color: #b4eeb4;
+.srcfile ol li {
+white-space: pre;
+}
+.srcfile ol li::marker {
+color: RGB(0,0,0,0.2);
+}
+.srcfile ol li:hover {
+background-color: RGB(180,238,180,0.3);
 }
 .srcfile code i {
 font-style: normal;
 color: #a2a2a2;
-}
-li.h3 {
-margin-left: 2em;
-}
-.shell {
-padding: 1em;
-border-radius: 10px;
-min-width: 40vw;
-overflow: wrap;
-}
-.dark {
-background-color: #2e2e34;
-color: aliceblue;
-}
-.light {
-background-color: #ffffff;
-color: #3b2616;
-}
-img.center {
-display: block;
-margin-left: auto;
-margin-right: auto;
-}
-img.left {
-float: left;
-margin-right: 2em;
-}
-.group {
-text-align: left;
-margin-right: 3em;
-}
-.group:first-child {
-margin-left: 5vw;
-}
-td {
-vertical-align: top;
-}
-td:nth-child(2) {
-padding-left: 2em;
 }
 .keyword {
 color: darkviolet;
@@ -164,46 +173,151 @@ color: dodgerblue;
 .comment, .comment>span {
 color: darkgreen;
 }
+.header {
+background-color: #f6f5f4;
+border-bottom: 1px inset #000;
+}
+.page .footer {
+bottom: 1vh;
+}
+.right>*, .right .shell {
+margin-right: 1em;
+}
+.toc {
+font-size: 0.9em;
+}
+.shell {
+padding: 1em;
+border-radius: 10px;
+overflow: wrap;
+}
+.dark {
+background-color: #2e2e34;
+color: aliceblue;
+}
+nav {
+column-count: 2;
+font-size: 0.8em;
+}
+.srcfile ol {
+padding-right: 40px;
+}
+.shell {
+font-size: 1.5vw;
+}
+p>a {
+text-decoration: underline;
+}
+quote {
+display: inline-block;
+font-style: italic;
+padding-left: 2vw;
+padding-right: 2vw;
+font-size: 1.5vw;
+}
+quote>a {
+font-size: 1vw;
+float: right;
+}
+quote.small {
+font-size: 1vw;
+}
+.pictogram {
+display: block;
+width: 400px;
+text-align: center;
+padding: 1em 1em;
+margin: 1em auto;
+}
+.pictogram label {
+font-style: italic;
+font-size: 0.6em;
+}
+.srcfile {
+font-size: 1.3vw;
+}
+.filename {
+display: block;
+font-size: 0.8vw;
+text-align: right;
+margin-top: 2em;
+margin-bottom: -2em;
+}
+.icons {
+column-count: 3;
+list-style-type: none;
+}
+.small * {
+font-size: 0.9vw;
+}
+.small .filename {
+margin-bottom: -1.5em;
+}
+.stop>img {
+text-align: center;
+float:left;
+margin-right: 20px;
+}
+.stop>p {
+padding-top: 50px;
+color: red;
+}
 </style>
 </head>
 <body>
-<div class="slide" id="1"><header><h2>Go concurrency design</h2>
-</header>
-<div class="content"><a href="#2"><img src="main.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/></div>
-<nav><ul>
-<li class="current"><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
+<div class="page" id="1"><div class="view"><div class="cover"><table>
+<tr><td><h1>Go Concurrency</h1>
+</td></tr>
+<tr><td><img src="cotalk.png"/></td></tr>
+<tr><td><br/>Gregory Vinčić</td></tr>
+</table>
+</div>
+</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next">&nbsp;</em>1/26</div>
+</div>
+<div class="page" id="2"><div class="view"><div class="header"><h2>Go Concurrency</h2>
+</div>
+<div class="slide"><div class="toc"><nav><ul>
+<li class="h2"><a href="#3">Go concurrency design</a></li>
+<li class="h2"><a href="#4">Content</a></li>
+<li class="h2"><a href="#5">Background and history</a></li>
+<li class="h2"><a href="#6">Goroutines</a></li>
+<li class="h2"><a href="#7">channels</a></li>
+<li class="h2"><a href="#8">package sync</a></li>
+<li class="h2"><a href="#9">package context</a></li>
+<li class="h2"><a href="#10">go test -bench</a></li>
+<li class="h2"><a href="#11">Problem</a></li>
+<li class="h2"><a href="#12">The letter challenge</a></li>
+<li class="h2"><a href="#13">Verification</a></li>
+<li class="h2"><a href="#14">Sequential</a></li>
+<li class="h2"><a href="#15">Concurrent using sync.WaitGroup</a></li>
+<li class="h2"><a href="#16">Arguments are evaluated at calltime</a></li>
+<li class="h2"><a href="#17">Protect concurrent writes with sync.Mutex</a></li>
+<li class="h2"><a href="#18">Sort results</a></li>
+<li class="h2"><a href="#19">Improved performance paid with complexity</a></li>
+<li class="h2"><a href="#20">Using channel</a></li>
+<li class="h2"><a href="#21">Correct order using channel</a></li>
+<li class="h2"><a href="#22">Clean up resources</a></li>
+<li class="h2"><a href="#23">Interrupt</a></li>
+<li class="h2"><a href="#24">Respect context cancellation</a></li>
+<li class="h2"><a href="#25">Compare all</a></li>
+<li class="h2"><a href="#26">Go concurrency design summary</a></li>
 </ul>
 </nav>
 </div>
-<div class="slide" id="2"><header><h2>Content</h2>
-</header>
-<div class="content"><table>
+</div>
+</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next" onclick="nextPage()">Go concurrency design &raquo;</em>2/26</div>
+</div>
+<div class="page" id="3"><div class="view"><div class="header"><h2>Go concurrency design</h2>
+</div>
+<div class="slide"><a href="#2"><img src="main.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/></div>
+</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go Concurrency</em><em class="next" onclick="nextPage()">Content &raquo;</em>3/26</div>
+</div>
+<div class="page" id="4"><div class="view"><div class="header"><h2>Content</h2>
+</div>
+<div class="slide"><table>
 <tr><td><ul class="group">
 <li>background and history</li>
 <li>goroutines</li>
@@ -231,40 +345,12 @@ color: darkgreen;
 <br clear="all"/><p>Follow along by cloning the examples with </p>
 <pre class="shell dark">$ git clone git@github.com:preferit/main.git
 $ cd main</pre></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li class="current"><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="3"><header><h2>Background and history</h2>
-</header>
-<div class="content"><table>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go concurrency design</em><em class="next" onclick="nextPage()">Background and history &raquo;</em>4/26</div>
+</div>
+<div class="page" id="5"><div class="view"><div class="header"><h2>Background and history</h2>
+</div>
+<div class="slide"><table>
 <tr><td><img src="th_small.jpg"/></td><td><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
 			Moscow. His research spanned program correctness, sorting
 			and programming languages. His work is freely accessible
@@ -277,108 +363,24 @@ $ cd main</pre></div>
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li class="current"><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="4"><header><h2>Goroutines</h2>
-</header>
-<div class="content"><a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li class="current"><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Content</em><em class="next" onclick="nextPage()">Goroutines &raquo;</em>5/26</div>
 </div>
-<div class="slide" id="5"><header><h2>channels</h2>
-</header>
-<div class="content"><a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li class="current"><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
+<div class="page" id="6"><div class="view"><div class="header"><h2>Goroutines</h2>
 </div>
-<div class="slide" id="6"><header><h2>package sync</h2>
-</header>
-<div class="content"><pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
+<div class="slide"><a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a></div>
+</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Background and history</em><em class="next" onclick="nextPage()">channels &raquo;</em>6/26</div>
+</div>
+<div class="page" id="7"><div class="view"><div class="header"><h2>channels</h2>
+</div>
+<div class="slide"><a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a></div>
+</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Goroutines</em><em class="next" onclick="nextPage()">package sync &raquo;</em>7/26</div>
+</div>
+<div class="page" id="8"><div class="view"><div class="header"><h2>package sync</h2>
+</div>
+<div class="slide"><pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
 
 Package sync provides basic synchronization primitives such as mutual exclusion
 locks. Other than the Once and WaitGroup types, most are intended for use by
@@ -400,40 +402,12 @@ Values containing the types defined in this package should not be copied.
 <span class="keyword">type</span> RWMutex <span class="keyword">struct</span>{ ... }
 <span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
 </pre><a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li class="current"><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="7"><header><h2>package context</h2>
-</header>
-<div class="content"><pre><span class="keyword">package</span> context
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; channels</em><em class="next" onclick="nextPage()">package context &raquo;</em>8/26</div>
+</div>
+<div class="page" id="9"><div class="view"><div class="header"><h2>package context</h2>
+</div>
+<div class="slide"><pre><span class="keyword">package</span> context
 
 ...
 
@@ -470,40 +444,12 @@ var DeadlineExceeded error = deadlineExceededError{}
     <span class="keyword">func</span> WithValue(parent Context, key, val any) Context
     <span class="keyword">func</span> WithoutCancel(parent Context) Context
 </pre><a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li class="current"><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="8"><header><h2>go test -bench</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package sync</em><em class="next" onclick="nextPage()">go test -bench &raquo;</em>9/26</div>
+</div>
+<div class="page" id="10"><div class="view"><div class="header"><h2>go test -bench</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><code><ol>
 <li><span class="keyword">package</span> main</li>
 <li></li>
@@ -542,40 +488,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li class="current"><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="9"><header><h2>Problem</h2>
-</header>
-<div class="content"><div class="srcfile"><code><ol>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>10/26</div>
+</div>
+<div class="page" id="11"><div class="view"><div class="header"><h2>Problem</h2>
+</div>
+<div class="slide"><div class="srcfile"><code><ol>
 <li><span class="keyword">package</span> main</li>
 <li></li>
 <li><span class="keyword">import</span> (</li>
@@ -595,40 +513,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ol>
 </code></div>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li class="current"><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="10"><header><h2>The letter challenge</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">The letter challenge &raquo;</em>11/26</div>
+</div>
+<div class="page" id="12"><div class="view"><div class="header"><h2>The letter challenge</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><code><ol start="13">
 <li><span class="comment">// NewLetterChallenge returns a problem defined as</span></li>
 <li><span class="comment">//</span></li>
@@ -696,40 +586,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li class="current"><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="11"><header><h2>Verification</h2>
-</header>
-<div class="content"><p>Each algorithm in these examples is tested like this</p>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Verification &raquo;</em>12/26</div>
+</div>
+<div class="page" id="13"><div class="view"><div class="header"><h2>Verification</h2>
+</div>
+<div class="slide"><p>Each algorithm in these examples is tested like this</p>
 <div class="srcfile"><code><ol start="10">
 <li><span class="keyword">const</span> Letters = "0 1 2 3 4 5 6 7 8 9 a b c d e f"</li>
 <li></li>
@@ -749,40 +611,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ol>
 </code></div>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li class="current"><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="12"><header><h2>Sequential</h2>
-</header>
-<div class="content"><p>Simple implementation though very low performance</p>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; The letter challenge</em><em class="next" onclick="nextPage()">Sequential &raquo;</em>13/26</div>
+</div>
+<div class="page" id="14"><div class="view"><div class="header"><h2>Sequential</h2>
+</div>
+<div class="slide"><p>Simple implementation though very low performance</p>
 <table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="9">
 <li><span class="comment">// Alg01 solves the work sequentially</span></li>
@@ -813,40 +647,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li class="current"><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="13"><header><h2>Concurrent using sync.WaitGroup</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>14/26</div>
+</div>
+<div class="page" id="15"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="22">
 <li><span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></li>
 <li><span class="keyword">func</span> Alg02(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -880,40 +686,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li class="current"><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="14"><header><h2>Arguments are evaluated at calltime</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sequential</em><em class="next" onclick="nextPage()">Arguments are evaluated at calltime &raquo;</em>15/26</div>
+</div>
+<div class="page" id="16"><div class="view"><div class="header"><h2>Arguments are evaluated at calltime</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="37">
 <li><span class="comment">// Alg03 fixes reference problem inside loop</span></li>
 <li><span class="keyword">func</span> Alg03(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -948,40 +726,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li class="current"><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="15"><header><h2>Protect concurrent writes with sync.Mutex</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup</em><em class="next" onclick="nextPage()">Protect concurrent writes with sync.Mutex &raquo;</em>16/26</div>
+</div>
+<div class="page" id="17"><div class="view"><div class="header"><h2>Protect concurrent writes with sync.Mutex</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="53">
 <li><span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></li>
 <li><span class="keyword">func</span> Alg04(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1019,40 +769,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li class="current"><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="16"><header><h2>Sort results</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Arguments are evaluated at calltime</em><em class="next" onclick="nextPage()">Sort results &raquo;</em>17/26</div>
+</div>
+<div class="page" id="18"><div class="view"><div class="header"><h2>Sort results</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="72">
 <li><span class="comment">// Alg05 fix order</span></li>
 <li><span class="keyword">func</span> Alg05(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1089,40 +811,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li class="current"><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="17"><header><h2>Improved performance paid with complexity</h2>
-</header>
-<div class="content"><p>Comparing the sequential working algorithm to the working
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Protect concurrent writes with sync.Mutex</em><em class="next" onclick="nextPage()">Improved performance paid with complexity &raquo;</em>18/26</div>
+</div>
+<div class="page" id="19"><div class="view"><div class="header"><h2>Improved performance paid with complexity</h2>
+</div>
+<div class="slide"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
 <pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05)$"<br/><div class="srcfile"><code><ol>
 <li>goos: linux</li>
@@ -1136,40 +830,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ol>
 </code></div>
 </pre></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li class="current"><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="18"><header><h2>Using channel</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>19/26</div>
+</div>
+<div class="page" id="20"><div class="view"><div class="header"><h2>Using channel</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="92">
 <li><span class="comment">// Alg06 uses channel to synchronize responses</span></li>
 <li><span class="keyword">func</span> Alg06(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1203,40 +869,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li class="current"><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="19"><header><h2>Correct order using channel</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Improved performance paid with complexity</em><em class="next" onclick="nextPage()">Correct order using channel &raquo;</em>20/26</div>
+</div>
+<div class="page" id="21"><div class="view"><div class="header"><h2>Correct order using channel</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="108">
 <li><span class="comment">// Alg07 uses channel to synchronize responses with ordered result</span></li>
 <li><span class="keyword">func</span> Alg07(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1275,40 +913,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li class="current"><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="20"><header><h2>Clean up resources</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel</em><em class="next" onclick="nextPage()">Clean up resources &raquo;</em>21/26</div>
+</div>
+<div class="page" id="22"><div class="view"><div class="header"><h2>Clean up resources</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="129">
 <li><span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></li>
 <li><span class="keyword">func</span> Alg08(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1347,40 +957,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li class="current"><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="21"><header><h2>Interrupt</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Correct order using channel</em><em class="next" onclick="nextPage()">Interrupt &raquo;</em>22/26</div>
+</div>
+<div class="page" id="23"><div class="view"><div class="header"><h2>Interrupt</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="151">
 <li><span class="comment">// Alg09 returns when all work is done or context is cancelled</span></li>
 <li><span class="keyword">func</span> Alg09(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1435,40 +1017,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li class="current"><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="22"><header><h2>Respect context cancellation</h2>
-</header>
-<div class="content"><table class="twocolumn">
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Clean up resources</em><em class="next" onclick="nextPage()">Respect context cancellation &raquo;</em>23/26</div>
+</div>
+<div class="page" id="24"><div class="view"><div class="header"><h2>Respect context cancellation</h2>
+</div>
+<div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="182">
 <li><span class="comment">// Alg10 returns when all work is done or context is cancelled</span></li>
 <li><span class="keyword">func</span> Alg10(ctx context.Context, work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
@@ -1525,40 +1079,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </pre></td></tr>
 </table>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li class="current"><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="23"><header><h2>Compare all</h2>
-</header>
-<div class="content"><p>In this example using channels and sync package primitives
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Interrupt</em><em class="next" onclick="nextPage()">Compare all &raquo;</em>24/26</div>
+</div>
+<div class="page" id="25"><div class="view"><div class="header"><h2>Compare all</h2>
+</div>
+<div class="slide"><p>In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
 		that is out of scope for this talk.</p>
@@ -1575,115 +1101,196 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ol>
 </code></div>
 </pre></div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li class="current"><a href="#23">23</a></li>
-<li><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<div class="slide" id="24"><header><h2>Go concurrency design summary</h2>
-</header>
-<div class="content"><ul>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>25/26</div>
+</div>
+<div class="page" id="26"><div class="view"><div class="header"><h2>Go concurrency design summary</h2>
+</div>
+<div class="slide"><ul>
 <li>concurrency is difficult to get right; even in Go</li>
 <li>tests are an invaluable tool when debugging concurrency issues</li>
 <li>never assume performance optimizations, always measure</li>
 <li>if performance is good enough with a sequential algorithm, skip the complexity of concurrency</li>
 </ul>
 </div>
-<nav><ul>
-<li><a href="#1">1</a></li>
-<li><a href="#2">2</a></li>
-<li><a href="#3">3</a></li>
-<li><a href="#4">4</a></li>
-<li><a href="#5">5</a></li>
-<li><a href="#6">6</a></li>
-<li><a href="#7">7</a></li>
-<li><a href="#8">8</a></li>
-<li> | </li>
-<li><a href="#9">9</a></li>
-<li><a href="#10">10</a></li>
-<li><a href="#11">11</a></li>
-<li><a href="#12">12</a></li>
-<li> | </li>
-<li><a href="#13">13</a></li>
-<li><a href="#14">14</a></li>
-<li><a href="#15">15</a></li>
-<li><a href="#16">16</a></li>
-<li> | </li>
-<li><a href="#17">17</a></li>
-<li><a href="#18">18</a></li>
-<li><a href="#19">19</a></li>
-<li><a href="#20">20</a></li>
-<li><a href="#21">21</a></li>
-<li><a href="#22">22</a></li>
-<li><a href="#23">23</a></li>
-<li class="current"><a href="#24">24</a></li>
-</ul>
-</nav>
 </div>
-<script>function enhance() {
-    // if there is no hash, start with the first slide
-    var hash = window.location.hash;
-    if (hash == "") {
-	window.location += "#1"
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Compare all</em><em class="next">&nbsp;</em>26/26</div>
+</div>
+</body>
+<script>document.addEventListener('keydown', function(event) {
+    if (previousPageKey(event)) {
+	event.preventDefault()		
+	previousPage()
 	return
     }
+    if (nextPageKey(event)) {
+	event.preventDefault()
+	nextPage()
+	return
+    }
+    if (event.key === 'Home') {
+	pageIndex = 1
+	event.preventDefault()
+	window.location.hash = pageIndex	
+    }
+    if (event.key === 'End') {
+	pageIndex = last
+	event.preventDefault()
+	window.location.hash = pageIndex	
+    }
+    if (event.key === 't') {
+	pageIndex = 2 // toc
+	event.preventDefault()
+	window.location.hash = pageIndex	
+    }
+    return
+})
 
-    // handle clicks on slide changes
-    window.onhashchange = toggleSlide;
+window.addEventListener('resize', function() {
+    window.location.hash = getPos()
+});
 
-    hash = hash.substring(1) // ignore the #
-    var slides = document.getElementsByClassName("slide");
-    for (var i = 0; i < slides.length; i++) {
-	var s = slides.item(i);
+const last = document.querySelectorAll('.page').length;
 
-	// hide all but the hashed one	
-	if (s.id != hash) {
-	    s.style.display = 'none';
-	} else {
-	    s.style.diplay = 'block';
-	}
+function previousPage() {
+    let pageIndex = getPos()
+    if (pageIndex > 1) {
+	pageIndex--
+	window.location.hash = pageIndex
     }
 }
 
-var currentHash = window.location.hash;
+function nextPage() {
+    let pageIndex = getPos()
+    if (pageIndex < last) {
+	pageIndex++
+	window.location.hash = pageIndex
+    }
+}
 
-function toggleSlide() {
-    var c = document.getElementById(currentHash.substring(1));
-    c.style.display = 'none';
-    var n = document.getElementById(window.location.hash.substring(1))
-    n.style.display = 'block';
-    currentHash = window.location.hash;
+function previousPageKey(event) {
+    return event.key === 'ArrowLeft' ||
+	    event.key === 'ArrowUp' ||
+	    event.key === 'PageUp'
+}
+
+function nextPageKey(event) {
+    return event.key === 'ArrowRight' ||
+	    event.key === 'ArrowDown' ||
+	    event.key === 'PageDown'
+}
+
+function getPos() {
+    let currentView = window.location.hash
+    if (currentView === '') {
+	currentView = "#1"
+    }
+    return parseInt(currentView.split('#').join(''))
+}
+
+// dots is an array of Dot objects,
+var dots = [];
+
+// mouse is an object used to track the X and Y position
+// of the mouse, set with a mousemove event listener below
+var mouse = { x: 0, y: 0 };
+
+// visible indicates if trail is vissible or not
+var visible = false;
+
+addEventListener('keydown', function(event) {
+    if (event.keyCode == 17 && !visible) {
+	showAll();
+    }
+});
+
+addEventListener('keyup', function(event) {
+    if (event.keyCode == 17 && visible) {
+	hideAll();
+    }
+});
+
+function hideAll() {
+    dots.forEach(function(dot, index, dots) {
+	var nextDot = dots[index + 1] || dots[0];
+	nextDot.node.style.display = "none";
+	console.log("hideAll");	
+    });
+}
+
+function showAll() {
+    visible = true;
+    dots.forEach(function(dot, index, dots) {
+	var nextDot = dots[index + 1] || dots[0];
+	nextDot.node.style.display = "block";
+	console.log("showAll");
+    });
+}
+
+// The Dot object used to scaffold the dots
+var Dot = function() {
+  this.x = 0;
+  this.y = 0;
+  this.node = (function(){
+    var n = document.createElement("div");
+    n.className = "trail";
+    document.body.appendChild(n);
+    return n;
+  }());
+};
+// The Dot.prototype.draw() method sets the position of 
+  // the object's <div> node
+Dot.prototype.draw = function() {
+  this.node.style.left = this.x + "px";
+  this.node.style.top = this.y + "px";
+};
+
+
+// Creates the Dot objects, populates the dots array
+for (var i = 0; i < 12; i++) {
+  var d = new Dot();
+  dots.push(d);
+}
+
+// This is the screen redraw function
+function draw() {
+  // Make sure the mouse position is set everytime
+    // draw() is called.
+  var x = mouse.x,
+      y = mouse.y;
+  
+  // This loop is where all the 90s magic happens
+  dots.forEach(function(dot, index, dots) {
+    var nextDot = dots[index + 1] || dots[0];
+    
+    dot.x = x;
+    dot.y = y;
+    dot.draw();
+    x += (nextDot.x - dot.x) * .6;
+    y += (nextDot.y - dot.y) * .6;
+
+  });
+}
+
+addEventListener("mousemove", function(event) {
+  event.preventDefault();
+  mouse.x = event.pageX;
+  mouse.y = event.pageY;
+});
+
+
+// animate() calls draw() then recursively calls itself
+  // everytime the screen repaints via requestAnimationFrame().
+function animate() {
+    if (CTRL_DOWN) {
+	draw();
+    }
+  requestAnimationFrame(animate);
 }
 
 
 
-enhance()
+// And get it started by calling animate().
+animate();
 </script>
-</body>
 </html>
