@@ -184,7 +184,11 @@ bottom: 1vh;
 margin-right: 1em;
 }
 .toc {
+position: absolute;
 font-size: 0.9em;
+left: 13vw;
+width: 73vw;
+padding-top: 1em;
 }
 .shell {
 padding: 1em;
@@ -251,6 +255,9 @@ margin-right: 20px;
 padding-top: 50px;
 color: red;
 }
+.smallerFont srcfile {
+font-size: 0.8em;
+}
 </style>
 </head>
 <body>
@@ -274,8 +281,8 @@ color: red;
 <li class="h2"><a href="#7">package context</a></li>
 <li class="h2"><a href="#8">go test -bench</a></li>
 <li class="h2"><a href="#9">Problem</a></li>
-<li class="h2"><a href="#10">The letter challenge</a></li>
-<li class="h2"><a href="#11">Verification</a></li>
+<li class="h3"><a href="#10">The letter challenge</a></li>
+<li class="h3"><a href="#11">Verification</a></li>
 <li class="h2"><a href="#12">Sequential</a></li>
 <li class="h2"><a href="#13">Concurrent using sync.WaitGroup</a></li>
 <li class="h2"><a href="#14">Arguments are evaluated at calltime</a></li>
@@ -462,12 +469,12 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">The letter challenge &raquo;</em>9/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">Problem The letter challenge &raquo;</em>9/24</div>
 </div>
-<div class="page" id="10"><div class="view"><div class="header"><h2>The letter challenge</h2>
+<div class="page" id="10"><div class="view"><div class="header"><div class="group">Problem</div>
+<h3>The letter challenge</h3>
 </div>
-<div class="slide"><table class="twocolumn">
-<tr><td><div class="srcfile"><code><ol start="13">
+<div class="slide"><div class="double"><div class="column left" style="width: 42vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="13">
 <li><span class="comment">// NewLetterChallenge returns a problem defined as</span></li>
 <li><span class="comment">//</span></li>
 <li><span class="comment">//   - get all letters using a list of requests</span></li>
@@ -496,7 +503,8 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li>}</li>
 </ol>
 </code></div>
-</td><td><div class="srcfile"><code><ol start="40">
+</div>
+<div class="column right" style="left: 50vw; width: 50vw"><div class="srcfile" style="font-size:0.95vw"><code><ol start="40">
 <li><span class="keyword">func</span> (p *OrderedLetters) Solve(alg Algorithm) error {</li>
 <li>    <span class="comment">// create the workload, ie. requests</span></li>
 <li>    words := strings.Split(p.exp, " ")</li>
@@ -531,13 +539,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li>}</li>
 </ol>
 </code></div>
-</td></tr>
-</table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Verification &raquo;</em>10/24</div>
 </div>
-<div class="page" id="11"><div class="view"><div class="header"><h2>Verification</h2>
+</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Problem Verification &raquo;</em>10/24</div>
+</div>
+<div class="page" id="11"><div class="view"><div class="header"><div class="group">Problem</div>
+<h3>Verification</h3>
 </div>
 <div class="slide"><p>Each algorithm in these examples is tested like this</p>
 <div class="srcfile"><code><ol start="10">
@@ -560,7 +569,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; The letter challenge</em><em class="next" onclick="nextPage()">Sequential &raquo;</em>11/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem The letter challenge</em><em class="next" onclick="nextPage()">Sequential &raquo;</em>11/24</div>
 </div>
 <div class="page" id="12"><div class="view"><div class="header"><h2>Sequential</h2>
 </div>
@@ -596,7 +605,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>12/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>12/24</div>
 </div>
 <div class="page" id="13"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup</h2>
 </div>

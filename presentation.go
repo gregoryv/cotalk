@@ -27,7 +27,11 @@ func main() {
 
 	// center toc if short titles
 	d.Style(".toc",
+		"position: absolute",
 		"font-size: 0.9em",
+		"left: 13vw",
+		"width: "+vw(73),
+		"padding-top: 1em",
 	)
 	d.Style(".shell",
 		"padding: 1em",
@@ -95,7 +99,9 @@ func main() {
 		"padding-top: 50px",
 		"color: red",
 	)
-
+	d.Style(".smallerFont srcfile",
+		"font-size: 0.8em",
+	)
 	alg := &algorithms{
 		current: 1,
 		atLine:  9,
@@ -190,15 +196,15 @@ processes and APIs, not for passing optional parameters to functions.
 		load("problem.go"),
 	)
 
-	d.NewCard(H2("The letter challenge"),
-		Table(Class("twocolumn"), Tr(Td(
-			LoadLines("letters.go", 13, 38),
-		), Td(
-			LoadLines("letters.go", 40, 71),
-		))),
+	d.NewCard(H3("The letter challenge"),
+		TwoCol(
+			LoadLinesCustom("letters.go", 13, 38, "1.1vw"),
+			LoadLinesCustom("letters.go", 40, 71, "0.95vw"),
+			50,
+		),
 	)
 
-	d.NewCard(H2("Verification"),
+	d.NewCard(H3("Verification"),
 		P(`Each algorithm in these examples is tested like this`),
 		LoadLines("alg_test.go", 10, 24),
 	)

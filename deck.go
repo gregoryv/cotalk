@@ -34,6 +34,7 @@ type Deck struct {
 func (p *Deck) CSS() *CSS {
 	// vh
 	scale := 2
+
 	var footerHeight int = scale
 	var headerHeight int = scale * 7
 	fontSize := scale
@@ -346,6 +347,12 @@ func Load(filename string) *Element {
 	)
 }
 
+func LoadLinesCustom(filename string, from, to int, fontSize string) *Element {
+	return LoadLines(filename, from, to).With(
+		Attr("style", "font-size:"+fontSize),
+	)
+}
+
 func LoadLines(filename string, from, to int) *Element {
 	v := files.MustLoadLines(filename, from, to)
 	v = strings.TrimSpace(v)
@@ -542,4 +549,25 @@ func layoutView() *CSS {
 		"width: 40vw",
 	)
 	return css
+}
+
+func TwoCol(e1, e2 any, width int) *Element {
+	leftWidth := 100 - 8 - width
+
+	div := Div(Class("double"))
+	div.With(
+		Div(
+			Class("column left"),
+			Attr("style", fmt.Sprintf("width: %vvw", leftWidth)),
+			e1,
+		),
+	)
+	div.With(
+		Div(
+			Class("column right"),
+			Attr("style", fmt.Sprintf("left: %vvw; width: %vvw", leftWidth+8, width)),
+			e2,
+		),
+	)
+	return div
 }
