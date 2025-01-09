@@ -10,32 +10,23 @@ var visible = false;
 
 addEventListener('keydown', function(event) {
     if (event.keyCode == 17 && !visible) {
-	showAll();
+	// show all dots
+	visible = true;
+	for ( let i = 0; i < dots.length; i++) {
+	    dots[i].node.style.display = "block";
+	};   
     }
 });
 
 addEventListener('keyup', function(event) {
     if (event.keyCode == 17 && visible) {
-	hideAll();
+	// hide all dots
+	visible = false;
+	for ( let i = 0; i < dots.length; i++) {
+	    dots[i].node.style.display = "none";
+	};
     }
 });
-
-function hideAll() {
-    dots.forEach(function(dot, index, dots) {
-	var nextDot = dots[index + 1] || dots[0];
-	nextDot.node.style.display = "none";
-	console.log("hideAll");	
-    });
-}
-
-function showAll() {
-    visible = true;
-    dots.forEach(function(dot, index, dots) {
-	var nextDot = dots[index + 1] || dots[0];
-	nextDot.node.style.display = "block";
-	console.log("showAll");
-    });
-}
 
 // The Dot object used to scaffold the dots
 var Dot = function() {
@@ -92,7 +83,7 @@ addEventListener("mousemove", function(event) {
 // animate() calls draw() then recursively calls itself
   // everytime the screen repaints via requestAnimationFrame().
 function animate() {
-    if (CTRL_DOWN) {
+    if (visible) {
 	draw();
     }
   requestAnimationFrame(animate);

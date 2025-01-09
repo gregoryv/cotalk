@@ -65,18 +65,6 @@ func main() {
 	d.Style("quote.small",
 		"font-size: 1vw",
 	)
-
-	d.Style(".pictogram",
-		"display: block",
-		"width: 400px",
-		"text-align: center",
-		"padding: 1em 1em",
-		"margin: 1em auto",
-	)
-	d.Style(".pictogram label",
-		"font-style: italic",
-		"font-size: 0.6em",
-	)
 	d.Style(".srcfile",
 		"font-size: 1.3vw",
 	)
