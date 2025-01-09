@@ -404,8 +404,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 </div>
 <div class="page" id="8"><div class="view"><div class="header"><h2>go test -bench</h2>
 </div>
-<div class="slide"><table class="twocolumn">
-<tr><td><div class="srcfile"><code><ol>
+<div class="slide"><div class="double"><div class="column left" style="width: 37vw"><div class="srcfile"><code><ol>
 <li><span class="keyword">package</span> main</li>
 <li></li>
 <li><span class="keyword">import</span> (</li>
@@ -426,29 +425,27 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li>}</li>
 </ol>
 </code></div>
-</td><td><pre class="shell dark">$ go test -bench=BenchmarkX -v<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkX</li>
-<li>N is 1</li>
-<li>N is 100</li>
-<li>N is 1100</li>
-<li>BenchmarkX-16            1100       1095229 ns/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    1.320s</li>
-</ol>
-</code></div>
-</pre></td></tr>
-</table>
+</div>
+<div class="column right" style="left: 45vw; width: 55vw"><pre class="shell dark">$ go test -bench=BenchmarkX -v<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkX
+N is 1
+N is 100
+N is 1100
+BenchmarkX-16    	    1100	   1095229 ns/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	1.320s
+</pre></div>
+</div>
 </div>
 </div>
 <div class="footer"><em class="prev" onclick="previousPage()">&laquo; package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>8/24</div>
 </div>
 <div class="page" id="9"><div class="view"><div class="header"><h2>Problem</h2>
 </div>
-<div class="slide"><div class="srcfile"><code><ol>
+<div class="slide"><div style="position: absolute; left: 22vw; width: 55vw"><div class="srcfile"><code><ol>
 <li><span class="keyword">package</span> main</li>
 <li></li>
 <li><span class="keyword">import</span> (</li>
@@ -467,6 +464,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li><span class="keyword">type</span> Algorithm <span class="keyword">func</span>(work []*<span class="type">http.Request</span>) (result []*http.Response)</li>
 </ol>
 </code></div>
+</div>
 </div>
 </div>
 <div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">Problem The letter challenge &raquo;</em>9/24</div>
@@ -591,16 +589,13 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg01-16               6     175604692 ns/op      279224 B/op        1980 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    1.236s</li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg01<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg01-16    	       6	 175604692 ns/op	  279224 B/op	    1980 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	1.236s
 </pre></td></tr>
 </table>
 </div>
@@ -628,17 +623,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02<br/><div class="srcfile"><code><ol>
-<li><span style="color:red;">--- FAIL:</span> BenchmarkAlg02</li>
-<li>    alg_test.<span class="keyword">go</span>:22: </li>
-<li>        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f</li>
-<li>        got: f f f f f f f f f f f f f f f f</li>
-<li><span style="color:red;">FAIL</span></li>
-<li>exit status 1</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.013s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg02<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
+    alg_test.go:22: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: f f f f f f f f f f f f f f f f
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.013s
+<span style="color:red;">FAIL</span>
 </pre><p>Why does it fail?</p>
 </td></tr>
 </table>
@@ -668,17 +660,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03<br/><div class="srcfile"><code><ol>
-<li><span style="color:red;">--- FAIL:</span> BenchmarkAlg03</li>
-<li>    alg_test.<span class="keyword">go</span>:32: </li>
-<li>        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f</li>
-<li>        got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3</li>
-<li><span style="color:red;">FAIL</span></li>
-<li>exit status 1</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.014s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
+    alg_test.go:32: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>
 </pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1</pre></p>
 </td></tr>
 </table>
@@ -711,17 +700,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04<br/><div class="srcfile"><code><ol>
-<li><span style="color:red;">--- FAIL:</span> BenchmarkAlg04</li>
-<li>    alg_test.<span class="keyword">go</span>:42: </li>
-<li>        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f</li>
-<li>        got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0</li>
-<li><span style="color:red;">FAIL</span></li>
-<li>exit status 1</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.014s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg04<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
+    alg_test.go:42: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>
 </pre><p>Why does it fail?</p>
 </td></tr>
 </table>
@@ -755,16 +741,13 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg05-16             100      13281838 ns/op      289424 B/op        2018 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    1.344s</li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg05<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg05-16    	     100	  13281838 ns/op	  289424 B/op	    2018 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	1.344s
 </pre></td></tr>
 </table>
 </div>
@@ -775,17 +758,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 </div>
 <div class="slide"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
-<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05)$"<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg1-16               6     175609134 ns/op      276349 B/op        1976 allocs/op</li>
-<li>BenchmarkAlg5-16              87      13308022 ns/op      292652 B/op        2021 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    2.413s</li>
-</ol>
-</code></div>
+<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05)$"<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg1-16    	       6	 175609134 ns/op	  276349 B/op	    1976 allocs/op
+BenchmarkAlg5-16    	      87	  13308022 ns/op	  292652 B/op	    2021 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	2.413s
 </pre></div>
 </div>
 <div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>17/24</div>
@@ -812,17 +792,14 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06<br/><div class="srcfile"><code><ol>
-<li><span style="color:red;">--- FAIL:</span> BenchmarkAlg06</li>
-<li>    alg_test.<span class="keyword">go</span>:62: </li>
-<li>        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f</li>
-<li>        got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8</li>
-<li><span style="color:red;">FAIL</span></li>
-<li>exit status 1</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.014s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg06<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
+    alg_test.go:62: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>
 </pre></td></tr>
 </table>
 </div>
@@ -856,16 +833,13 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg07-16             100      13411328 ns/op      293160 B/op        2025 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    1.357s</li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg07<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg07-16    	     100	  13411328 ns/op	  293160 B/op	    2025 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	1.357s
 </pre><p>There is still a bug in this code, do you see it?</p>
 </td></tr>
 </table>
@@ -901,16 +875,13 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg08-16              99      13400211 ns/op      292396 B/op        2022 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    1.356s</li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg08<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg08-16    	      99	  13400211 ns/op	  292396 B/op	    2022 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	1.356s
 </pre></td></tr>
 </table>
 </div>
@@ -954,23 +925,20 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg09-16        panic: <span style="color:red;">send on closed channel</span></li>
-<li></li>
-<li>goroutine 499 [running]:</li>
-<li>github.com/preferit/main.Alg9.func1.1(0x3, 0xc00040a780?)</li>
-<li>    /home/gregory/src/github.com/preferit/main/alg.<span class="keyword">go</span>:162 +0x55</li>
-<li>created by github.com/preferit/main.Alg9.func1</li>
-<li>    /home/gregory/src/github.com/preferit/main/alg.<span class="keyword">go</span>:160 +0x8e</li>
-<li>exit status 2</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.054s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg09<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg09-16    	panic: <span style="color:red;">send on closed channel</span>
+
+goroutine 499 [running]:
+github.com/preferit/main.Alg9.func1.1(0x3, 0xc00040a780?)
+	/home/gregory/src/github.com/preferit/main/alg.go:162 +0x55
+created by github.com/preferit/main.Alg9.func1
+	/home/gregory/src/github.com/preferit/main/alg.go:160 +0x8e
+exit status 2
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.054s
+<span style="color:red;">FAIL</span>
 </pre></td></tr>
 </table>
 </div>
@@ -1018,21 +986,18 @@ var DeadlineExceeded error = deadlineExceededError{}
 <li></li>
 </ol>
 </code></pre></div>
-</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li><span style="color:red;">BenchmarkAlg10-16        --- FAIL:</span> BenchmarkAlg10-16</li>
-<li>    alg_test.<span class="keyword">go</span>:123: </li>
-<li>        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f</li>
-<li>        got: 0             7       b       f</li>
-<li><span style="color:red;">FAIL</span></li>
-<li>exit status 1</li>
-<li><span style="color:red;">FAIL</span>    github.com/preferit/main    0.074s</li>
-<li><span style="color:red;">FAIL</span></li>
-</ol>
-</code></div>
+</td><td><pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg10<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+<span style="color:red;">BenchmarkAlg10-16    	--- FAIL:</span> BenchmarkAlg10-16
+    alg_test.go:123: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: 0             7       b       f
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/preferit/main	0.074s
+<span style="color:red;">FAIL</span>
 </pre></td></tr>
 </table>
 </div>
@@ -1045,18 +1010,15 @@ var DeadlineExceeded error = deadlineExceededError{}
 		seem to yield more or less the same result. There performance
 		boost would be to try and minimize number of allocations. But
 		that is out of scope for this talk.</p>
-<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05|Alg08)$"<br/><div class="srcfile"><code><ol>
-<li>goos: linux</li>
-<li>goarch: amd64</li>
-<li>pkg: github.com/preferit/main</li>
-<li>cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz</li>
-<li>BenchmarkAlg1-16               6     175310048 ns/op      277350 B/op        1982 allocs/op</li>
-<li>BenchmarkAlg5-16              88      13202327 ns/op      293016 B/op        2026 allocs/op</li>
-<li>BenchmarkAlg8-16              91      13449404 ns/op      289586 B/op        2019 allocs/op</li>
-<li><span style="color:green;">PASS</span></li>
-<li>ok      github.com/preferit/main    3.652s</li>
-</ol>
-</code></div>
+<pre class="shell dark">$ go test -benchmem -bench="(Alg01|Alg05|Alg08)$"<br/>goos: linux
+goarch: amd64
+pkg: github.com/preferit/main
+cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
+BenchmarkAlg1-16    	       6	 175310048 ns/op	  277350 B/op	    1982 allocs/op
+BenchmarkAlg5-16    	      88	  13202327 ns/op	  293016 B/op	    2026 allocs/op
+BenchmarkAlg8-16    	      91	  13449404 ns/op	  289586 B/op	    2019 allocs/op
+<span style="color:green;">PASS</span>
+ok  	github.com/preferit/main	3.652s
 </pre></div>
 </div>
 <div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>23/24</div>

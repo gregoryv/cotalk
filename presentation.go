@@ -180,20 +180,20 @@ processes and APIs, not for passing optional parameters to functions.
 	)
 
 	d.NewCard(H2("go test -bench"),
-		Table(Class("twocolumn"), Tr(Td(
+		TwoCol(
 			load("benchx_test.go"),
-		), Td(
-			shell(
+			Shell(
 				"$ go test -bench=BenchmarkX -v",
 				"testdata/benchx.html",
 			),
-		))),
+			55,
+		),
 	)
 
 	// Problem definition
 	// ----------------------------------------
 	d.NewCard(H2("Problem"),
-		load("problem.go"),
+		Middle(55, load("problem.go")),
 	)
 
 	d.NewCard(H3("The letter challenge"),
@@ -248,7 +248,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P(`Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.`),
 
-		shell(
+		Shell(
 			`$ go test -benchmem -bench="(Alg01|Alg05)$"`,
 			"testdata/compare_bench.html",
 		),
@@ -279,7 +279,7 @@ processes and APIs, not for passing optional parameters to functions.
 		boost would be to try and minimize number of allocations. But
 		that is out of scope for this talk.`),
 
-		shell(
+		Shell(
 			`$ go test -benchmem -bench="(Alg01|Alg05|Alg08)$"`,
 			"testdata/compare_all.html",
 		),
@@ -296,11 +296,6 @@ processes and APIs, not for passing optional parameters to functions.
 		//
 	)
 	d.Document().SaveAs("docs/index.html")
-}
-
-func shell(cmd, filename string) *Element {
-	v := Load(filename)
-	return Pre(Class("shell dark"), cmd, Br(), v)
 }
 
 //go:embed testdata *.go
@@ -334,7 +329,7 @@ func (a *algorithms) next(extra ...interface{}) *Element {
 			),
 		),
 			Td(
-				shell(
+				Shell(
 					fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s", name),
 					fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
 				),
