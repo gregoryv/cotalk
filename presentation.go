@@ -107,55 +107,60 @@ func main() {
 		atLine:  9,
 	} // 8 where first func starts
 
-	d.NewCard(H2("Background and history"),
-		Table(
-			Tr(
-				Td(Img(Src("th_small.jpg"))),
-				Td(
-					P("Sir Charles Antony Richard Hoare (",
-						A(Href("https://en.wikipedia.org/wiki/Tony_Hoare"), "Tony Hoare"),
+	d.NewCard(H2("Concurrency constructs"),
+		Middle(80,
+			Img(
+				Src("th_small.jpg"),
+				Attr("style", "float: left; margin: 1em 1em"),
+			),
 
-						`). Born 1934 in Sri Lanka, studied at Oxford and in
+			P("Sir Charles Antony Richard Hoare (",
+				A(
+					Href("https://en.wikipedia.org/wiki/Tony_Hoare"),
+					"Tony Hoare",
+				),
+				`). Born 1934 in Sri Lanka, studied at Oxford and in
 			Moscow. His research spanned program correctness, sorting
 			and programming languages. His work is freely accessible
-			online and the Go channel construct is his concept.
-			`),
-
-					Ul(
-						Li(
-							A(Href("https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf"), "Communicating Sequential Processes (CSP), paper 1978"),
-						),
-						Li(
-							A(Href("http://www.usingcsp.com/cspbook.pdf"), "CSP, book 1985"),
-						),
-					),
+			online and the channel concept is described in the book `,
+				A(
+					Href("http://www.usingcsp.com/cspbook.pdf"),
+					"Communicating Sequential Processes (CSP) from 1985",
 				),
 			),
 		),
 	)
 
-	d.NewCard(H2("Goroutines"),
-		A(Attr("target", "_blank"),
-			Href("https://go.dev/tour/concurrency/1"),
-			Img(Class("center"), Src("gotour_concurrency_1.png")),
+	d.NewCard(H3("Go routines"),
+		Middle(50,
+			A(Attr("target", "_blank"),
+				Href("https://go.dev/tour/concurrency/1"),
+				Img(Class("center"), Src("gotour_concurrency_1.png")),
+			),
 		),
 	)
 
-	d.NewCard(H2("channels"),
-		A(Attr("target", "_blank"),
-			Href("https://go.dev/tour/concurrency/2"),
-			Img(Class("center"), Src("gotour_concurrency_2.png")),
+	d.NewCard(H3("Channels"),
+		Middle(50,
+			A(Attr("target", "_blank"),
+				Href("https://go.dev/tour/concurrency/2"),
+				Img(Class("center"), Src("gotour_concurrency_2.png")),
+			),
 		),
 	)
 
 	// packages
 	// ----------------------------------------
-	d.NewCard(H2("package sync"),
-		godoc("sync", ""),
+	d.NewCard(H3("Package sync"),
+		Middle(40,
+			Div(fontSize("1.1vw"),
+				godoc("sync", ""),
+			),
+		),
 	)
-
-	d.NewCard(H2("package context"),
-		Pre(highlightGoDoc(`package context
+	d.NewCard(H3("Package context"),
+		TwoCol(
+			Pre(fontSize("1.1vw"), highlightGoDoc(`package context
 
 ...
 
@@ -176,7 +181,11 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		`)),
 
-		godoc("context", "-short"),
+			Div(fontSize("1.1vw"),
+				godoc("context", "-short"),
+			),
+			55,
+		),
 	)
 
 	d.NewCard(H2("go test -bench"),
@@ -209,7 +218,7 @@ processes and APIs, not for passing optional parameters to functions.
 		LoadLines("alg_test.go", 10, 24),
 	)
 
-	d.NewCard(H2("Sequential"),
+	d.NewCard(H3("Sequential"),
 		P("Simple implementation though very low performance"),
 		alg.next(),
 	)
@@ -258,7 +267,7 @@ processes and APIs, not for passing optional parameters to functions.
 		alg.next(),
 	)
 
-	d.NewCard(H2("Correct order using channel"),
+	d.NewCard(H3("Correct order using channel"),
 		alg.next(
 			P("There is still a bug in this code, do you see it?"),
 		),
@@ -267,10 +276,10 @@ processes and APIs, not for passing optional parameters to functions.
 		alg.next(),
 	)
 	d.NewCard(H2("Interrupt"),
-		alg.next(),
+		alg.nextCustom("1.0vw", "1.0vw", 45),
 	)
 	d.NewCard(H2("Respect context cancellation"),
-		alg.next(),
+		alg.nextCustom("1.0vw", "1.0vw", 45),
 	)
 	d.NewCard(H2("Compare all"),
 
@@ -298,6 +307,10 @@ processes and APIs, not for passing optional parameters to functions.
 	d.Document().SaveAs("docs/index.html")
 }
 
+func fontSize(v string) any {
+	return Attr("style", "font-size:"+v)
+}
+
 //go:embed testdata *.go
 var assets embed.FS
 
@@ -310,32 +323,38 @@ type algorithms struct {
 }
 
 func (a *algorithms) next(extra ...interface{}) *Element {
+	return a.nextCustom("1.1vw", "1.0vw", 45, extra...)
+}
+
+func (a *algorithms) nextCustom(fsleft, fsright string, width int, extra ...interface{}) *Element {
 	name := fmt.Sprintf("Alg%02v", a.current)
 	a.current++
 	fn := files.MustLoadFunc("alg.go", name)
 	lines := strings.Count(fn, "\n")
-	from := a.atLine
-	v := files.MustLoadLines("alg.go", a.atLine, a.atLine+lines)
-	a.atLine = a.atLine + lines + 2
+	var v any
+	if fsleft != "" {
+		v = LoadLinesCustom("alg.go", a.atLine, a.atLine+lines, fsleft)
+	} else {
+		v = LoadLines("alg.go", a.atLine, a.atLine+lines)
+	}
+	// store for next call
+	a.atLine += lines
+	a.atLine += 2 // spacing to next func
 
-	v = strings.ReplaceAll(v, "\t", "    ")
-	v = highlight(v)
-
-	return Wrap(
-		Table(Class("twocolumn"), Tr(Td(
-			Div(
-				Class("srcfile"),
-				Pre(Code(numLines(v, from))),
-			),
+	return TwoCol(
+		v,
+		Div(
+			Shell(
+				fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s", name),
+				fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
+			).With(func() any {
+				if fsright != "" {
+					return Attr("style", "font-size: "+fsright)
+				}
+				return nil
+			}()),
+			Wrap(extra...),
 		),
-			Td(
-				Shell(
-					fmt.Sprintf("$ go test -benchmem -bench=Benchmark%s", name),
-					fmt.Sprintf("testdata/%s_bench.html", strings.ToLower(name)),
-				),
-				Wrap(extra...),
-			),
-		),
-		),
+		width,
 	)
 }
