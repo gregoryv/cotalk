@@ -113,50 +113,6 @@ func main() {
 		atLine:  9,
 	} // 8 where first func starts
 
-	d.NewCard(
-		H2("Go concurrency design"),
-		A(Href("#2"), Img(Src("main.png"))),
-		Br(), Br(), Br(),
-		Span("Gregory Vinčić, 2023"),
-		Br(), Br(), Br(),
-	)
-
-	d.NewCard(
-		H2("Content"),
-		Table(Tr(Td(
-			Ul(Class("group"),
-				Li("background and history"), Li("goroutines"), Li("channels"),
-				Li("package context"), Li("package sync "), Li("go test bench"),
-			),
-		), Td(
-			Ul(Class("group"),
-				Li("problem definition"),
-				Li("letters challenge"),
-				Li("sequential solution"),
-			),
-		), Td(
-			Ul(Class("group"),
-				Li("concurrent solution"),
-				Li("fixing bugs"),
-			),
-		), Td(
-			Ul(Class("group"),
-				Li("using channels"),
-				Li("sync and interrupt"),
-				Li("compare performance"),
-			),
-		)),
-		),
-		Br(Attr("clear", "all")),
-
-		P(`Follow along by cloning the examples with `),
-
-		Pre(Class("shell dark"),
-			"$ git clone git@github.com:preferit/main.git\n",
-			"$ cd main",
-		),
-	)
-
 	d.NewCard(H2("Background and history"),
 		Table(
 			Tr(

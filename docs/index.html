@@ -273,82 +273,41 @@ color: red;
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev">&nbsp;</em><em class="next">&nbsp;</em>1/26</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next">&nbsp;</em>1/24</div>
 </div>
 <div class="page" id="2"><div class="view"><div class="header"><h2>Go Concurrency</h2>
 </div>
 <div class="slide"><div class="toc"><nav><ul>
-<li class="h2"><a href="#3">Go concurrency design</a></li>
-<li class="h2"><a href="#4">Content</a></li>
-<li class="h2"><a href="#5">Background and history</a></li>
-<li class="h2"><a href="#6">Goroutines</a></li>
-<li class="h2"><a href="#7">channels</a></li>
-<li class="h2"><a href="#8">package sync</a></li>
-<li class="h2"><a href="#9">package context</a></li>
-<li class="h2"><a href="#10">go test -bench</a></li>
-<li class="h2"><a href="#11">Problem</a></li>
-<li class="h2"><a href="#12">The letter challenge</a></li>
-<li class="h2"><a href="#13">Verification</a></li>
-<li class="h2"><a href="#14">Sequential</a></li>
-<li class="h2"><a href="#15">Concurrent using sync.WaitGroup</a></li>
-<li class="h2"><a href="#16">Arguments are evaluated at calltime</a></li>
-<li class="h2"><a href="#17">Protect concurrent writes with sync.Mutex</a></li>
-<li class="h2"><a href="#18">Sort results</a></li>
-<li class="h2"><a href="#19">Improved performance paid with complexity</a></li>
-<li class="h2"><a href="#20">Using channel</a></li>
-<li class="h2"><a href="#21">Correct order using channel</a></li>
-<li class="h2"><a href="#22">Clean up resources</a></li>
-<li class="h2"><a href="#23">Interrupt</a></li>
-<li class="h2"><a href="#24">Respect context cancellation</a></li>
-<li class="h2"><a href="#25">Compare all</a></li>
-<li class="h2"><a href="#26">Go concurrency design summary</a></li>
+<li class="h2"><a href="#3">Background and history</a></li>
+<li class="h2"><a href="#4">Goroutines</a></li>
+<li class="h2"><a href="#5">channels</a></li>
+<li class="h2"><a href="#6">package sync</a></li>
+<li class="h2"><a href="#7">package context</a></li>
+<li class="h2"><a href="#8">go test -bench</a></li>
+<li class="h2"><a href="#9">Problem</a></li>
+<li class="h2"><a href="#10">The letter challenge</a></li>
+<li class="h2"><a href="#11">Verification</a></li>
+<li class="h2"><a href="#12">Sequential</a></li>
+<li class="h2"><a href="#13">Concurrent using sync.WaitGroup</a></li>
+<li class="h2"><a href="#14">Arguments are evaluated at calltime</a></li>
+<li class="h2"><a href="#15">Protect concurrent writes with sync.Mutex</a></li>
+<li class="h2"><a href="#16">Sort results</a></li>
+<li class="h2"><a href="#17">Improved performance paid with complexity</a></li>
+<li class="h2"><a href="#18">Using channel</a></li>
+<li class="h2"><a href="#19">Correct order using channel</a></li>
+<li class="h2"><a href="#20">Clean up resources</a></li>
+<li class="h2"><a href="#21">Interrupt</a></li>
+<li class="h2"><a href="#22">Respect context cancellation</a></li>
+<li class="h2"><a href="#23">Compare all</a></li>
+<li class="h2"><a href="#24">Go concurrency design summary</a></li>
 </ul>
 </nav>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev">&nbsp;</em><em class="next" onclick="nextPage()">Go concurrency design &raquo;</em>2/26</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next" onclick="nextPage()">Background and history &raquo;</em>2/24</div>
 </div>
-<div class="page" id="3"><div class="view"><div class="header"><h2>Go concurrency design</h2>
-</div>
-<div class="slide"><a href="#2"><img src="main.png"/></a><br/><br/><br/><span>Gregory Vinčić, 2023</span><br/><br/><br/></div>
-</div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go Concurrency</em><em class="next" onclick="nextPage()">Content &raquo;</em>3/26</div>
-</div>
-<div class="page" id="4"><div class="view"><div class="header"><h2>Content</h2>
-</div>
-<div class="slide"><table>
-<tr><td><ul class="group">
-<li>background and history</li>
-<li>goroutines</li>
-<li>channels</li>
-<li>package context</li>
-<li>package sync </li>
-<li>go test bench</li>
-</ul>
-</td><td><ul class="group">
-<li>problem definition</li>
-<li>letters challenge</li>
-<li>sequential solution</li>
-</ul>
-</td><td><ul class="group">
-<li>concurrent solution</li>
-<li>fixing bugs</li>
-</ul>
-</td><td><ul class="group">
-<li>using channels</li>
-<li>sync and interrupt</li>
-<li>compare performance</li>
-</ul>
-</td></tr>
-</table>
-<br clear="all"/><p>Follow along by cloning the examples with </p>
-<pre class="shell dark">$ git clone git@github.com:preferit/main.git
-$ cd main</pre></div>
-</div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go concurrency design</em><em class="next" onclick="nextPage()">Background and history &raquo;</em>4/26</div>
-</div>
-<div class="page" id="5"><div class="view"><div class="header"><h2>Background and history</h2>
+<div class="page" id="3"><div class="view"><div class="header"><h2>Background and history</h2>
 </div>
 <div class="slide"><table>
 <tr><td><img src="th_small.jpg"/></td><td><p>Sir Charles Antony Richard Hoare (<a href="https://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a>). Born 1934 in Sri Lanka, studied at Oxford and in
@@ -364,21 +323,21 @@ $ cd main</pre></div>
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Content</em><em class="next" onclick="nextPage()">Goroutines &raquo;</em>5/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go Concurrency</em><em class="next" onclick="nextPage()">Goroutines &raquo;</em>3/24</div>
 </div>
-<div class="page" id="6"><div class="view"><div class="header"><h2>Goroutines</h2>
+<div class="page" id="4"><div class="view"><div class="header"><h2>Goroutines</h2>
 </div>
 <div class="slide"><a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Background and history</em><em class="next" onclick="nextPage()">channels &raquo;</em>6/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Background and history</em><em class="next" onclick="nextPage()">channels &raquo;</em>4/24</div>
 </div>
-<div class="page" id="7"><div class="view"><div class="header"><h2>channels</h2>
+<div class="page" id="5"><div class="view"><div class="header"><h2>channels</h2>
 </div>
 <div class="slide"><a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Goroutines</em><em class="next" onclick="nextPage()">package sync &raquo;</em>7/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Goroutines</em><em class="next" onclick="nextPage()">package sync &raquo;</em>5/24</div>
 </div>
-<div class="page" id="8"><div class="view"><div class="header"><h2>package sync</h2>
+<div class="page" id="6"><div class="view"><div class="header"><h2>package sync</h2>
 </div>
 <div class="slide"><pre><span class="keyword">package</span> sync <span class="comment">// import "sync"</span>
 
@@ -403,9 +362,9 @@ Values containing the types defined in this package should not be copied.
 <span class="keyword">type</span> WaitGroup <span class="keyword">struct</span>{ ... }
 </pre><a target="_blank" href="https://pkg.go.dev/sync">pkg.go.dev/sync</a></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; channels</em><em class="next" onclick="nextPage()">package context &raquo;</em>8/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; channels</em><em class="next" onclick="nextPage()">package context &raquo;</em>6/24</div>
 </div>
-<div class="page" id="9"><div class="view"><div class="header"><h2>package context</h2>
+<div class="page" id="7"><div class="view"><div class="header"><h2>package context</h2>
 </div>
 <div class="slide"><pre><span class="keyword">package</span> context
 
@@ -445,9 +404,9 @@ var DeadlineExceeded error = deadlineExceededError{}
     <span class="keyword">func</span> WithoutCancel(parent Context) Context
 </pre><a target="_blank" href="https://pkg.go.dev/context">pkg.go.dev/context</a></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package sync</em><em class="next" onclick="nextPage()">go test -bench &raquo;</em>9/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package sync</em><em class="next" onclick="nextPage()">go test -bench &raquo;</em>7/24</div>
 </div>
-<div class="page" id="10"><div class="view"><div class="header"><h2>go test -bench</h2>
+<div class="page" id="8"><div class="view"><div class="header"><h2>go test -bench</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><code><ol>
@@ -489,9 +448,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>10/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>8/24</div>
 </div>
-<div class="page" id="11"><div class="view"><div class="header"><h2>Problem</h2>
+<div class="page" id="9"><div class="view"><div class="header"><h2>Problem</h2>
 </div>
 <div class="slide"><div class="srcfile"><code><ol>
 <li><span class="keyword">package</span> main</li>
@@ -514,9 +473,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">The letter challenge &raquo;</em>11/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">The letter challenge &raquo;</em>9/24</div>
 </div>
-<div class="page" id="12"><div class="view"><div class="header"><h2>The letter challenge</h2>
+<div class="page" id="10"><div class="view"><div class="header"><h2>The letter challenge</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><code><ol start="13">
@@ -587,9 +546,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Verification &raquo;</em>12/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Verification &raquo;</em>10/24</div>
 </div>
-<div class="page" id="13"><div class="view"><div class="header"><h2>Verification</h2>
+<div class="page" id="11"><div class="view"><div class="header"><h2>Verification</h2>
 </div>
 <div class="slide"><p>Each algorithm in these examples is tested like this</p>
 <div class="srcfile"><code><ol start="10">
@@ -612,9 +571,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; The letter challenge</em><em class="next" onclick="nextPage()">Sequential &raquo;</em>13/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; The letter challenge</em><em class="next" onclick="nextPage()">Sequential &raquo;</em>11/24</div>
 </div>
-<div class="page" id="14"><div class="view"><div class="header"><h2>Sequential</h2>
+<div class="page" id="12"><div class="view"><div class="header"><h2>Sequential</h2>
 </div>
 <div class="slide"><p>Simple implementation though very low performance</p>
 <table class="twocolumn">
@@ -648,9 +607,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>14/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>12/24</div>
 </div>
-<div class="page" id="15"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup</h2>
+<div class="page" id="13"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="22">
@@ -687,9 +646,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sequential</em><em class="next" onclick="nextPage()">Arguments are evaluated at calltime &raquo;</em>15/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sequential</em><em class="next" onclick="nextPage()">Arguments are evaluated at calltime &raquo;</em>13/24</div>
 </div>
-<div class="page" id="16"><div class="view"><div class="header"><h2>Arguments are evaluated at calltime</h2>
+<div class="page" id="14"><div class="view"><div class="header"><h2>Arguments are evaluated at calltime</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="37">
@@ -727,9 +686,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup</em><em class="next" onclick="nextPage()">Protect concurrent writes with sync.Mutex &raquo;</em>16/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup</em><em class="next" onclick="nextPage()">Protect concurrent writes with sync.Mutex &raquo;</em>14/24</div>
 </div>
-<div class="page" id="17"><div class="view"><div class="header"><h2>Protect concurrent writes with sync.Mutex</h2>
+<div class="page" id="15"><div class="view"><div class="header"><h2>Protect concurrent writes with sync.Mutex</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="53">
@@ -770,9 +729,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Arguments are evaluated at calltime</em><em class="next" onclick="nextPage()">Sort results &raquo;</em>17/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Arguments are evaluated at calltime</em><em class="next" onclick="nextPage()">Sort results &raquo;</em>15/24</div>
 </div>
-<div class="page" id="18"><div class="view"><div class="header"><h2>Sort results</h2>
+<div class="page" id="16"><div class="view"><div class="header"><h2>Sort results</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="72">
@@ -812,9 +771,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Protect concurrent writes with sync.Mutex</em><em class="next" onclick="nextPage()">Improved performance paid with complexity &raquo;</em>18/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Protect concurrent writes with sync.Mutex</em><em class="next" onclick="nextPage()">Improved performance paid with complexity &raquo;</em>16/24</div>
 </div>
-<div class="page" id="19"><div class="view"><div class="header"><h2>Improved performance paid with complexity</h2>
+<div class="page" id="17"><div class="view"><div class="header"><h2>Improved performance paid with complexity</h2>
 </div>
 <div class="slide"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
@@ -831,9 +790,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </pre></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>19/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>17/24</div>
 </div>
-<div class="page" id="20"><div class="view"><div class="header"><h2>Using channel</h2>
+<div class="page" id="18"><div class="view"><div class="header"><h2>Using channel</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="92">
@@ -870,9 +829,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Improved performance paid with complexity</em><em class="next" onclick="nextPage()">Correct order using channel &raquo;</em>20/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Improved performance paid with complexity</em><em class="next" onclick="nextPage()">Correct order using channel &raquo;</em>18/24</div>
 </div>
-<div class="page" id="21"><div class="view"><div class="header"><h2>Correct order using channel</h2>
+<div class="page" id="19"><div class="view"><div class="header"><h2>Correct order using channel</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="108">
@@ -914,9 +873,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel</em><em class="next" onclick="nextPage()">Clean up resources &raquo;</em>21/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel</em><em class="next" onclick="nextPage()">Clean up resources &raquo;</em>19/24</div>
 </div>
-<div class="page" id="22"><div class="view"><div class="header"><h2>Clean up resources</h2>
+<div class="page" id="20"><div class="view"><div class="header"><h2>Clean up resources</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="129">
@@ -958,9 +917,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Correct order using channel</em><em class="next" onclick="nextPage()">Interrupt &raquo;</em>22/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Correct order using channel</em><em class="next" onclick="nextPage()">Interrupt &raquo;</em>20/24</div>
 </div>
-<div class="page" id="23"><div class="view"><div class="header"><h2>Interrupt</h2>
+<div class="page" id="21"><div class="view"><div class="header"><h2>Interrupt</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="151">
@@ -1018,9 +977,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Clean up resources</em><em class="next" onclick="nextPage()">Respect context cancellation &raquo;</em>23/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Clean up resources</em><em class="next" onclick="nextPage()">Respect context cancellation &raquo;</em>21/24</div>
 </div>
-<div class="page" id="24"><div class="view"><div class="header"><h2>Respect context cancellation</h2>
+<div class="page" id="22"><div class="view"><div class="header"><h2>Respect context cancellation</h2>
 </div>
 <div class="slide"><table class="twocolumn">
 <tr><td><div class="srcfile"><pre><code><ol start="182">
@@ -1080,9 +1039,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Interrupt</em><em class="next" onclick="nextPage()">Compare all &raquo;</em>24/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Interrupt</em><em class="next" onclick="nextPage()">Compare all &raquo;</em>22/24</div>
 </div>
-<div class="page" id="25"><div class="view"><div class="header"><h2>Compare all</h2>
+<div class="page" id="23"><div class="view"><div class="header"><h2>Compare all</h2>
 </div>
 <div class="slide"><p>In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
@@ -1102,9 +1061,9 @@ var DeadlineExceeded error = deadlineExceededError{}
 </code></div>
 </pre></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>25/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>23/24</div>
 </div>
-<div class="page" id="26"><div class="view"><div class="header"><h2>Go concurrency design summary</h2>
+<div class="page" id="24"><div class="view"><div class="header"><h2>Go concurrency design summary</h2>
 </div>
 <div class="slide"><ul>
 <li>concurrency is difficult to get right; even in Go</li>
@@ -1114,7 +1073,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 </ul>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Compare all</em><em class="next">&nbsp;</em>26/26</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Compare all</em><em class="next">&nbsp;</em>24/24</div>
 </div>
 </body>
 <script>document.addEventListener('keydown', function(event) {
