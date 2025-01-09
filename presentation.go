@@ -3,8 +3,6 @@ package cotalk
 import (
 	"embed"
 	"fmt"
-	"log"
-	"os/exec"
 	"strings"
 
 	. "github.com/gregoryv/web"
@@ -159,15 +157,15 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("The letter challenge"),
 		Table(Class("twocolumn"), Tr(Td(
-			mustLoadLines("../letters.go", 13, 38),
+			LoadLines("../letters.go", 13, 38),
 		), Td(
-			mustLoadLines("../letters.go", 40, 71),
+			LoadLines("../letters.go", 40, 71),
 		))),
 	)
 
 	d.Slide(H2("Verification"),
 		P(`Each algorithm in these examples is tested like this`),
-		mustLoadLines("../alg_test.go", 10, 24),
+		LoadLines("../alg_test.go", 10, 24),
 	)
 
 	d.Slide(H2("Sequential"),
@@ -259,78 +257,9 @@ processes and APIs, not for passing optional parameters to functions.
 	return d
 }
 
-func load(src string) *Element {
-	v := mustLoad(src)
-	v = strings.ReplaceAll(v, "\t", "    ")
-	v = highlight(v)
-	v = numLines(v, 1)
-	return Div(
-		Class("srcfile"),
-		Pre(Code(v)),
-	)
-}
-
-func loadFunc(file, src string) *Element {
-	v := files.MustLoadFunc(file, src)
-	v = strings.ReplaceAll(v, "\t", "    ")
-	v = highlight(v)
-	return Div(
-		Class("srcfile"),
-		Pre(Code(v)),
-	)
-}
-
-func numLines(v string, n int) string {
-	lines := strings.Split(v, "\n")
-	for i, l := range lines {
-		lines[i] = fmt.Sprintf("<span class=line><i>%3v</i> %s</span>", n, l)
-		n++
-	}
-	return strings.Join(lines, "\n")
-}
-
-func godoc(pkg, short string) *Element {
-	var out []byte
-	if short != "" {
-		out, _ = exec.Command("go", "doc", short, pkg).Output()
-	} else {
-		out, _ = exec.Command("go", "doc", pkg).Output()
-	}
-	v := string(out)
-	v = strings.ReplaceAll(v, "\t", "    ")
-	v = highlightGoDoc(v)
-	return Wrap(
-		Pre(v),
-		A(Attr("target", "_blank"),
-			Href("https://pkg.go.dev/"+pkg),
-			"pkg.go.dev/", pkg,
-		),
-	)
-}
-
 func shell(cmd, filename string) *Element {
-	v := mustLoad(filename)
+	v := Load(filename)
 	return Pre(Class("shell dark"), cmd, Br(), v)
-}
-
-func mustLoad(src string) string {
-	data, err := assets.ReadFile(src)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return string(data)
-}
-
-func mustLoadLines(filename string, from, to int) *Element {
-	v := files.MustLoadLines(filename, from, to)
-
-	v = strings.ReplaceAll(v, "\t", "    ")
-	v = highlight(v)
-	v = numLines(v, from)
-	return Div(
-		Class("srcfile"),
-		Pre(Code(v)),
-	)
 }
 
 //go:embed testdata *.go
@@ -355,13 +284,12 @@ func (a *algorithms) next(extra ...interface{}) *Element {
 
 	v = strings.ReplaceAll(v, "\t", "    ")
 	v = highlight(v)
-	v = numLines(v, from)
 
 	return Wrap(
 		Table(Class("twocolumn"), Tr(Td(
 			Div(
 				Class("srcfile"),
-				Pre(Code(v)),
+				Pre(Code(numLines(v, from))),
 			),
 		),
 			Td(
