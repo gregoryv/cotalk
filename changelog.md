@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.0-dev]
+
+- Rename package cotalk as main
+
 ## [0.2.1] 2023-04-02
 
 - fix go test regexp ie. Alg1 -> Alg01

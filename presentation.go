@@ -1,13 +1,22 @@
-package cotalk
+package main
 
 import (
 	"embed"
 	"fmt"
+	"os"
 	"strings"
 
 	. "github.com/gregoryv/web"
 	"github.com/gregoryv/web/files"
 )
+
+func main() {
+	page := Presentation().Page()
+	if err := page.SaveAs("docs/index.html"); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
 
 func Presentation() *deck {
 	d := newDeck()
@@ -24,7 +33,7 @@ func Presentation() *deck {
 
 	d.Slide(
 		H2("Go concurrency design"),
-		A(Href("#2"), Img(Src("cotalk.png"))),
+		A(Href("#2"), Img(Src("main.png"))),
 		Br(), Br(), Br(),
 		Span("Gregory Vinčić, 2023"),
 		Br(), Br(), Br(),
@@ -61,8 +70,8 @@ func Presentation() *deck {
 		P(`Follow along by cloning the examples with `),
 
 		Pre(Class("shell dark"),
-			"$ git clone git@github.com:preferit/cotalk.git\n",
-			"$ cd cotalk",
+			"$ git clone git@github.com:preferit/main.git\n",
+			"$ cd main",
 		),
 	)
 
@@ -157,15 +166,15 @@ processes and APIs, not for passing optional parameters to functions.
 
 	d.Slide(H2("The letter challenge"),
 		Table(Class("twocolumn"), Tr(Td(
-			LoadLines("../letters.go", 13, 38),
+			LoadLines("letters.go", 13, 38),
 		), Td(
-			LoadLines("../letters.go", 40, 71),
+			LoadLines("letters.go", 40, 71),
 		))),
 	)
 
 	d.Slide(H2("Verification"),
 		P(`Each algorithm in these examples is tested like this`),
-		LoadLines("../alg_test.go", 10, 24),
+		LoadLines("alg_test.go", 10, 24),
 	)
 
 	d.Slide(H2("Sequential"),
@@ -276,10 +285,10 @@ type algorithms struct {
 func (a *algorithms) next(extra ...interface{}) *Element {
 	name := fmt.Sprintf("Alg%02v", a.current)
 	a.current++
-	fn := files.MustLoadFunc("../alg.go", name)
+	fn := files.MustLoadFunc("alg.go", name)
 	lines := strings.Count(fn, "\n")
 	from := a.atLine
-	v := files.MustLoadLines("../alg.go", a.atLine, a.atLine+lines)
+	v := files.MustLoadLines("alg.go", a.atLine, a.atLine+lines)
 	a.atLine = a.atLine + lines + 2
 
 	v = strings.ReplaceAll(v, "\t", "    ")

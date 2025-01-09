@@ -1,4 +1,4 @@
-package cotalk
+package main
 
 import (
 	_ "embed"
