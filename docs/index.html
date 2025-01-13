@@ -596,11 +596,11 @@ ok  	github.com/preferit/main	1.320s
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg01<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg01-16    	       6	 175604692 ns/op	  279224 B/op	    1980 allocs/op
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+BenchmarkAlg01-12    	       6	 185478241 ns/op	  347652 B/op	    2072 allocs/op
 <span style="color:green;">PASS</span>
-ok  	github.com/preferit/main	1.236s
+ok  	github.com/gregoryv/cotalk	1.313s
 </pre></div>
 </div>
 </div>
@@ -629,12 +629,12 @@ ok  	github.com/preferit/main	1.236s
 </code></div>
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg02<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
-    alg_test.go:22: 
+    alg_test.go:34: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
         got: f f f f f f f f f f f f f f f f
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.013s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.014s
 <span style="color:red;">FAIL</span>
 </pre><p>Why does it fail?</p>
 </div>

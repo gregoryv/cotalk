@@ -1,4 +1,4 @@
-module github.com/preferit/main
+module github.com/gregoryv/cotalk
 
 go 1.19
 
