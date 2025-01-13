@@ -1,6 +1,6 @@
 module github.com/gregoryv/cotalk
 
-go 1.19
+go 1.23
 
 require github.com/gregoryv/web v0.24.0
 

@@ -222,7 +222,7 @@ processes and APIs, not for passing optional parameters to functions.
 		P("Simple implementation though very low performance"),
 		alg.next(),
 	)
-
+	smallFont := Attr("style", "font-size: 1vw")
 	// Concurrent
 	// ----------------------------------------
 	d.NewCard(H2("Concurrent using sync.WaitGroup"),
@@ -230,12 +230,25 @@ processes and APIs, not for passing optional parameters to functions.
 			P("Why does it fail?"),
 		),
 	)
+	d.NewCard(H2("Concurrent using sync.WaitGroup Go 1.23"),
+		TwoCol(
+			alg.last,
+			Wrap(
+				Shell(
+					"$ go1.23 test -benchmem -bench=BenchmarkAlg02",
+					"testdata/alg02_go1_23_bench.html",
+				).With(smallFont),
+				P("Fixed!"),
+			),
+			45,
+		),
+	)
 
 	d.NewCard(H2("Arguments are evaluated at calltime"),
 		alg.next(
 			P(
 				"You might get a different result; why does it still fail? and can the tooling help identify the problem, try ",
-				Pre(Class("shell dark"),
+				Pre(Class("shell dark"), smallFont,
 					"$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1",
 				),
 			),
@@ -320,6 +333,8 @@ var enhancejs string
 type algorithms struct {
 	current int // current algorithm
 	atLine  int
+
+	last *Element
 }
 
 func (a *algorithms) next(extra ...interface{}) *Element {
@@ -331,12 +346,13 @@ func (a *algorithms) nextCustom(fsleft, fsright string, width int, extra ...inte
 	a.current++
 	fn := files.MustLoadFunc("alg.go", name)
 	lines := strings.Count(fn, "\n")
-	var v any
+	var v *Element
 	if fsleft != "" {
 		v = LoadLinesCustom("alg.go", a.atLine, a.atLine+lines, fsleft)
 	} else {
 		v = LoadLines("alg.go", a.atLine, a.atLine+lines)
 	}
+	a.last = v // because we needed two slides with same algorithm
 	// store for next call
 	a.atLine += lines
 	a.atLine += 2 // spacing to next func

@@ -269,7 +269,7 @@ font-size: 0.8em;
 </table>
 </div>
 </div>
-<div class="footer"><em class="prev">&nbsp;</em><em class="next">&nbsp;</em>1/24</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next">&nbsp;</em>1/25</div>
 </div>
 <div class="page" id="2"><div class="view"><div class="header"><h2>Go Concurrency</h2>
 </div>
@@ -285,23 +285,24 @@ font-size: 0.8em;
 <li class="h3"><a href="#11">Verification</a></li>
 <li class="h3"><a href="#12">Sequential</a></li>
 <li class="h2"><a href="#13">Concurrent using sync.WaitGroup</a></li>
-<li class="h2"><a href="#14">Arguments are evaluated at calltime</a></li>
-<li class="h2"><a href="#15">Protect concurrent writes with sync.Mutex</a></li>
-<li class="h2"><a href="#16">Sort results</a></li>
-<li class="h2"><a href="#17">Improved performance paid with complexity</a></li>
-<li class="h2"><a href="#18">Using channel</a></li>
-<li class="h3"><a href="#19">Correct order using channel</a></li>
-<li class="h2"><a href="#20">Clean up resources</a></li>
-<li class="h2"><a href="#21">Interrupt</a></li>
-<li class="h2"><a href="#22">Respect context cancellation</a></li>
-<li class="h2"><a href="#23">Compare all</a></li>
-<li class="h2"><a href="#24">Go concurrency design summary</a></li>
+<li class="h2"><a href="#14">Concurrent using sync.WaitGroup Go 1.23</a></li>
+<li class="h2"><a href="#15">Arguments are evaluated at calltime</a></li>
+<li class="h2"><a href="#16">Protect concurrent writes with sync.Mutex</a></li>
+<li class="h2"><a href="#17">Sort results</a></li>
+<li class="h2"><a href="#18">Improved performance paid with complexity</a></li>
+<li class="h2"><a href="#19">Using channel</a></li>
+<li class="h3"><a href="#20">Correct order using channel</a></li>
+<li class="h2"><a href="#21">Clean up resources</a></li>
+<li class="h2"><a href="#22">Interrupt</a></li>
+<li class="h2"><a href="#23">Respect context cancellation</a></li>
+<li class="h2"><a href="#24">Compare all</a></li>
+<li class="h2"><a href="#25">Go concurrency design summary</a></li>
 </ul>
 </nav>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev">&nbsp;</em><em class="next" onclick="nextPage()">Concurrency constructs &raquo;</em>2/24</div>
+<div class="footer"><em class="prev">&nbsp;</em><em class="next" onclick="nextPage()">Concurrency constructs &raquo;</em>2/25</div>
 </div>
 <div class="page" id="3"><div class="view"><div class="header"><h2>Concurrency constructs</h2>
 </div>
@@ -312,7 +313,7 @@ font-size: 0.8em;
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go Concurrency</em><em class="next" onclick="nextPage()">Concurrency constructs Go routines &raquo;</em>3/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Go Concurrency</em><em class="next" onclick="nextPage()">Concurrency constructs Go routines &raquo;</em>3/25</div>
 </div>
 <div class="page" id="4"><div class="view"><div class="header"><div class="group">Concurrency constructs</div>
 <h3>Go routines</h3>
@@ -320,7 +321,7 @@ font-size: 0.8em;
 <div class="slide"><div style="position: absolute; left: 25vw; width: 50vw"><a target="_blank" href="https://go.dev/tour/concurrency/1"><img class="center" src="gotour_concurrency_1.png"/></a></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs</em><em class="next" onclick="nextPage()">Concurrency constructs Channels &raquo;</em>4/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs</em><em class="next" onclick="nextPage()">Concurrency constructs Channels &raquo;</em>4/25</div>
 </div>
 <div class="page" id="5"><div class="view"><div class="header"><div class="group">Concurrency constructs</div>
 <h3>Channels</h3>
@@ -328,7 +329,7 @@ font-size: 0.8em;
 <div class="slide"><div style="position: absolute; left: 25vw; width: 50vw"><a target="_blank" href="https://go.dev/tour/concurrency/2"><img class="center" src="gotour_concurrency_2.png"/></a></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Go routines</em><em class="next" onclick="nextPage()">Concurrency constructs Package sync &raquo;</em>5/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Go routines</em><em class="next" onclick="nextPage()">Concurrency constructs Package sync &raquo;</em>5/25</div>
 </div>
 <div class="page" id="6"><div class="view"><div class="header"><div class="group">Concurrency constructs</div>
 <h3>Package sync</h3>
@@ -358,7 +359,7 @@ Values containing the types defined in this package should not be copied.
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Channels</em><em class="next" onclick="nextPage()">Concurrency constructs Package context &raquo;</em>6/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Channels</em><em class="next" onclick="nextPage()">Concurrency constructs Package context &raquo;</em>6/25</div>
 </div>
 <div class="page" id="7"><div class="view"><div class="header"><div class="group">Concurrency constructs</div>
 <h3>Package context</h3>
@@ -405,7 +406,7 @@ var DeadlineExceeded error = deadlineExceededError{}
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Package sync</em><em class="next" onclick="nextPage()">go test -bench &raquo;</em>7/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Package sync</em><em class="next" onclick="nextPage()">go test -bench &raquo;</em>7/25</div>
 </div>
 <div class="page" id="8"><div class="view"><div class="header"><h2>go test -bench</h2>
 </div>
@@ -446,7 +447,7 @@ ok  	github.com/preferit/main	1.320s
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>8/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrency constructs Package context</em><em class="next" onclick="nextPage()">Problem &raquo;</em>8/25</div>
 </div>
 <div class="page" id="9"><div class="view"><div class="header"><h2>Problem</h2>
 </div>
@@ -472,7 +473,7 @@ ok  	github.com/preferit/main	1.320s
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">Problem The letter challenge &raquo;</em>9/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; go test -bench</em><em class="next" onclick="nextPage()">Problem The letter challenge &raquo;</em>9/25</div>
 </div>
 <div class="page" id="10"><div class="view"><div class="header"><div class="group">Problem</div>
 <h3>The letter challenge</h3>
@@ -546,7 +547,7 @@ ok  	github.com/preferit/main	1.320s
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Problem Verification &raquo;</em>10/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem</em><em class="next" onclick="nextPage()">Problem Verification &raquo;</em>10/25</div>
 </div>
 <div class="page" id="11"><div class="view"><div class="header"><div class="group">Problem</div>
 <h3>Verification</h3>
@@ -572,7 +573,7 @@ ok  	github.com/preferit/main	1.320s
 </code></div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem The letter challenge</em><em class="next" onclick="nextPage()">Problem Sequential &raquo;</em>11/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem The letter challenge</em><em class="next" onclick="nextPage()">Problem Sequential &raquo;</em>11/25</div>
 </div>
 <div class="page" id="12"><div class="view"><div class="header"><div class="group">Problem</div>
 <h3>Sequential</h3>
@@ -606,7 +607,7 @@ ok  	github.com/gregoryv/cotalk	1.313s
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>12/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem Verification</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup &raquo;</em>12/25</div>
 </div>
 <div class="page" id="13"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup</h2>
 </div>
@@ -642,9 +643,44 @@ exit status 1
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem Sequential</em><em class="next" onclick="nextPage()">Arguments are evaluated at calltime &raquo;</em>13/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Problem Sequential</em><em class="next" onclick="nextPage()">Concurrent using sync.WaitGroup Go 1.23 &raquo;</em>13/25</div>
 </div>
-<div class="page" id="14"><div class="view"><div class="header"><h2>Arguments are evaluated at calltime</h2>
+<div class="page" id="14"><div class="view"><div class="header"><h2>Concurrent using sync.WaitGroup Go 1.23</h2>
+</div>
+<div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="22">
+<li><span class="comment">// Alg02 uses sync.WaitGroup to wait <span class="keyword">for</span> all responses</span></li>
+<li><span class="keyword">func</span> Alg02(work []*<span class="type">http.Request</span>) (result []*http.Response) {</li>
+<li>    <span class="keyword">var</span> wg sync.WaitGroup</li>
+<li>    <span class="keyword">for</span> _, r := <span class="keyword">range</span> work {</li>
+<li>        wg.Add(1)</li>
+<li>        <span class="keyword">go</span> <span class="keyword">func</span>() {</li>
+<li>            resp, _ := http.DefaultClient.Do(r)</li>
+<li>            result = append(result, resp)</li>
+<li>            wg.Done()</li>
+<li>        }()</li>
+<li>    }</li>
+<li>    wg.Wait()</li>
+<li>    <span class="keyword">return</span></li>
+<li>}</li>
+</ol>
+</code></div>
+</div>
+<div class="column right" style="left: 55vw; width: 45vw"><pre class="shell dark" style="font-size: 1vw">$ go1.23 test -benchmem -bench=BenchmarkAlg02<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg02
+    alg_test.go:34: 
+        exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
+        got: 5 3 9 c 1 d a b 4 8 e 6 f 7 2 0
+<span style="color:red;">FAIL</span>
+exit status 1
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.019s
+<span style="color:red;">FAIL</span>
+</pre><p>Fixed!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup</em><em class="next" onclick="nextPage()">Arguments are evaluated at calltime &raquo;</em>14/25</div>
+</div>
+<div class="page" id="15"><div class="view"><div class="header"><h2>Arguments are evaluated at calltime</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="37">
 <li><span class="comment">// Alg03 fixes reference problem inside loop</span></li>
@@ -666,22 +702,22 @@ exit status 1
 </code></div>
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg03<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg03
-    alg_test.go:32: 
+    alg_test.go:47: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: 1 0 5 8 6 2 e 7 d f b 4 c 9 3
+        got: 6 0 4 1 5 d 2 c 3 f 7 a 8 e b 9
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.018s
 <span style="color:red;">FAIL</span>
-</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark">$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1</pre></p>
+</pre><p>You might get a different result; why does it still fail? and can the tooling help identify the problem, try <pre class="shell dark" style="font-size: 1vw">$ go test -benchmem -bench=BenchmarkAlg03 -race -count 1</pre></p>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup</em><em class="next" onclick="nextPage()">Protect concurrent writes with sync.Mutex &raquo;</em>14/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Concurrent using sync.WaitGroup Go 1.23</em><em class="next" onclick="nextPage()">Protect concurrent writes with sync.Mutex &raquo;</em>15/25</div>
 </div>
-<div class="page" id="15"><div class="view"><div class="header"><h2>Protect concurrent writes with sync.Mutex</h2>
+<div class="page" id="16"><div class="view"><div class="header"><h2>Protect concurrent writes with sync.Mutex</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="53">
 <li><span class="comment">// Alg04 synchronizes writes accross <span class="keyword">go</span> routines</span></li>
@@ -706,12 +742,12 @@ exit status 1
 </code></div>
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg04<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg04
-    alg_test.go:42: 
+    alg_test.go:60: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: d 1 c 5 4 3 8 7 e 2 a 9 f 6 b 0
+        got: d b e 8 3 5 4 a 0 6 2 7 9 c f 1
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.017s
 <span style="color:red;">FAIL</span>
 </pre><p>Why does it fail?</p>
 </div>
@@ -719,9 +755,9 @@ exit status 1
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Arguments are evaluated at calltime</em><em class="next" onclick="nextPage()">Sort results &raquo;</em>15/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Arguments are evaluated at calltime</em><em class="next" onclick="nextPage()">Sort results &raquo;</em>16/25</div>
 </div>
-<div class="page" id="16"><div class="view"><div class="header"><h2>Sort results</h2>
+<div class="page" id="17"><div class="view"><div class="header"><h2>Sort results</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="72">
 <li><span class="comment">// Alg05 fix order</span></li>
@@ -748,19 +784,19 @@ exit status 1
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg05<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg05-16    	     100	  13281838 ns/op	  289424 B/op	    2018 allocs/op
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+BenchmarkAlg05-12    	     100	  13075594 ns/op	  289386 B/op	    2040 allocs/op
 <span style="color:green;">PASS</span>
-ok  	github.com/preferit/main	1.344s
+ok  	github.com/gregoryv/cotalk	1.326s
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Protect concurrent writes with sync.Mutex</em><em class="next" onclick="nextPage()">Improved performance paid with complexity &raquo;</em>16/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Protect concurrent writes with sync.Mutex</em><em class="next" onclick="nextPage()">Improved performance paid with complexity &raquo;</em>17/25</div>
 </div>
-<div class="page" id="17"><div class="view"><div class="header"><h2>Improved performance paid with complexity</h2>
+<div class="page" id="18"><div class="view"><div class="header"><h2>Improved performance paid with complexity</h2>
 </div>
 <div class="slide"><p>Comparing the sequential working algorithm to the working
 		concurrent one, tests reveal a substantial improvement.</p>
@@ -774,9 +810,9 @@ BenchmarkAlg5-16    	      87	  13308022 ns/op	  292652 B/op	    2021 allocs/op
 ok  	github.com/preferit/main	2.413s
 </pre></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>17/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Sort results</em><em class="next" onclick="nextPage()">Using channel &raquo;</em>18/25</div>
 </div>
-<div class="page" id="18"><div class="view"><div class="header"><h2>Using channel</h2>
+<div class="page" id="19"><div class="view"><div class="header"><h2>Using channel</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="92">
 <li><span class="comment">// Alg06 uses channel to synchronize responses</span></li>
@@ -798,21 +834,21 @@ ok  	github.com/preferit/main	2.413s
 </code></div>
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg06<br/><span style="color:red;">--- FAIL:</span> BenchmarkAlg06
-    alg_test.go:62: 
+    alg_test.go:86: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: f c b 9 d a 0 3 4 2 5 7 e 1 6 8
+        got: a 0 e c d 8 5 b 9 2 3 4 1 6 f 7
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.014s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.017s
 <span style="color:red;">FAIL</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Improved performance paid with complexity</em><em class="next" onclick="nextPage()">Using channel Correct order using channel &raquo;</em>18/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Improved performance paid with complexity</em><em class="next" onclick="nextPage()">Using channel Correct order using channel &raquo;</em>19/25</div>
 </div>
-<div class="page" id="19"><div class="view"><div class="header"><div class="group">Using channel</div>
+<div class="page" id="20"><div class="view"><div class="header"><div class="group">Using channel</div>
 <h3>Correct order using channel</h3>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="108">
@@ -841,20 +877,20 @@ exit status 1
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg07<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg07-16    	     100	  13411328 ns/op	  293160 B/op	    2025 allocs/op
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+BenchmarkAlg07-12    	     100	  13268373 ns/op	  355180 B/op	    2059 allocs/op
 <span style="color:green;">PASS</span>
-ok  	github.com/preferit/main	1.357s
+ok  	github.com/gregoryv/cotalk	1.345s
 </pre><p>There is still a bug in this code, do you see it?</p>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel</em><em class="next" onclick="nextPage()">Clean up resources &raquo;</em>19/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel</em><em class="next" onclick="nextPage()">Clean up resources &raquo;</em>20/25</div>
 </div>
-<div class="page" id="20"><div class="view"><div class="header"><h2>Clean up resources</h2>
+<div class="page" id="21"><div class="view"><div class="header"><h2>Clean up resources</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.1vw"><code><ol start="129">
 <li><span class="comment">// Alg08 uses channel to synchronize responses with ordered result</span></li>
@@ -883,19 +919,19 @@ ok  	github.com/preferit/main	1.357s
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg08<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg08-16    	      99	  13400211 ns/op	  292396 B/op	    2022 allocs/op
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+BenchmarkAlg08-12    	      91	  13029390 ns/op	  298092 B/op	    2043 allocs/op
 <span style="color:green;">PASS</span>
-ok  	github.com/preferit/main	1.356s
+ok  	github.com/gregoryv/cotalk	1.208s
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel Correct order using channel</em><em class="next" onclick="nextPage()">Interrupt &raquo;</em>20/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Using channel Correct order using channel</em><em class="next" onclick="nextPage()">Interrupt &raquo;</em>21/25</div>
 </div>
-<div class="page" id="21"><div class="view"><div class="header"><h2>Interrupt</h2>
+<div class="page" id="22"><div class="view"><div class="header"><h2>Interrupt</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.0vw"><code><ol start="151">
 <li><span class="comment">// Alg09 returns when all work is done or context is cancelled</span></li>
@@ -933,26 +969,26 @@ ok  	github.com/preferit/main	1.356s
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg09<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-BenchmarkAlg09-16    	panic: <span style="color:red;">send on closed channel</span>
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+BenchmarkAlg09-12    	panic: send on closed channel
 
-goroutine 499 [running]:
-github.com/preferit/main.Alg9.func1.1(0x3, 0xc00040a780?)
-	/home/gregory/src/github.com/preferit/main/alg.go:162 +0x55
-created by github.com/preferit/main.Alg9.func1
-	/home/gregory/src/github.com/preferit/main/alg.go:160 +0x8e
+goroutine 332 [running]:
+github.com/gregoryv/cotalk.Alg09.func1.1(0x8, 0x0?)
+	<span style="color:teal;">/home/grevin/edu/cotalk/alg.go</span>:166 +0x49
+created by github.com/gregoryv/cotalk.Alg09.func1 in goroutine 323
+	<span style="color:teal;">/home/grevin/edu/cotalk/alg.go</span>:164 +0x85
 exit status 2
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.054s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.048s
 <span style="color:red;">FAIL</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Clean up resources</em><em class="next" onclick="nextPage()">Respect context cancellation &raquo;</em>21/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Clean up resources</em><em class="next" onclick="nextPage()">Respect context cancellation &raquo;</em>22/25</div>
 </div>
-<div class="page" id="22"><div class="view"><div class="header"><h2>Respect context cancellation</h2>
+<div class="page" id="23"><div class="view"><div class="header"><h2>Respect context cancellation</h2>
 </div>
 <div class="slide"><div class="double"><div class="column left" style="width: 47vw"><div class="srcfile" style="font-size:1.0vw"><code><ol start="182">
 <li><span class="comment">// Alg10 returns when all work is done or context is cancelled</span></li>
@@ -994,24 +1030,24 @@ exit status 2
 </div>
 <div class="column right" style="left: 55vw; width: 45vw"><div><pre class="shell dark" style="font-size: 1.0vw">$ go test -benchmem -bench=BenchmarkAlg10<br/>goos: linux
 goarch: amd64
-pkg: github.com/preferit/main
-cpu: Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz
-<span style="color:red;">BenchmarkAlg10-16    	--- FAIL:</span> BenchmarkAlg10-16
-    alg_test.go:123: 
+pkg: github.com/gregoryv/cotalk
+cpu: 13th Gen Intel(R) Core(TM) i7-1365U
+<span style="color:red;">BenchmarkAlg10-12    	--- FAIL:</span> BenchmarkAlg10-12
+    alg_test.go:154: 
         exp: 0 1 2 3 4 5 6 7 8 9 a b c d e f
-        got: 0             7       b       f
+        got:   1     4     7                
 <span style="color:red;">FAIL</span>
 exit status 1
-<span style="color:red;">FAIL</span>	github.com/preferit/main	0.074s
+<span style="color:red;">FAIL</span>	github.com/gregoryv/cotalk	0.058s
 <span style="color:red;">FAIL</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Interrupt</em><em class="next" onclick="nextPage()">Compare all &raquo;</em>22/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Interrupt</em><em class="next" onclick="nextPage()">Compare all &raquo;</em>23/25</div>
 </div>
-<div class="page" id="23"><div class="view"><div class="header"><h2>Compare all</h2>
+<div class="page" id="24"><div class="view"><div class="header"><h2>Compare all</h2>
 </div>
 <div class="slide"><p>In this example using channels and sync package primitives
 		seem to yield more or less the same result. There performance
@@ -1028,9 +1064,9 @@ BenchmarkAlg8-16    	      91	  13449404 ns/op	  289586 B/op	    2019 allocs/op
 ok  	github.com/preferit/main	3.652s
 </pre></div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>23/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Respect context cancellation</em><em class="next" onclick="nextPage()">Go concurrency design summary &raquo;</em>24/25</div>
 </div>
-<div class="page" id="24"><div class="view"><div class="header"><h2>Go concurrency design summary</h2>
+<div class="page" id="25"><div class="view"><div class="header"><h2>Go concurrency design summary</h2>
 </div>
 <div class="slide"><ul>
 <li>concurrency is difficult to get right; even in Go</li>
@@ -1040,7 +1076,7 @@ ok  	github.com/preferit/main	3.652s
 </ul>
 </div>
 </div>
-<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Compare all</em><em class="next">&nbsp;</em>24/24</div>
+<div class="footer"><em class="prev" onclick="previousPage()">&laquo; Compare all</em><em class="next">&nbsp;</em>25/25</div>
 </div>
 </body>
 <script>document.addEventListener('keydown', function(event) {
