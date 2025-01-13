@@ -16,6 +16,7 @@ func main() {
 		AutoCover: true,
 		cover:     Img(Src("cotalk.png")),
 		AutoTOC:   true,
+		Date:      "2025",
 	}
 	d.Style(".header", "background-color: #f6f5f4",
 		"border-bottom: 1px inset #000",

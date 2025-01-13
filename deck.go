@@ -16,6 +16,7 @@ import (
 type Deck struct {
 	Title  string
 	Author string
+	Date   string
 
 	AutoCover bool
 	cover     *Element
@@ -216,6 +217,10 @@ func (p *Deck) Document() *Page {
 				Tr(
 					Td(
 						Br(), p.Author,
+						Br(),
+						Span(Attr("style", "font-size: 0.7em"),
+							p.Date,
+						),
 					),
 				),
 			),
