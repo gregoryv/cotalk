@@ -1,4 +1,4 @@
-[Presentation](https://preferit.github.io/main) about concurrency design in Go
+[Presentation](https://gregoryv.github.io/cotalk) about concurrency design in Go
 
 ## Quick start
 

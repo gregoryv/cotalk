@@ -284,6 +284,7 @@ processes and APIs, not for passing optional parameters to functions.
 		alg.next(
 			P("There is still a bug in this code, do you see it?"),
 		),
+		// resources are not cleaned up, ie. the channel is leaking
 	)
 	d.NewCard(H2("Clean up resources"),
 		alg.next(),
@@ -307,13 +308,14 @@ processes and APIs, not for passing optional parameters to functions.
 		),
 	)
 
-	d.NewCard(H2("Go concurrency design summary"),
-
-		Ul(
-			Li("concurrency is difficult to get right; even in Go"),
-			Li("tests are an invaluable tool when debugging concurrency issues"),
-			Li("never assume performance optimizations, always measure"),
-			Li("if performance is good enough with a sequential algorithm, skip the complexity of concurrency"),
+	d.NewCard(H2("Summary"),
+		Middle(61,
+			Ul(
+				Li("Concurrency is difficult to get right; even in Go"),
+				Li("Tests are invaluable when debugging concurrency issues"),
+				Li("Measure, never assume performance optimizations"),
+				Li("If performance is good enough with a sequential algorithm, skip the complexity of concurrency"),
+			),
 		),
 		//
 	)
