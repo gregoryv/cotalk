@@ -4,7 +4,6 @@
 
 To build the presentation
 
-    $ cd docs
     $ go run .
     $ $BROWSER index.html
 
