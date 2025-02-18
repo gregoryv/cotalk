@@ -5,7 +5,7 @@
 To build the presentation
 
     $ go run .
-    $ $BROWSER index.html
+    $ $BROWSER docs/index.html
 
 the testdata fragments where generated with eg.
 
