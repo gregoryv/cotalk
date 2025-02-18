@@ -364,7 +364,7 @@ Values containing the types defined in this package should not be copied.
 <div class="page" id="7"><div class="view"><div class="header"><div class="group">Concurrency constructs</div>
 <h3>Package context</h3>
 </div>
-<div class="slide"><div class="double"><div class="column left" style="width: 37vw"><pre style="font-size:1.1vw"><span class="keyword">package</span> context
+<div class="slide"><div class="double"><div class="column left" style="width: 37vw"><pre style="font-size:0.8vw"><span class="keyword">package</span> context
 
 ...
 
@@ -384,7 +384,7 @@ context.TODO if you are unsure about which Context to use.
 Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		</pre></div>
-<div class="column right" style="left: 45vw; width: 55vw"><div style="font-size:1.1vw"><pre>var Canceled = errors.New("context canceled")
+<div class="column right" style="left: 45vw; width: 55vw"><div style="font-size:0.8vw"><pre>var Canceled = errors.New("context canceled")
 var DeadlineExceeded error = deadlineExceededError{}
 <span class="keyword">func</span> AfterFunc(ctx Context, f <span class="keyword">func</span>()) (stop <span class="keyword">func</span>() bool)
 <span class="keyword">func</span> Cause(c Context) error

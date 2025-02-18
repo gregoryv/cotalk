@@ -161,7 +161,7 @@ func main() {
 	)
 	d.NewCard(H3("Package context"),
 		TwoCol(
-			Pre(fontSize("1.1vw"), highlightGoDoc(`package context
+			Pre(fontSize("0.8vw"), highlightGoDoc(`package context
 
 ...
 
@@ -182,7 +182,7 @@ Use context Values only for request-scoped data that transits
 processes and APIs, not for passing optional parameters to functions.
 		`)),
 
-			Div(fontSize("1.1vw"),
+			Div(fontSize("0.8vw"),
 				godoc("context", "-short"),
 			),
 			55,
