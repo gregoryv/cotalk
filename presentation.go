@@ -125,7 +125,7 @@ func main() {
 			and programming languages. His work is freely accessible
 			online and the channel concept is described in the book `,
 				A(
-					Href("http://www.usingcsp.com/cspbook.pdf"),
+					Href("http://www.7de.se/pub/cspbook.pdf"),
 					"Communicating Sequential Processes (CSP) from 1985",
 				),
 			),
